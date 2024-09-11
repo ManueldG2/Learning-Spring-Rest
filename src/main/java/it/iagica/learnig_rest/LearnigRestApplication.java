@@ -5,6 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.context.annotation.Configuration;
 
+
+//indico i package da usare
 @ConfigurationPropertiesScan({ "it.iagica.learning_rest", "it.iagica.learning_rest.entity" })
 
 @SpringBootApplication

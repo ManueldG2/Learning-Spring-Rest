@@ -77,6 +77,31 @@ public class ArticleService {
 			
 		}
 		
+		public Article toEntity(Map params) {		
+			
+			String titolo = (String) params.get("title");
+			String descrizione = (String) params.get("description");
+			String caratteristiche = (String) params.get("characteristic");
+			
+			String cat =   (!("").equals(params.get("category"))) ? (String) params.get("category") : "0";
+			Integer categoria = Integer.parseInt(cat);
+			
+			String quant =  (String) params.get("quantity");
+			Integer quantita = Integer.parseInt(quant);		
+			
+			String prez = (String) params.get("price");
+			Float prezzo = Float.parseFloat(prez);
+			
+			String unita =  (String) params.get("unity");
+			String codice =  (String) params.get("code");
+			
+			Article art = new Article(titolo, descrizione, caratteristiche, categoria, quantita, unita, codice, prezzo);		
+			
+			return art;
+			
+		}
+		
+		
 		
 	
 

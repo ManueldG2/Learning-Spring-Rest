@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.iagica.learnig_rest.ArticleRepository;
+import it.iagica.learnig_rest.ArticleService;
 import it.iagica.learnig_rest.entity.Article;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -34,6 +35,9 @@ public class ArticleController {
 	
 	@Autowired
 	ArticleRepository articleRepository;
+	
+	@Autowired
+	ArticleService articleService;
 
 
 	// endpoint di test
@@ -103,7 +107,7 @@ public class ArticleController {
 		
 		System.out.println(params.toString());
 		
-		Article art = this.toEntity(params);
+		Article art = articleService.toEntity(params);
 		System.out.println(art.toString());
 		articleRepository.save(art);
 		//articoloRepository.save(new Articolo(titolo, descrizione, caratteristiche, categoria, quantita, unita, codice, prezzo));
@@ -113,13 +117,13 @@ public class ArticleController {
 				
 	}
 	
-	protected Article toEntity(Map params) {		
+	protected Article toEntity(Map params) {			
 		
 		String titolo = (String) params.get("title");
 		String descrizione = (String) params.get("description");
 		String caratteristiche = (String) params.get("characteristic");
 		
-		String cat =   (("").equals(params.get("category"))) ? (String) params.get("category") : "0";
+		String cat =   (!("").equals(params.get("category"))) ? (String) params.get("category") : "0";
 		Integer categoria = Integer.parseInt(cat);
 		
 		String quant =  (String) params.get("quantity");
