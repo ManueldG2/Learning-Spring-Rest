@@ -47,16 +47,22 @@ public class ArticleService<K, V> {
 	    	
 	    	//prendo l'articolo di ID id
 	    	Article depDB = articleRepository.findById(id).get();
-	 
+	    	
 	    	//controllo se i parametri non sono nulli
-	        if (Objects.nonNull(article.getTitolo() ) && !"".equalsIgnoreCase(article.getTitolo())) {
-	        	 
+	    	if (  (Objects.nonNull( article.getTitolo()) && !("".equalsIgnoreCase(article.getTitolo()) ) ) ){
 	            depDB.setTitolo(article.getTitolo());
-	            
-	            System.out.println("DB " + depDB.toString());
-	        }else {
-	        	System.out.println("titolo" + article.toString());
 	        }
+	        else {
+	        	System.out.println("titolo" + article.toString());
+	        } 
+	    	
+	    	 if (  (Objects.nonNull( article.getCharateristic() ) && !("".equalsIgnoreCase(article.getCharateristic() ) ) ) ){
+		            depDB.setCharateristic(article.getCharateristic());
+		        }
+		        else {
+		        	System.out.println("descrizione" + article.toString());
+		        }
+	    	
 	        
 	        if (  (Objects.nonNull( article.getDescrizione()) && !("".equalsIgnoreCase(article.getDescrizione()) ) ) ){
 	            depDB.setDescrizione(article.getDescrizione());
@@ -65,12 +71,13 @@ public class ArticleService<K, V> {
 	        	System.out.println("descrizione" + article.toString());
 	        }
 	        
-	        if (Objects.nonNull(article.getQuantity()) ) {
+	        if (  (Objects.nonNull( article.getQuantity()) ) ){
 	            depDB.setQuantity(article.getQuantity());
 	        }
 	        else {
-	        	System.out.println("quantity" + article.toString());
-	        }
+	        	System.out.println("descrizione" + article.toString());
+	        }	        
+	        
 	        /*
 	         * fare la verifica degli altri campi */
 	        if (Objects.nonNull(article.getPrice()) ) {
