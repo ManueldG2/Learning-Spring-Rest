@@ -18,14 +18,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.iagica.learnig_rest.ArticleRepository;
 import it.iagica.learnig_rest.ArticleService;
 import it.iagica.learnig_rest.entity.Article;
 import jakarta.servlet.http.HttpServletResponse;
-
-
 
 
 @RestController
@@ -100,46 +99,42 @@ public class ArticleController {
 	}
 	
 	
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity deleteProduct(@PathVariable Long id , HttpServletResponse response) {
+						
+		articleService.deleteArticolo(id);
+		
+		return new ResponseEntity("ok", HttpStatus.OK);		
+				
+	}
+	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<Article> addProduct(@RequestParam Map params , HttpServletResponse response) {
-				
-		
-		System.out.println(params.toString());
-		
+						
 		Article art = articleService.toEntity(params);
-		System.out.println(art.toString());
-		articleRepository.save(art);
-		//articoloRepository.save(new Articolo(titolo, descrizione, caratteristiche, categoria, quantita, unita, codice, prezzo));
 		
-		//return new ResponseEntity<Articolo>(articoloRepository.save(new Articolo()), HttpStatus.CREATED);
+		articleRepository.save(art);
+		
 		return new ResponseEntity("ok", HttpStatus.CREATED);		
 				
 	}
 	
-	protected Article toEntity(Map params) {			
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<Article> updateProduct(@RequestParam Map params, HttpServletResponse response) {
+						
+		Article art = articleService.toEntity(params);
 		
-		String titolo = (String) params.get("title");
-		String descrizione = (String) params.get("description");
-		String caratteristiche = (String) params.get("characteristic");
+		Long id = ( Long.parseLong((String) params.get("id")) );		
 		
-		String cat =   (!("").equals(params.get("category"))) ? (String) params.get("category") : "0";
-		Integer categoria = Integer.parseInt(cat);
-		
-		String quant =  (String) params.get("quantity");
-		Integer quantita = Integer.parseInt(quant);		
-		
-		String prez = (String) params.get("price");
-		Float prezzo = Float.parseFloat(prez);
-		
-		String unita =  (String) params.get("unity");
-		String codice =  (String) params.get("code");
-		
-		Article art = new Article(titolo, descrizione, caratteristiche, categoria, quantita, unita, codice, prezzo);		
-		
-		return art;
-		
+		return new ResponseEntity(articleService.updateArticolo(art, id), HttpStatus.OK);		
+				
 	}
+	
+	
+	
 	
 
 }

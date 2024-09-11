@@ -10,12 +10,11 @@ import org.springframework.stereotype.Service;
 import it.iagica.learnig_rest.entity.Article;
 
 @Service
-public class ArticleService {
+public class ArticleService<K, V> {
 		
+		//importo il repository
 		@Autowired
-		ArticleRepository articleRepository; 
-		
-		
+		ArticleRepository articleRepository; 		
 		
 		@Autowired
 		public ArticleService(ArticleRepository articleRepository) {
@@ -24,8 +23,7 @@ public class ArticleService {
 			
 		}
 		
-		public Article saveArticolo(Article article) {
-			
+		public Article saveArticolo(Article article) {			
 			
 			return (Article) articleRepository.save(article);
 			
@@ -37,9 +35,9 @@ public class ArticleService {
 				
 			}
 		
-		public List<Article> findById(long id) {
+		public Article findById(long id) {
 			
-			return (List<Article>) articleRepository.findById(id).orElse(null);
+			return  articleRepository.findById(id).orElse(null);
 			
 		}
 		
@@ -47,26 +45,44 @@ public class ArticleService {
 	    
 	    public Article updateArticolo(Article article, Long id) {
 	    	
-	        Article depDB = articleRepository.findById(id).get();
+	    	//prendo l'articolo di ID id
+	    	Article depDB = articleRepository.findById(id).get();
 	 
-	        if (Objects.nonNull(article.getTitolo()) && !"".equalsIgnoreCase(article.getTitolo())) {
+	    	//controllo se i parametri non sono nulli
+	        if (Objects.nonNull(article.getTitolo() ) && !"".equalsIgnoreCase(article.getTitolo())) {
+	        	 
 	            depDB.setTitolo(article.getTitolo());
+	            
+	            System.out.println("DB " + depDB.toString());
+	        }else {
+	        	System.out.println("titolo" + article.toString());
 	        }
 	        
-	        if (Objects.nonNull(article.getDescrizione()) && !"".equalsIgnoreCase(article.getDescrizione())) {
+	        if (  (Objects.nonNull( article.getDescrizione()) && !("".equalsIgnoreCase(article.getDescrizione()) ) ) ){
 	            depDB.setDescrizione(article.getDescrizione());
+	        }
+	        else {
+	        	System.out.println("descrizione" + article.toString());
 	        }
 	        
 	        if (Objects.nonNull(article.getQuantity()) ) {
 	            depDB.setQuantity(article.getQuantity());
+	        }
+	        else {
+	        	System.out.println("quantity" + article.toString());
 	        }
 	        /*
 	         * fare la verifica degli altri campi */
 	        if (Objects.nonNull(article.getPrice()) ) {
 	            depDB.setPrice( (Float) (article.getPrice()));
 	        }
-	     
-	       
+	        else {
+	        	System.out.println("price" + article.toString());
+	        }
+	        
+	        System.out.println(depDB.toString());
+	        depDB.setDescrizione(article.getDescrizione());
+	        depDB.setCode( article.getCode());    
 	        
 	        return (Article) articleRepository.save(depDB);
 	    }
@@ -77,22 +93,31 @@ public class ArticleService {
 			
 		}
 		
-		public Article toEntity(Map params) {		
+		//metodo per convertire oggetto Map in Article
+		public Article toEntity(Map<K,V> params) {		
 			
 			String titolo = (String) params.get("title");
 			String descrizione = (String) params.get("description");
 			String caratteristiche = (String) params.get("characteristic");
 			
+			// valore != null e conversione String -> Integer
 			String cat =   (!("").equals(params.get("category"))) ? (String) params.get("category") : "0";
 			Integer categoria = Integer.parseInt(cat);
 			
-			String quant =  (String) params.get("quantity");
-			Integer quantita = Integer.parseInt(quant);		
+			// valore != null e conversione String -> Integer
+			String quant =   (!("").equals(params.get("quantity"))) ? (String) params.get("quantity") : "0";
+			Integer quantita = Integer.parseInt(quant);						
 			
-			String prez = (String) params.get("price");
+			/*
+			String quant =  (String) params.get("quantity");
+			Integer quantita = Integer.parseInt(quant);	
+			*/	
+			
+			String prez =   (!("").equals(params.get("price"))) ? (String) params.get("price") : "0";
 			Float prezzo = Float.parseFloat(prez);
 			
 			String unita =  (String) params.get("unity");
+			
 			String codice =  (String) params.get("code");
 			
 			Article art = new Article(titolo, descrizione, caratteristiche, categoria, quantita, unita, codice, prezzo);		
