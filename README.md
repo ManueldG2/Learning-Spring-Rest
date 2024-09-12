@@ -33,5 +33,7 @@ eventualmente librerie per report internamente
 
    endpoint di test 
    - localhost:8080/api/hello (get): restiruisce Hello World con http http status ok
-   - localhost:8080/api/query?id={string} (get): restiruisce la stampa del valore id 
+   - localhost:8080/api/query?id={string} (get): restiruisce la stampa del valore id
+
+ crere entity magazzino e controller per gestione 
 
