@@ -1,52 +1,57 @@
-package it.iagica.learnig_rest;
+package it.iagica.learnig_rest.service;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
-import it.iagica.learnig_rest.entity.Article;
+import it.iagica.learnig_rest.entity.WareHouse;
+import it.iagica.learnig_rest.repository.WareHouseRepository;
+
+
 
 @Service
-public class ArticleService<K, V> {
+public class WareHouseService<K, V, WareHouseRepository> {
 		
 		//importo il repository
+	
 		@Autowired
-		ArticleRepository articleRepository; 		
-		
+		WareHouseRepository wareHouseRepository;
+	
 		@Autowired
-		public ArticleService(ArticleRepository articleRepository) {
+		public WareHouseService(WareHouseRepository warehouseRepository) {
 			
-			this.articleRepository = articleRepository;
+			this.wareHouseRepository = warehouseRepository;
 			
 		}
 		
-		public Article saveArticolo(Article article) {			
+		public WareHouse saveWareHouse(WareHouse wareHouse) {			
 			
-			return (Article) articleRepository.save(article);
+			return (WareHouse) wareHouseRepository.save();
 			
 		}
 		
-		public List<Article> findAllArticolo(Article article) {
+		public List<WareHouse> findAllArticolo(WareHouse article) {
 				
-				return (List<Article>) articleRepository.findAll();
+				return (List<WareHouse>) wareHouseRepository.findAll();
 				
 			}
 		
-		public Article findById(long id) {
+		public WareHouse findById(long id) {
 			
-			return  articleRepository.findById(id).orElse(null);
+			return  wareHouseRepository.findById(id).orElse(null);
 			
 		}
 		
 		// update operation
 	    
-	    public Article updateArticolo(Article article, Long id) {
+	    public WareHouse updateWareHouse(WareHouse article, Long id) {
 	    	
 	    	//prendo l'articolo di ID id
-	    	Article depDB = articleRepository.findById(id).get();
+	    	WareHouse depDB = wareHouseRepository. .findById(id).get();
 	    	
 	    	//controllo se i parametri non sono nulli
 	    	if (  (Objects.nonNull( article.getTitle()) && !("".equalsIgnoreCase(article.getTitle()) ) ) ){
@@ -101,43 +106,21 @@ public class ArticleService<K, V> {
 		}
 		
 		//metodo per convertire oggetto Map in Article
-		public Article toEntity(Map<K,V> params) {		
+		public WareHouse toEntity(Map<K,V> params) {		
 			
-			String titolo = (String) params.get("title");
-			String descrizione = (String) params.get("description");
-			String caratteristiche = (String) params.get("characteristic");
+			Long article_id = (Long) params.get("article_id");
+			Integer amount = (Integer) params.get("amount");
+			String position = (String) params.get("position");
 			
 			// valore != null e conversione String -> Integer
 			String cat =   (!("").equals(params.get("category"))) ? (String) params.get("category") : "0";
 			Integer categoria = Integer.parseInt(cat);
 			
-			// valore != null e conversione String -> Integer
-			String quant =   (!("").equals(params.get("quantity"))) ? (String) params.get("quantity") : "0";
-			Integer quantita = Integer.parseInt(quant);						
-			
-			/*
-			String quant =  (String) params.get("quantity");
-			Integer quantita = Integer.parseInt(quant);	
-			*/	
-			
-			String prez =   (!("").equals(params.get("price"))) ? (String) params.get("price") : "0";
-			Float prezzo = Float.parseFloat(prez);
-			
-			String unita =  (String) params.get("unity");
-			
-			String codice =  (String) params.get("code");
-			
-			Article art = new Article(titolo, descrizione, caratteristiche, categoria, quantita, unita, codice, prezzo);		
+			WareHouse art = new WareHouse(article_id, amount, position);		
 			
 			return art;
 			
 		}
-		
-		
-		
-	
-
-
 
 }
 

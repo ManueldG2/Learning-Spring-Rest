@@ -1,4 +1,4 @@
-package it.iagica.learnig_rest;
+package it.iagica.learnig_rest.repository;
 
 import java.util.Map;
 
@@ -10,6 +10,6 @@ import java.util.Map;
 
 
 public interface ArticleRepository extends CrudRepository<Article, Long>{
-
+	
 	
 }
