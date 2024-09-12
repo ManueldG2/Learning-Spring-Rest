@@ -1,26 +1,26 @@
-Progetto Spring per gestione articoli cancelleria 
+#Progetto Spring per gestione articoli cancelleria 
 
 tabelle :
-			-articolo
-			-categorie
-			-magazzino (da fare)
+			- articolo
+			- categorie
+			- magazzino (da fare)
    
 dipendenze 
 		
--spring-boot-starter-web
--mysql-connector-j
--spring-boot-starter-data-jpa
--spring-boot-starter-tomcat
+- spring-boot-starter-web
+- mysql-connector-j
+- spring-boot-starter-data-jpa
+- spring-boot-starter-tomcat
 
 eventualmente librerie per report internamente 
-			-(fatto) csv  
-			-pdf
+			- (fatto) csv  
+			- pdf
 
 
    endpoint:
-   -localhost:8080/api/csv (get): crea un'esport in csv
+   - localhost:8080/api/csv (get): crea un'esport in csv
    
-   -localhost:8080/api/articolo (get): stampa a video lista articoli in json 
+   - localhost:8080/api/articolo (get): stampa a video lista articoli in json 
    
    -localhost:8080/api/articolo/{id} (get): stampa a video l'articolo con id 
    
