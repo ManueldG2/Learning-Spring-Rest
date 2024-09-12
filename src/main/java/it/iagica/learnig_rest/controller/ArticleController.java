@@ -64,21 +64,50 @@ public class ArticleController {
 	}
 	
 	
+	// lista articoli
 	@RequestMapping(value = "/articolo", method = RequestMethod.GET)
 	@ResponseBody
-	public  Iterable getAllProduct() {
+	public  Iterable getAllArticles() {
 		
 		return articleRepository.findAll();
 		
 	}
 	
+	// articolo {id}
 	@GetMapping("/articolo/{id}")
-	public Optional<Article> getProductById(@PathVariable Long id) {
+	public Optional<Article> getArticleById(@PathVariable Long id) {
 		
 		return articleRepository.findById(id);
 		
 	}
 	
+	//aggiunge Articolo
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<Article> addArticle(@RequestParam Map params , HttpServletResponse response) {
+						
+		Article art = articleService.toEntity(params);
+		
+		articleRepository.save(art);
+		
+		return new ResponseEntity("ok", HttpStatus.CREATED);		
+				
+	}
+	
+	//aggiornamento con query string per usare il form html
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<Article> updateProduct(@RequestParam Map params, HttpServletResponse response) {
+						
+		Article art = articleService.toEntity(params);
+		
+		Long id = ( Long.parseLong((String) params.get("id")) );		
+		
+		return new ResponseEntity(articleService.updateArticolo(art, id), HttpStatus.OK);		
+				
+	}
+	
+	//aggiornamento con json
 	@PutMapping("/articolo/{id}")// update
 	public ResponseEntity<Article> updateProduct(@PathVariable Long id, @RequestBody Article articolo) {
 		
@@ -108,38 +137,14 @@ public class ArticleController {
 		
 	}
 	
-	
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+	// cancellazione con json
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public ResponseEntity deleteProduct(@PathVariable Long id , HttpServletResponse response) {
 						
 		articleService.deleteArticolo(id);
 		
 		return new ResponseEntity("ok", HttpStatus.OK);		
-				
-	}
-	
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	@ResponseBody
-	public ResponseEntity<Article> addProduct(@RequestParam Map params , HttpServletResponse response) {
-						
-		Article art = articleService.toEntity(params);
-		
-		articleRepository.save(art);
-		
-		return new ResponseEntity("ok", HttpStatus.CREATED);		
-				
-	}
-	
-	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	@ResponseBody
-	public ResponseEntity<Article> updateProduct(@RequestParam Map params, HttpServletResponse response) {
-						
-		Article art = articleService.toEntity(params);
-		
-		Long id = ( Long.parseLong((String) params.get("id")) );		
-		
-		return new ResponseEntity(articleService.updateArticolo(art, id), HttpStatus.OK);		
 				
 	}
 	
