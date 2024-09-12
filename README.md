@@ -1,4 +1,4 @@
-#Progetto Spring per gestione articoli cancelleria 
+# Progetto Spring per gestione articoli cancelleria 
 
 tabelle :
 			- articolo
