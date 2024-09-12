@@ -1,5 +1,9 @@
 package it.iagica.learnig_rest.controller;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -25,6 +29,12 @@ import it.iagica.learnig_rest.ArticleRepository;
 import it.iagica.learnig_rest.ArticleService;
 import it.iagica.learnig_rest.entity.Article;
 import jakarta.servlet.http.HttpServletResponse;
+
+
+import org.supercsv.io.CsvBeanWriter;
+import org.supercsv.io.ICsvBeanWriter;
+import org.supercsv.prefs.CsvPreference;
+
 
 
 @RestController
@@ -77,12 +87,12 @@ public class ArticleController {
 		
 		Article depDB = articleRepository.findById(id).get();
 		 
-        if (Objects.nonNull(articolo.getTitolo()) && !"".equalsIgnoreCase(articolo.getTitolo())) {
-            depDB.setTitolo(articolo.getTitolo());
+        if (Objects.nonNull(articolo.getTitle()) && !"".equalsIgnoreCase(articolo.getTitle())) {
+            depDB.setTitle(articolo.getTitle());
         }
         
-        if (Objects.nonNull(articolo.getDescrizione()) && !"".equalsIgnoreCase(articolo.getDescrizione())) {
-            depDB.setDescrizione(articolo.getDescrizione());
+        if (Objects.nonNull(articolo.getDescription()) && !"".equalsIgnoreCase(articolo.getDescription())) {
+            depDB.setDescription(articolo.getDescription());
         }
         
         if (Objects.nonNull(articolo.getQuantity()) ) {
@@ -133,8 +143,37 @@ public class ArticleController {
 				
 	}
 	
-	
-	
+	@RequestMapping(value = "/csv")
+    public void downloadCSV(HttpServletResponse response) throws IOException {
+ 
+        String csvFileName = "article.csv";
+ 
+        response.setContentType("text/csv");
+ 
+        // creates mock data
+        String headerKey = "Content-Disposition";
+        String headerValue = String.format("attachment; filename=\"%s\"",
+                csvFileName);
+        response.setHeader(headerKey, headerValue);
+ 
+        List<Article> listArticle = (List<Article>) articleRepository.findAll();        
+ 
+        // uses the Super CSV API to generate CSV data from the model data
+        ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(),
+                CsvPreference.STANDARD_PREFERENCE);
+ 
+  
+        String[] header = { "Title", "Description", "Category", "Quantity", "Unity", "Code", "Price"};
+        
+        //String[] header = {""};
+        csvWriter.writeHeader(header);
+ 
+        for (Article article : listArticle) {
+            csvWriter.write(article, header);
+        }
+        
+        csvWriter.close();
+    }
 	
 
 }

@@ -1,6 +1,7 @@
 package it.iagica.learnig_rest.entity;
 
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -36,7 +37,6 @@ public class Article{
 	}
 
 
-
 	private String title;
 	
 	private String description;
@@ -62,19 +62,19 @@ public class Article{
 		this.id = id;
 	}
 
-	public String getTitolo() {
+	public String getTitle() {
 		return title;
 	}
 
-	public void setTitolo(String titolo) {
+	public void setTitle(String titolo) {
 		this.title = titolo;
 	}
 
-	public String getDescrizione() {
+	public String getDescription() {
 		return description;
 	}
 
-	public void setDescrizione(String descrizione) {
+	public void setDescription(String descrizione) {
 		this.description = descrizione;
 	}
 

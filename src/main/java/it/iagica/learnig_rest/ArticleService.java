@@ -49,8 +49,8 @@ public class ArticleService<K, V> {
 	    	Article depDB = articleRepository.findById(id).get();
 	    	
 	    	//controllo se i parametri non sono nulli
-	    	if (  (Objects.nonNull( article.getTitolo()) && !("".equalsIgnoreCase(article.getTitolo()) ) ) ){
-	            depDB.setTitolo(article.getTitolo());
+	    	if (  (Objects.nonNull( article.getTitle()) && !("".equalsIgnoreCase(article.getTitle()) ) ) ){
+	            depDB.setTitle(article.getTitle());
 	        }
 	        else {
 	        	System.out.println("titolo" + article.toString());
@@ -64,8 +64,8 @@ public class ArticleService<K, V> {
 		        }
 	    	
 	        
-	        if (  (Objects.nonNull( article.getDescrizione()) && !("".equalsIgnoreCase(article.getDescrizione()) ) ) ){
-	            depDB.setDescrizione(article.getDescrizione());
+	        if (  (Objects.nonNull( article.getDescription()) && !("".equalsIgnoreCase(article.getDescription()) ) ) ){
+	            depDB.setDescription(article.getDescription());
 	        }
 	        else {
 	        	System.out.println("descrizione" + article.toString());
@@ -88,7 +88,7 @@ public class ArticleService<K, V> {
 	        }
 	        
 	        System.out.println(depDB.toString());
-	        depDB.setDescrizione(article.getDescrizione());
+	        depDB.setDescription(article.getDescription());
 	        depDB.setCode( article.getCode());    
 	        
 	        return (Article) articleRepository.save(depDB);
