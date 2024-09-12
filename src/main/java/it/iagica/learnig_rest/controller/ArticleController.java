@@ -165,7 +165,6 @@ public class ArticleController {
   
         String[] header = { "Title", "Description", "Category", "Quantity", "Unity", "Code", "Price"};
         
-        //String[] header = {""};
         csvWriter.writeHeader(header);
  
         for (Article article : listArticle) {
