@@ -25,10 +25,13 @@ eventualmente librerie per report internamente
    -localhost:8080/api/articolo/{id} (get): stampa a video l'articolo con id 
    
    -localhost:8080/api/articolo/{id} (put): aggiornamento con json
-
-   -localhost:8080/api/update?title={string}&description={string}&characteristic={string}&category={string}&quantity={string}&unity={string}&code={string}&price={string} (put): aggiornamento con json
-   
+   -localhost:8080/api/update?title={string}&description={string}&characteristic={string}&category={string}&quantity={string}&unity={string}&code={string}&price={string} (post): aggiornamento query string    
    
    -localhost:8080/api/add?title={string}&description={string}&characteristic={string}&category={string}&quantity={string}&unity={string}&code={string}&price={string}  (post): aggiunge articolo tramite query string per usarlo con form html
    
    -localhost:8080/api/delete/{id} (delete) -> cancella elemento di id
+
+   endpoint di test 
+   -localhost:8080/api/hello (get): restiruisce Hello World con http http status ok
+   -localhost:8080/api/query?id={string} (get): restiruisce la stampa del valore id 
+
