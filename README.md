@@ -13,8 +13,8 @@ dipendenze
 - spring-boot-starter-tomcat
 
 eventualmente librerie per report internamente 
-			- (fatto) csv  
-			- pdf
+- (fatto) csv  
+- pdf
 
 
    endpoint:
