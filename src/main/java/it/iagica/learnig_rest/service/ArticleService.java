@@ -58,8 +58,8 @@ public class ArticleService<K, V> {
 	        	System.out.println("titolo" + article.toString());
 	        } 
 	    	
-	    	 if (  (Objects.nonNull( article.getCharateristic() ) && !("".equalsIgnoreCase(article.getCharateristic() ) ) ) ){
-		            depDB.setCharateristic(article.getCharateristic());
+	    	 if (  (Objects.nonNull( article.getCharacteristic()) ) && !("".equalsIgnoreCase(article.getCharacteristic() ) ) ) {
+		            depDB.setCharacteristic(article.getCharacteristic());
 		        }
 		        else {
 		        	System.out.println("descrizione" + article.toString());

@@ -1,11 +1,24 @@
 package it.iagica.learnig_rest.entity;
 
 
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import it.iagica.learnig_rest.repository.WareHouseRepository;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -28,14 +41,15 @@ public class Article{
 		this.unity = unity;
 		this.code = code;
 		this.price = price;
-	}
-	
-	
+	}	
 
 	public Article() {
 		
 	}
-
+	
+	
+    @Column(name = "warehouse_id")    
+	private Long warehouse;
 
 	private String title;
 	
@@ -51,8 +65,9 @@ public class Article{
 	
 	private String code; 
 	
-	private float price; 	
 	
+	
+	private float price; 		
 	
 	public long getId() {
 		return id;
@@ -76,14 +91,6 @@ public class Article{
 
 	public void setDescription(String descrizione) {
 		this.description = descrizione;
-	}
-
-	public String getCharateristic() {
-		return characteristic;
-	}
-
-	public void setCharateristic(String charateristic) {
-		this.characteristic = charateristic;
 	}
 
 	public Integer getCategory() {
@@ -124,6 +131,25 @@ public class Article{
 
 	public void setPrice(float price) {
 		this.price = price;
+	}
+	
+	public String getCharacteristic() {
+		return characteristic;
+	}
+
+
+
+	public void setCharacteristic(String characteristic) {
+		this.characteristic = characteristic;
+	}
+
+
+	public Long getWarehouse() {
+		return warehouse;
+	}
+
+	public void setWarehouse(Long warehouse) {
+		this.warehouse = warehouse;
 	}
 
 	@Override

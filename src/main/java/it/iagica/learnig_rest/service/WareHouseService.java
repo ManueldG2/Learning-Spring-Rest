@@ -103,7 +103,7 @@ public class WareHouseService<K, V> {
 		//metodo per convertire oggetto Map in Article
 		public WareHouse toEntity(Map<K,V> params) {		
 			
-			Long article_id = (Long) params.get("article_id");
+			
 			Integer amount = (Integer) params.get("amount");
 			String position = (String) params.get("position");
 			
@@ -111,7 +111,7 @@ public class WareHouseService<K, V> {
 			String cat =   (!("").equals(params.get("category"))) ? (String) params.get("category") : "0";
 			Integer categoria = Integer.parseInt(cat);
 			
-			WareHouse art = new WareHouse(article_id, amount, position);		
+			WareHouse art = new WareHouse( amount, position);		
 			
 			return art;
 			

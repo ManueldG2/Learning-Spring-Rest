@@ -1,11 +1,19 @@
 package it.iagica.learnig_rest.entity;
 
 
+
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,9 +26,9 @@ public class WareHouse{
 	}
 
 
-	public WareHouse(Long article_id, Integer amount, String position) {
+	public WareHouse( Integer amount, String position) {
 		
-		this.article_id = article_id;
+		
 		this.amount = amount;
 		this.position = position;
 	}
@@ -31,12 +39,26 @@ public class WareHouse{
 	
 	private Long id;
 	
-	private Long article_id;
-	
 	private Integer amount;
 	
 	private String position;
+	
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "warehouse", cascade = CascadeType.ALL)
+    private List<Article> article;
+	
 
+	public List<Article> getArticle() {
+		return article;
+	}
+
+
+
+	public void setArticle(List<Article> article) {
+		this.article = article;
+	}
+	
+	
 	public Long getId() {
 		return id;
 	}
@@ -45,13 +67,6 @@ public class WareHouse{
 		this.id = id;
 	}
 
-	public Long getArticle_id() {
-		return article_id;
-	}
-
-	public void setArticle_id(Long article_id) {
-		this.article_id = article_id;
-	}
 
 	public Integer getAmount() {
 		return amount;
@@ -67,12 +82,12 @@ public class WareHouse{
 
 	public void setPosition(String position) {
 		this.position = position;
-	}
+	}	
 
 
 	@Override
 	public String toString() {
-		return "Warehouse [id=" + id + ", article_id=" + article_id + ", amount=" + amount + ", position=" + position
+		return "Warehouse [id=" + id +" amount=" + amount + ", position=" + position
 				+ "]";
 	}
 	

@@ -68,7 +68,7 @@ public class ArticleController {
 	
 	
 	// lista articoli
-	@RequestMapping(value = "/articolo", method = RequestMethod.GET)
+	@RequestMapping(value = "/article", method = RequestMethod.GET)
 	@ResponseBody
 	public  Iterable getAllArticles() {
 		
@@ -77,16 +77,25 @@ public class ArticleController {
 	}
 	
 	// articolo {id}
-	@GetMapping("/articolo/{id}")
+	@GetMapping("/article/{id}")
 	public Optional<Article> getArticleById(@PathVariable Long id) {
 		
-		return articleRepository.findById(id);
+		Optional<Article> article = articleRepository.findById(id);
 		
-		
+		return article;
 	}
 	
+	// articolo {id}
+		@GetMapping("/articleJ")
+		public List<Map<String, Object>> selectJoin() {
+			
+			List<Map<String, Object>> article = articleRepository.selectJoin();
+			
+			return article;
+		}
+	
 	//aggiunge Articolo
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	@RequestMapping(value = "/article/add", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<Article> addArticle(@RequestParam Map params , HttpServletResponse response) {
 						
@@ -99,7 +108,7 @@ public class ArticleController {
 	}
 	
 	//aggiornamento con query string per usare il form html
-	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	@RequestMapping(value = "/article/update", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<Article> updateProduct(@RequestParam Map params, HttpServletResponse response) {
 						
@@ -142,7 +151,7 @@ public class ArticleController {
 	}
 	
 	// cancellazione con json
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/article/delete/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public ResponseEntity deleteProduct(@PathVariable Long id , HttpServletResponse response) {
 						
@@ -152,7 +161,7 @@ public class ArticleController {
 				
 	}
 	
-	@RequestMapping(value = "/csv")
+	@RequestMapping(value = "/article/csv")
     public void downloadCSV(HttpServletResponse response) throws IOException {
  
         String csvFileName = "article.csv";
@@ -183,22 +192,6 @@ public class ArticleController {
         csvWriter.close();
     }
 	
-	@RequestMapping("/error")
-	public String handleError(HttpServletRequest request) {
-	    Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
-	    
-	    if (status != null) {
-	        Integer statusCode = Integer.valueOf(status.toString());
-	    
-	        if(statusCode == HttpStatus.NOT_FOUND.value()) {
-	            return "error-404";
-	        }
-	        else if(statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
-	            return "error-500";
-	        }
-	    }
-	    return "error";
-	}
-	
+		
 
 }

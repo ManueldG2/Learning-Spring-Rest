@@ -67,15 +67,17 @@ public class WarehouseController {
 	}
 	
 	// articolo {id}
-	@GetMapping("/articolo/{id}")
+	@GetMapping("/warehouse/{id}")
 	public Optional<WareHouse> getArticleById(@PathVariable Long id) {
+		
+		
 		
 		return wareHouseRepository.findById(id);
 		
 	}
 	
 	//aggiunge Articolo
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	@RequestMapping(value = "/warehouse/add", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<Article> addArticle(@RequestParam Map params , HttpServletResponse response) {
 						
@@ -88,7 +90,7 @@ public class WarehouseController {
 	}
 	
 	//aggiornamento con query string per usare il form html
-	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	@RequestMapping(value = "/warehouse/update", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<WareHouse> updateProduct(@RequestParam Map params, HttpServletResponse response) {
 						
@@ -101,7 +103,7 @@ public class WarehouseController {
 	}
 	
 	//aggiornamento con json
-	@PutMapping("/articolo/{id}")// update
+	@PutMapping("/warehouse/{id}")// update
 	public ResponseEntity<WareHouse> updateProduct(@PathVariable Long id, @RequestBody Article articolo) {
 		
 		
@@ -132,7 +134,7 @@ public class WarehouseController {
 	}
 	
 	// cancellazione con json
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/warehouse/delete/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public ResponseEntity deleteProduct(@PathVariable Long id , HttpServletResponse response) {
 						
@@ -142,7 +144,7 @@ public class WarehouseController {
 				
 	}
 	
-	@RequestMapping(value = "/csv")
+	@RequestMapping(value = "/warehouse/csv")
     public void downloadCSV(HttpServletResponse response) throws IOException {
  
         String csvFileName = "article.csv";
@@ -174,22 +176,6 @@ public class WarehouseController {
         csvWriter.close();
     }
 	
-	@RequestMapping("/error")
-	public String handleError(HttpServletRequest request) {
-	    Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
-	    
-	    if (status != null) {
-	        Integer statusCode = Integer.valueOf(status.toString());
-	    
-	        if(statusCode == HttpStatus.NOT_FOUND.value()) {
-	            return "error-404";
-	        }
-	        else if(statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
-	            return "error-500";
-	        }
-	    }
-	    return "error";
-	}
-	
+		
 
 }
