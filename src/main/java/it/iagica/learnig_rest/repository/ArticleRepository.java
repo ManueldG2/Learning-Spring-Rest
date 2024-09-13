@@ -27,5 +27,8 @@ public interface ArticleRepository extends JpaRepository<Article, Long>{
 	@Query(value = "SELECT article.title, article.description, article.characteristic, article.category, article.category, article.unity ,article.code ,article.price , warehouse.position, article.quantity as quantita_per_pacchetto, warehouse.amount as quantita_totale,(article.price * article.quantity) as cost_per_package  FROM article JOIN warehouse ON article.warehouse_id = warehouse.id " , nativeQuery = true)
 	List<Map<String,Object>> selectJoin();
 	
+	@Query(value = "SELECT article.title, article.description, article.characteristic, article.category, article.category, article.unity ,article.code ,article.price , warehouse.position, article.quantity as quantita_per_pacchetto, warehouse.amount as quantita_totale,(article.price * article.quantity) as cost_per_package  FROM article JOIN warehouse ON article.warehouse_id = warehouse.id AND article.id=%?1%", nativeQuery = true )
+	List<Map<String,Object>> selectJoinById(Long id);
+	
 	
 }

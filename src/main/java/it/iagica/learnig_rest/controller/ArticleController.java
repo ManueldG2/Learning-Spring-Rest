@@ -93,6 +93,15 @@ public class ArticleController {
 			
 			return article;
 		}
+		
+		// articolo {id}
+				@GetMapping("/articleJ/{id}")
+				public List<Map<String, Object>> selectJoinById(@PathVariable Long id) {
+					System.out.println(id);
+					List<Map<String, Object>> article = articleRepository.selectJoinById(id);
+					
+					return article;
+				}
 	
 	//aggiunge Articolo
 	@RequestMapping(value = "/article/add", method = RequestMethod.POST)
