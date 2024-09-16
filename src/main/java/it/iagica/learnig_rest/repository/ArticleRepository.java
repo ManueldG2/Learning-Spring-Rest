@@ -17,10 +17,10 @@ import it.iagica.learnig_rest.entity.Article;
 public interface ArticleRepository extends JpaRepository<Article, Long>{	
 	
 	@Query(value = " CALL `article-all`(); " , nativeQuery = true)
-	List<Map<String, Object>> selectJoin();
+	List<Map<Long, Object>> selectJoin();
 		
 	
 	@Query(value = "CALL `article-id`(%?1%); ", nativeQuery = true )
-	List<HashMap<String,Object>> selectJoinById(Long id);	
+	List<HashMap<Long,Object>> selectJoinById(Long id);	
 	
 }

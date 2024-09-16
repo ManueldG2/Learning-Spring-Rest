@@ -43,7 +43,7 @@ import org.supercsv.prefs.CsvPreference;
 
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/article")
 
 public class ArticleController {
 	
@@ -70,7 +70,7 @@ public class ArticleController {
 	
 	
 	// lista articoli
-	@RequestMapping(value = "/article", method = RequestMethod.GET)
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	@ResponseBody
 	public  Iterable getAllArticles() {
 		
@@ -79,7 +79,7 @@ public class ArticleController {
 	}
 	
 	// articolo {id}
-	@GetMapping("/article/{id}")
+	@GetMapping("/{id}")
 	public Optional<Article> getArticleById(@PathVariable Long id) {
 		
 		Optional<Article> article = articleRepository.findById(id);
@@ -88,25 +88,25 @@ public class ArticleController {
 	}
 	
 	// articolo {id}
-		@GetMapping("/articleJ")
-		public List<Map<String, Object>> selectJoin() {
+		@GetMapping("/join")
+		public List<Map<Long, Object>> selectJoin() {
 			
-			List<Map<String, Object>> article = articleRepository.selectJoin();
+			List<Map<Long, Object>> article = articleRepository.selectJoin();
 			
 			return article;
 		}
 		
 		// articolo {id}
-		@GetMapping("/articleJ/{id}")
-		public List<HashMap<String, Object>> selectJoinById(@PathVariable Long id) {
+		@GetMapping("/join/{id}")
+		public List<HashMap<Long, Object>> selectJoinById(@PathVariable Long id) {
 			System.out.println(id);
-			List<HashMap<String, Object>> article = articleRepository.selectJoinById(id);
+			List<HashMap<Long, Object>> article = articleRepository.selectJoinById(id);
 					
 			return article;
 		}
 	
 	//aggiunge Articolo
-	@RequestMapping(value = "/article/add", method = RequestMethod.POST)
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<Article> addArticle(@RequestParam Map params , HttpServletResponse response) {
 						
@@ -119,7 +119,7 @@ public class ArticleController {
 	}
 	
 	//aggiornamento con query string per usare il form html
-	@RequestMapping(value = "/article/update", method = RequestMethod.POST)
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<Article> updateProduct(@RequestParam Map params, HttpServletResponse response) {
 						
@@ -132,7 +132,7 @@ public class ArticleController {
 	}
 	
 	//aggiornamento con json
-	@PutMapping("/articolo/{id}")// update
+	@PutMapping("/{id}")// update
 	public ResponseEntity<Article> updateProduct(@PathVariable Long id, @RequestBody Article articolo) {
 		
 		
@@ -162,7 +162,7 @@ public class ArticleController {
 	}
 	
 	// cancellazione con json
-	@RequestMapping(value = "/article/delete/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public ResponseEntity deleteProduct(@PathVariable Long id , HttpServletResponse response) {
 						
@@ -172,7 +172,7 @@ public class ArticleController {
 				
 	}
 	
-	@RequestMapping(value = "/article/csv")
+	@RequestMapping(value = "/csv")
     public void downloadCSV(HttpServletResponse response) throws IOException {
  
         String csvFileName = "article.csv";
@@ -188,8 +188,9 @@ public class ArticleController {
         List<Article> listArticle = (List<Article>) articleRepository.findAll();        
  
         // uses the Super CSV API to generate CSV data from the model data
+        CsvPreference csvPreference = new CsvPreference.Builder('"', ';', "\r\n").build();
         ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(),
-                CsvPreference.STANDARD_PREFERENCE);
+                csvPreference);
  
   
         String[] header = { "Title", "Description", "Category", "Quantity", "Unity", "Code", "Price"};

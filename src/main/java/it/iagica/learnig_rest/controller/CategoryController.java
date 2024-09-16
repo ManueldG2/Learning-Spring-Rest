@@ -45,7 +45,7 @@ import org.supercsv.prefs.CsvPreference;
 
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/category")
 
 public class CategoryController {
 	
@@ -53,7 +53,7 @@ public class CategoryController {
 	CategoryRepository categoryRepository;	
 	
 	// lista categorie
-	@RequestMapping(value = "/category", method = RequestMethod.GET)
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	@ResponseBody
 	public  Iterable getAllCategories() {
 		
@@ -62,7 +62,7 @@ public class CategoryController {
 	}
 	
 	// categorie {id}
-	@GetMapping("/category/{id}")
+	@GetMapping("/{id}")
 	public Optional<Category> getCategoryById(@PathVariable Long id) {
 		
 		Optional<Category> category = categoryRepository.findById(id);
@@ -73,7 +73,7 @@ public class CategoryController {
 	
 	
 	//aggiunge categoria
-	@RequestMapping(value = "/category/add", method = RequestMethod.POST)
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<Category> addCategory(@RequestBody Category category , HttpServletResponse response) {
 	
@@ -85,7 +85,7 @@ public class CategoryController {
 	
 	
 	//aggiornamento con json
-	@PutMapping("/category/{id}")// update
+	@PutMapping("/{id}")// update
 	public ResponseEntity<Category> updateCategory(@PathVariable Long id, @RequestBody Category category) {
 		
 		
@@ -102,7 +102,7 @@ public class CategoryController {
 	}
 	
 	// cancellazione con json
-	@RequestMapping(value = "/category/delete/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public ResponseEntity deleteCategory(@PathVariable Long id , HttpServletResponse response) {
 						
@@ -112,7 +112,7 @@ public class CategoryController {
 				
 	}
 	
-	@RequestMapping(value = "/category/csv")
+	@RequestMapping(value = "/csv")
     public void downloadCSV(HttpServletResponse response) throws IOException {
  
         String csvFileName = "categories.csv";
@@ -140,6 +140,8 @@ public class CategoryController {
         }
         
         csvWriter.close();
+        
+        
     }
 	
 		

@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -45,7 +46,7 @@ import org.supercsv.prefs.CsvPreference;
 
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/warehouse")
 
 public class WarehouseController {
 	
@@ -56,8 +57,8 @@ public class WarehouseController {
 	WareHouseService wareHouseService;
 
 	
-	// lista articoli
-	@RequestMapping(value = "/warehouse", method = RequestMethod.GET)
+	// lista warehouse
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	@ResponseBody
 	public  List<Map<String,Object>> getAllWarehouses() {		
 		
@@ -66,8 +67,8 @@ public class WarehouseController {
 		
 	}
 	
-	// articolo {id}
-	@GetMapping("/warehouse/{id}")
+	// warehouse {id}
+	@GetMapping("/{id}")
 	public Optional<List<Map<String, Object>>> getWareHouseById(@PathVariable Long id) {		
 		
 		//return wareHouseRepository.findById(id);
@@ -75,21 +76,21 @@ public class WarehouseController {
 		
 	}
 	
-	//aggiunge Articolo
-	@RequestMapping(value = "/warehouse/add", method = RequestMethod.POST)
+	//aggiunge warehouse
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<Article> addWareHouse(@RequestParam Map params , HttpServletResponse response) {
+	public ResponseEntity<WareHouse> addWareHouse(@RequestParam Map params , HttpServletResponse response) {
 						
-		WareHouse art = wareHouseService.toEntity(params);
+		WareHouse wareHouse = wareHouseService.toEntity(params);
 		
-		wareHouseRepository.save(art);
+		wareHouseRepository.save(wareHouse);
 		
 		return new ResponseEntity("ok", HttpStatus.CREATED);		
 				
 	}
 	
 	//aggiornamento con query string per usare il form html
-	@RequestMapping(value = "/warehouse/update", method = RequestMethod.POST)
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<WareHouse> updateWareHouse(@RequestParam Map params, HttpServletResponse response) {
 						
@@ -102,29 +103,13 @@ public class WarehouseController {
 	}
 	
 	//aggiornamento con json
-	@PutMapping("/warehouse/{id}")// update
+	@PutMapping("/{id}")// update
 	public ResponseEntity<WareHouse> updateWareHouse(@PathVariable Long id, @RequestBody Article articolo) {
 		
 		
 		System.out.println(articolo.toString() + "" +  id);
 		
 		WareHouse depDB = wareHouseRepository.findById(id).get();
-		 
-		/*
-        if (Objects.nonNull(articolo.getTitle()) && !"".equalsIgnoreCase(articolo.getTitle())) {
-            depDB.setTitle(articolo.getTitle());
-        }
-        
-        if (Objects.nonNull(articolo.getDescription()) && !"".equalsIgnoreCase(articolo.getDescription())) {
-            depDB.setDescription(articolo.getDescription());
-        }
-        
-        if (Objects.nonNull(articolo.getQuantity()) ) {
-            depDB.setQuantity(articolo.getQuantity());
-        }
-       
-        depDB.setPrice( (Float) articolo.getPrice());
-        */
         
          wareHouseRepository.save(depDB);
          
@@ -133,7 +118,7 @@ public class WarehouseController {
 	}
 	
 	// cancellazione con json
-	@RequestMapping(value = "/warehouse/delete/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public ResponseEntity deleteWareHouse(@PathVariable Long id , HttpServletResponse response) {
 						
@@ -143,10 +128,10 @@ public class WarehouseController {
 				
 	}
 	
-	@RequestMapping(value = "/warehouse/csv")
+	@RequestMapping(value = "/csv")
     public void downloadCSV(HttpServletResponse response) throws IOException {
  
-        String csvFileName = "article.csv";
+        String csvFileName = "warehouse.csv";
  
         response.setContentType("text/csv");
  
@@ -156,20 +141,22 @@ public class WarehouseController {
                 csvFileName);
         response.setHeader(headerKey, headerValue);
  
-        List<WareHouse> listArticle;
-		listArticle = (List<WareHouse>) wareHouseRepository.findAll();
+        List<WareHouse> listWareHouse;
+		listWareHouse = wareHouseRepository.findAll();
 		
         // uses the Super CSV API to generate CSV data from the model data
+		CsvPreference csvPreference = new CsvPreference.Builder('"', ':', "\r\n").build();
         ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(),
-                CsvPreference.STANDARD_PREFERENCE);
+                csvPreference);
  
   
-        String[] header = { "Title", "Description", "Category", "Quantity", "Unity", "Code", "Price"};
+        String[] header = { "Position"};
         
         csvWriter.writeHeader(header);
  
-        for (WareHouse article : listArticle) {
-            csvWriter.write(article, header);
+        for (WareHouse wareHouse : listWareHouse) {
+        	
+            csvWriter.write( wareHouse, header);
         }
         
         csvWriter.close();
