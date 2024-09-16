@@ -4,11 +4,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
+import org.apache.commons.collections.OrderedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
@@ -96,9 +98,9 @@ public class ArticleController {
 		
 		// articolo {id}
 				@GetMapping("/articleJ/{id}")
-				public List<Map<String, Object>> selectJoinById(@PathVariable Long id) {
+				public List<HashMap<String, Object>> selectJoinById(@PathVariable Long id) {
 					System.out.println(id);
-					List<Map<String, Object>> article = articleRepository.selectJoinById(id);
+					List<HashMap<String, Object>> article = articleRepository.selectJoinById(id);
 					
 					return article;
 				}

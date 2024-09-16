@@ -59,27 +59,26 @@ public class WarehouseController {
 	// lista articoli
 	@RequestMapping(value = "/warehouse", method = RequestMethod.GET)
 	@ResponseBody
-	public  Iterable getAllArticles() {
+	public  List<Map<String,Object>> getAllWarehouses() {		
 		
-		
-		return wareHouseRepository.findAll();
+		//return wareHouseRepository.findAll();
+		return wareHouseRepository.selectJoin();
 		
 	}
 	
 	// articolo {id}
 	@GetMapping("/warehouse/{id}")
-	public Optional<WareHouse> getArticleById(@PathVariable Long id) {
+	public Optional<List<Map<String, Object>>> getWareHouseById(@PathVariable Long id) {		
 		
-		
-		
-		return wareHouseRepository.findById(id);
+		//return wareHouseRepository.findById(id);
+		return Optional.of(wareHouseRepository.selectJoinById(id));
 		
 	}
 	
 	//aggiunge Articolo
 	@RequestMapping(value = "/warehouse/add", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<Article> addArticle(@RequestParam Map params , HttpServletResponse response) {
+	public ResponseEntity<Article> addWareHouse(@RequestParam Map params , HttpServletResponse response) {
 						
 		WareHouse art = wareHouseService.toEntity(params);
 		
@@ -92,7 +91,7 @@ public class WarehouseController {
 	//aggiornamento con query string per usare il form html
 	@RequestMapping(value = "/warehouse/update", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<WareHouse> updateProduct(@RequestParam Map params, HttpServletResponse response) {
+	public ResponseEntity<WareHouse> updateWareHouse(@RequestParam Map params, HttpServletResponse response) {
 						
 		WareHouse wh = wareHouseService.toEntity(params);
 		
@@ -104,7 +103,7 @@ public class WarehouseController {
 	
 	//aggiornamento con json
 	@PutMapping("/warehouse/{id}")// update
-	public ResponseEntity<WareHouse> updateProduct(@PathVariable Long id, @RequestBody Article articolo) {
+	public ResponseEntity<WareHouse> updateWareHouse(@PathVariable Long id, @RequestBody Article articolo) {
 		
 		
 		System.out.println(articolo.toString() + "" +  id);
@@ -136,7 +135,7 @@ public class WarehouseController {
 	// cancellazione con json
 	@RequestMapping(value = "/warehouse/delete/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public ResponseEntity deleteProduct(@PathVariable Long id , HttpServletResponse response) {
+	public ResponseEntity deleteWareHouse(@PathVariable Long id , HttpServletResponse response) {
 						
 		wareHouseService.deleteArticolo(id);
 		
