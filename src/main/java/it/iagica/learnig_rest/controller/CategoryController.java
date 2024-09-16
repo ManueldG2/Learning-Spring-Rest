@@ -102,9 +102,9 @@ public class CategoryController {
 	}
 	
 	// cancellazione con json
-	@RequestMapping(value = "/article/delete/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/category/delete/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public ResponseEntity deleteProduct(@PathVariable Long id , HttpServletResponse response) {
+	public ResponseEntity deleteCategory(@PathVariable Long id , HttpServletResponse response) {
 						
 		categoryRepository.deleteById(id);
 		

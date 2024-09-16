@@ -97,13 +97,13 @@ public class ArticleController {
 		}
 		
 		// articolo {id}
-				@GetMapping("/articleJ/{id}")
-				public List<HashMap<String, Object>> selectJoinById(@PathVariable Long id) {
-					System.out.println(id);
-					List<HashMap<String, Object>> article = articleRepository.selectJoinById(id);
+		@GetMapping("/articleJ/{id}")
+		public List<HashMap<String, Object>> selectJoinById(@PathVariable Long id) {
+			System.out.println(id);
+			List<HashMap<String, Object>> article = articleRepository.selectJoinById(id);
 					
-					return article;
-				}
+			return article;
+		}
 	
 	//aggiunge Articolo
 	@RequestMapping(value = "/article/add", method = RequestMethod.POST)
