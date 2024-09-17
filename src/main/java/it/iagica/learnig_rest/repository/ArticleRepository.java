@@ -21,6 +21,6 @@ public interface ArticleRepository extends JpaRepository<Article, Long>{
 		
 	
 	@Query(value = "CALL `article-id`(%?1%); ", nativeQuery = true )
-	List<HashMap<Long,Object>> selectJoinById(Long id);	
+	List<Map<Long,Object>> selectJoinById(Long id);	
 	
 }

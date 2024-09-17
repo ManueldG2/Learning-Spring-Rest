@@ -33,12 +33,13 @@ class LearnigRestApplicationTests {
         long productId = 10L;
 
         // Act
-        ResultActions result = mockMvc.perform(get("/api/article/{id}", productId));
+        ResultActions result = mockMvc.perform(get("http://localhost:8080/api/article/{id}", productId));
 
+        
         // Assert
         result.andExpect(status().isOk())
               .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-              .andExpect(jsonPath("$.id").value(20))
+              .andExpect(jsonPath("$['id']").value(20))
               .andExpect(jsonPath("$.title").value("penne"))
               .andExpect(jsonPath("$.description").value("Bic"));
     }

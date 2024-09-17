@@ -44,7 +44,6 @@ import org.supercsv.prefs.CsvPreference;
 
 @RestController
 @RequestMapping("/api/article")
-
 public class ArticleController {
 	
 	@Autowired
@@ -53,34 +52,20 @@ public class ArticleController {
 	@Autowired
 	ArticleService articleService;
 
+	
 
-	// endpoint di test
-	@GetMapping("/hello")
-	public ResponseEntity<String> hello() {
-		
-	    return new ResponseEntity<>("Hello World!", HttpStatus.OK);
-	    
-	}
-	
-	@GetMapping("/query")
-	@ResponseBody
-	public String getFoos(@RequestParam String id) {
-	    return "ID: " + id;
-	}
-	
-	
 	// lista articoli
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	@ResponseBody
-	public  Iterable getAllArticles() {
+	public ResponseEntity<Iterable> getAllArticles() {
 		
-		return articleRepository.findAll();
+		return new ResponseEntity( articleRepository.findAll(),HttpStatus.OK);
 		
 	}
 	
 	// articolo {id}
 	@GetMapping("/{id}")
-	public ResponseEntity<Article> getArticleById(@PathVariable Long id) {
+	public ResponseEntity getArticleById(@PathVariable Long id) {
 		
 		Optional<Article> article = articleRepository.findById(id);
 		
@@ -89,20 +74,20 @@ public class ArticleController {
 	
 	// articolo {id}
 		@GetMapping("/join")
-		public List<Map<Long, Object>> selectJoin() {
+		public ResponseEntity< List<Map<Long, Object>>> selectJoin() {
 			
 			List<Map<Long, Object>> article = articleRepository.selectJoin();
 			
-			return article;
+			return new ResponseEntity(article, HttpStatus.OK);		
 		}
 		
 		// articolo {id}
 		@GetMapping("/join/{id}")
-		public List<HashMap<Long, Object>> selectJoinById(@PathVariable Long id) {
-			System.out.println(id);
-			List<HashMap<Long, Object>> article = articleRepository.selectJoinById(id);
+		public ResponseEntity<List<Map<Long, Object>>> selectJoinById(@PathVariable Long id) {
+			
+			List<Map<Long, Object>> article = articleRepository.selectJoinById(id);
 					
-			return article;
+			return new ResponseEntity(article,HttpStatus.OK);
 		}
 	
 	//aggiunge Articolo
@@ -204,6 +189,23 @@ public class ArticleController {
         csvWriter.close();
     }
 	
+	
+	
+	// endpoint di test
+		@GetMapping("/hello")
+		public ResponseEntity<String> hello() {
+			
+		    return new ResponseEntity<>("Hello World!", HttpStatus.OK);
+		    
+		}
+		
+		@GetMapping("/query")
+		@ResponseBody
+		public String getFoos(@RequestParam String id) {
+		    return "ID: " + id;
+		}
+		
+		
 		
 
 }
