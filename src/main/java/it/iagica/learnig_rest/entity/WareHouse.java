@@ -38,23 +38,7 @@ public class WareHouse{
 	private Integer amount;
 	
 	private String position;
-	
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "warehouse", cascade = CascadeType.ALL)
-    private List<Article> article;
-	
-
-	public List<Article> getArticle() {
-		return article;
-	}
-
-
-
-	public void setArticle(List<Article> article) {
-		this.article = article;
-	}
-	
-	
+		
 	public Long getId() {
 		return id;
 	}

@@ -80,11 +80,11 @@ public class ArticleController {
 	
 	// articolo {id}
 	@GetMapping("/{id}")
-	public Optional<Article> getArticleById(@PathVariable Long id) {
+	public ResponseEntity<Article> getArticleById(@PathVariable Long id) {
 		
 		Optional<Article> article = articleRepository.findById(id);
 		
-		return article;
+		return new ResponseEntity(article, HttpStatus.OK);		
 	}
 	
 	// articolo {id}

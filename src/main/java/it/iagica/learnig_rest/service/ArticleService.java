@@ -129,7 +129,9 @@ public class ArticleService<K, V> {
 			
 			String codice =  (String) params.get("code");
 			
-			Article art = new Article(titolo, descrizione, caratteristiche, categoria, quantita, unita, codice, prezzo);		
+			Long warehouseId =  Long.parseLong( (String) params.get("warehouse") ) ;
+			
+			Article art = new Article(titolo, descrizione, caratteristiche, categoria, quantita, unita, codice, prezzo, warehouseId);		
 			
 			return art;
 			

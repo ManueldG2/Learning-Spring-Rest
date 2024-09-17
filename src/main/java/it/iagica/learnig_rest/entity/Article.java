@@ -28,10 +28,12 @@ public class Article{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id; 	
+	private long id;
+
+	
 	
 	public Article(String title, String description, String characteristic, Integer category, Integer quantity,
-			String unity, String code, float price) {
+			String unity, String code, float price, Long warehouseId) {
 		super();
 		this.title = title;
 		this.description = description;
@@ -41,15 +43,13 @@ public class Article{
 		this.unity = unity;
 		this.code = code;
 		this.price = price;
+		this.warehouseId = warehouseId;
 	}	
 
 	public Article() {
 		
 	}
 	
-	
-    @Column(name = "warehouse_id")    
-	private Long warehouse;
 
 	private String title;
 	
@@ -63,11 +63,11 @@ public class Article{
 	
 	private String unity;
 	
-	private String code; 
+	private String code; 	
 	
+	private float price; 	
 	
-	
-	private float price; 		
+	private Long warehouseId; 	
 	
 	public long getId() {
 		return id;
@@ -144,12 +144,12 @@ public class Article{
 	}
 
 
-	public Long getWarehouse() {
-		return warehouse;
+	public Long getWarehouseId() {
+		return warehouseId;
 	}
 
-	public void setWarehouse(Long warehouse) {
-		this.warehouse = warehouse;
+	public void setWarehouseId(Long warehouseId) {
+		this.warehouseId = warehouseId;
 	}
 
 	@Override
@@ -159,9 +159,6 @@ public class Article{
 				+ ", price=" + price + "]";
 	}
 
-
-
-	
 		
 	
 
