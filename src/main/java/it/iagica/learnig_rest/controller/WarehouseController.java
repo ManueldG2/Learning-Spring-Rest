@@ -60,7 +60,7 @@ public class WarehouseController {
 	// lista warehouse
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	@ResponseBody
-	public  List<Map<String,Object>> getAllWarehouses() {		
+	public  List<Map<Long,Object>> getAllWarehouses() {		
 		
 		//return wareHouseRepository.findAll();
 		return wareHouseRepository.selectJoin();
@@ -69,7 +69,7 @@ public class WarehouseController {
 	
 	// warehouse {id}
 	@GetMapping("/{id}")
-	public Optional<List<Map<String, Object>>> getWareHouseById(@PathVariable Long id) {		
+	public Optional<List<Map<Long, Object>>> getWareHouseById(@PathVariable Long id) {		
 		
 		//return wareHouseRepository.findById(id);
 		return Optional.of(wareHouseRepository.selectJoinById(id));

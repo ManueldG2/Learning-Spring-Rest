@@ -13,11 +13,11 @@ public interface WareHouseRepository extends JpaRepository<WareHouse, Long>{
 	
 	
 	@Query(value = " CALL `warehouse-all`(); " , nativeQuery = true)
-	List<Map<String,Object>> selectJoin();
+	List<Map<Long,Object>> selectJoin();
 		
 	
 	@Query(value = "CALL `warehouse-id`(%?1%); ", nativeQuery = true )
-	List<Map<String,Object>> selectJoinById(Long id);	
+	List<Map<Long,Object>> selectJoinById(Long id);	
 	
 	
 }
