@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import it.iagica.learnig_rest.repository.WareHouseRepository;
@@ -20,6 +19,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+
+import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "article")
@@ -50,7 +52,8 @@ public class Article{
 		
 	}
 	
-
+	@NotNull
+	@Size(min=2, max=30)
 	private String title;
 	
 	private String description;

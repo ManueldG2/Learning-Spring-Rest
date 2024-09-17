@@ -91,3 +91,8 @@ eventualmente librerie per report internamente
  ho provato a usare hibernate ma ho notato che non effettua una join ma due distint select che poi unisce quindi ho preferito creare delle procedure su mysql che richiamo dal repository tramite le query native @query
 
 creare test per API
+
+imparare validation
+https://github.com/spring-guides/gs-validating-form-input/tree/main
+https://journaldev.nyc3.cdn.digitaloceanspaces.com/spring/SpringFormValidation.zip
+

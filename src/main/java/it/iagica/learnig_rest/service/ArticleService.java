@@ -129,7 +129,8 @@ public class ArticleService<K, V> {
 			
 			String codice =  (String) params.get("code");
 			
-			Long warehouseId =  Long.parseLong( (String) params.get("warehouse") ) ;
+			String warehouse =   (!("").equals(params.get("warehouse"))) ? (String) params.get("warehouse") : "0";
+			Long warehouseId =  Long.parseLong( warehouse ) ;
 			
 			Article art = new Article(titolo, descrizione, caratteristiche, categoria, quantita, unita, codice, prezzo, warehouseId);		
 			
@@ -137,11 +138,6 @@ public class ArticleService<K, V> {
 			
 		}
 		
-		
-		
-	
-
-
 
 }
 
