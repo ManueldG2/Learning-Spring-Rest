@@ -20,6 +20,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "category")
@@ -42,6 +44,8 @@ public class Category{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id; 	
 	
+	@NotNull
+	@Size(min=2, max=255)
 	private String name;
 
 	public long getId() {

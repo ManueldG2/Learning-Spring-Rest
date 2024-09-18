@@ -11,6 +11,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "warehouse")
@@ -35,8 +38,11 @@ public class WareHouse{
 	
 	private Long id;
 	
+	@Min(value=1, message="must be equal or greater than 1")  
 	private Integer amount;
 	
+	@NotNull
+	@Size(min=2, max=255)
 	private String position;
 		
 	public Long getId() {

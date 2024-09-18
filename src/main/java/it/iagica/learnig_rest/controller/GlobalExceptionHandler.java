@@ -20,14 +20,7 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-	//"HV000030: No validator could be found for constraint 'jakarta.validation.constraints.Size' validating type 'java.lang.Integer'. Check configuration for 'quantity'"
-	@ExceptionHandler(NumberFormatException.class)
-    public final ResponseEntity<Map<String, List<String>>> handleIntegerExceptions(RuntimeException ex) {
-        List<String> errors = Collections.singletonList(ex.getMessage());
-        return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
-    
+	    
     @ExceptionHandler(RuntimeException.class)
     public final ResponseEntity<Map<String, List<String>>> handleRuntimeExceptions(RuntimeException ex) {
         List<String> errors = Collections.singletonList(ex.getMessage());
