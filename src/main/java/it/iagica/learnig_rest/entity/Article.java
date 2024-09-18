@@ -21,6 +21,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -61,16 +63,20 @@ public class Article{
 	@Size(min=2, max = 255)
 	private String description;
 	
+	@NotNull
+	@Size(min=2, max = 255)
 	private String characteristic; 
 	
 	private Integer category; 
 	
+	@Min(value=1, message="must be equal or greater than 1")  
 	private Integer quantity;
 	
 	private String unity;
 	
 	private String code; 	
 	
+	@DecimalMin(value="00.01", message="must be greater than 0")  
 	private float price; 	
 	
 	private Long warehouseId; 	
