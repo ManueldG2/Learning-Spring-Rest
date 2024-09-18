@@ -11,12 +11,16 @@ import java.util.Objects;
 import java.util.Optional;
 
 import org.apache.commons.collections.OrderedMap;
+import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -96,10 +100,13 @@ public class ArticleController {
 	@ResponseBody
 	public ResponseEntity<Article> addArticle(@RequestParam @NonNull  Map params , HttpServletResponse response) {
 						
+		
 		Article art = articleService.toEntity(params);
-		
+			
+				
 		articleRepository.save(art);
-		
+				
+	
 		return new ResponseEntity("ok", HttpStatus.CREATED);		
 				
 	}
@@ -205,6 +212,8 @@ public class ArticleController {
 		public String getFoos(@RequestParam String id) {
 		    return "ID: " + id;
 		}
+		
+		
 		
 		
 		

@@ -53,9 +53,12 @@ public class Article{
 	}
 	
 	@NotNull
-	@Size(min=2, max=30)
+	@Size(min=2, max=255)
 	private String title;
 	
+
+	@NotNull
+	@Size(min=2, max = 255)
 	private String description;
 	
 	private String characteristic; 
