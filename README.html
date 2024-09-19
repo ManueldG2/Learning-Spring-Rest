@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Progetto Spring per gestione articoli cancelleria</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="progetto-spring-per-gestione-articoli-cancelleria">Progetto Spring per gestione articoli cancelleria</h1>
+<h3 id="tabelle-">tabelle :</h3>
+<ul>
+<li>articolo</li>
+<li>categorie</li>
+<li>magazzino (fatta warehouse)</li>
+</ul>
+<h3 id="dipendenze">dipendenze</h3>
+<ul>
+<li>spring-boot-starter-web</li>
+<li>mysql-connector-j</li>
+<li>spring-boot-starter-data-jpa</li>
+<li>spring-boot-starter-tomcat</li>
+<li>spring-boot-starter-test</li>
+<li>super-csv</li>
+<li>opencsv</li>
+<li>spring-boot-starter-tomcat</li>
+<li>spring-boot-starter-validation</li>
+</ul>
+<h2 id="endpoint-article">Endpoint article:</h2>
+<ul>
+<li>
+<p>localhost:8080/api/article/csv (get): crea un'esport in csv</p>
+</li>
+<li>
+<p>localhost:8080/api/article (get): stampa a video lista articoli in json</p>
+</li>
+<li>
+<p>localhost:8080/api/article/{id} (get): stampa a video l'articolo con id</p>
+</li>
+<li>
+<p>localhost:8080/api/article/join (get): stampa a video lista articoli in json facendo una join sia con warehouse che con category</p>
+</li>
+<li>
+<p>localhost:8080/api/article/join/{id} (get): stampa a video articolo di id in json facendo una join sia con warehouse che con category</p>
+</li>
+<li>
+<p>aggiunge articolo:</p>
+<ul>
+<li>(post) con query string:  localhost:8080/api/article/add?title={string}&amp;description={string}&amp;characteristic={string}&amp;category={string}&amp;quantity={string}&amp;unity={string}&amp;code={string}&amp;price={string}</li>
+<li>(post) con json: localhost:8080/api/article passare oggetto Article</li>
+</ul>
+</li>
+<li>
+<p>aggiorna articolo:</p>
+<ul>
+<li>(put) aggiornamento con json: localhost:8080/api/article/{id}</li>
+<li>(post) aggiornamento query string: localhost:8080/api/article/update?title={string}&amp;description={string}&amp;characteristic={string}&amp;category={string}&amp;quantity={string}&amp;unity={string}&amp;code={string}&amp;price={string}</li>
+</ul>
+</li>
+<li>
+<p>localhost:8080/api/article/{id} (delete) -&gt; cancella elemento di id</p>
+</li>
+</ul>
+<h2 id="endpoint-warehouse">Endpoint: warehouse:</h2>
+<ul>
+<li>
+<p>localhost:8080/api/warehouse (get): stampa a video lista warehouse usando join article e category restituisce dati in json</p>
+</li>
+<li>
+<p>localhost:8080/api/warehouse/{id} (get): stampa a video il warehouse con id  usando join article e category restituisce dati in json</p>
+</li>
+<li>
+<p>aggiunge warehouse:</p>
+<ul>
+<li>
+<p>(post) aggiunge articolo tramite invio dati in json: localhost:8080/api/warehouse</p>
+</li>
+<li>
+<p>(post) aggiunge articolo tramite query string per usarlo con form html: localhost:8080/api/warehouse/add?title={string}&amp;description={string}&amp;characteristic={string}&amp;category={string}&amp;quantity={string}&amp;unity={string}&amp;code={string}&amp;price={string}</p>
+</li>
+</ul>
+</li>
+<li>
+<p>aggiorna Warehouse:</p>
+<ul>
+<li>
+<p>localhost:8080/api/warehouse/{id} (put): aggiornamento con json</p>
+</li>
+<li>
+<p>(post) aggiornamento query string uso query string: localhost:8080/api/warehouse/update?title={string}&amp;description={string}&amp;characteristic={string}&amp;category={string}&amp;quantity={string}&amp;unity={string}&amp;code={string}&amp;price={string}</p>
+</li>
+</ul>
+</li>
+<li>
+<p>localhost:8080/api/{id} (delete) -&gt; cancella elemento di id</p>
+</li>
+<li>
+<p>localhost:8080/api/warehouse/csv (get): crea un'esport in csv dei warehouse</p>
+</li>
+</ul>
+<h2 id="endpoint-di-test">Endpoint di test</h2>
+<ul>
+<li>
+<p>localhost:8080/api/article/hello (get): restiruisce Hello World con http http status ok</p>
+</li>
+<li>
+<p>localhost:8080/api/article/query?id={string} (get): restiruisce la stampa del valore id</p>
+</li>
+</ul>
+<h3 id="descrizione">Descrizione</h3>
+<p>Il progetto gestisce un magazzino di articoli di cancelleria: posso inserire i vari articoli scegliere dove vengono inseriti nel magazzino e la categoria dell'articolo.
+Ho realizzato entities articolo, warehouse e category con relative CRUD nei vari controller
+ho provato a usare dei metodi di  hibernate ma ho notato che non effettua una join ma due distint select che poi unisce quindi ho preferito creare delle procedure su mysql che richiamo dal repository tramite le query native @query all'interno di delle repository.
+Ho realizzato una validation per ora piuttosto semplice per evitare di inserire valori vuoti tramite GlobalExceptionHandler mi aiuta a restituire il messaggio d'errore nel caso di valori fuori dalle regole stabilite all'interno delle entities</p>
+<h3 id="documentazione-consultata">documentazione consultata</h3>
+<ul>
+<li><a href="https://stackoverflow.com/questions/48508285/how-to-handle-internal-server-error-500-on-spring-rest-api">https://stackoverflow.com/questions/48508285/how-to-handle-internal-server-error-500-on-spring-rest-api</a></li>
+<li><a href="https://salithachathuranga94.medium.com/validation-and-exception-handling-in-spring-boot-51597b580ffd">https://salithachathuranga94.medium.com/validation-and-exception-handling-in-spring-boot-51597b580ffd</a></li>
+<li><a href="https://github.com/spring-guides/gs-validating-form-input/tree/main">https://github.com/spring-guides/gs-validating-form-input/tree/main</a></li>
+<li><a href="https://journaldev.nyc3.cdn.digitaloceanspaces.com/spring/SpringFormValidation.zip">https://journaldev.nyc3.cdn.digitaloceanspaces.com/spring/SpringFormValidation.zip</a></li>
+</ul>
+<h4 id="da-fare">da fare</h4>
+<ul>
+<li>creare test per API</li>
+<li>pdf</li>
+<li>strutturare il json per ora visualizza un'array di dati senza aggregazione in base al tipo di dati</li>
+<li>potrebbe essere utile fare un'autenticazione</li>
+</ul>
+
+            
+            
+        </body>
+        </html>

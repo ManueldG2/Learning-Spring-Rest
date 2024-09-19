@@ -81,13 +81,22 @@ public class WarehouseController {
 	@ResponseBody
 	public ResponseEntity<WareHouse> addWareHouse(@RequestParam Map params , HttpServletResponse response) {
 						
-		WareHouse wareHouse = wareHouseService.toEntity(params);
+		WareHouse wareHouse = wareHouseService.toEntity(params);		
 		
-		wareHouseRepository.save(wareHouse);
-		
-		return new ResponseEntity("ok", HttpStatus.CREATED);		
+		return new ResponseEntity(wareHouseRepository.save(wareHouse), HttpStatus.CREATED);		
 				
 	}
+	
+	//aggiunge warehouse
+		@RequestMapping(value = "", method = RequestMethod.POST)
+		@ResponseBody
+		public ResponseEntity<WareHouse> addWareHouse(@RequestBody WareHouse wareHouse , HttpServletResponse response) {
+							
+			wareHouseRepository.save(wareHouse);
+			
+			return new ResponseEntity(wareHouseRepository.save(wareHouse), HttpStatus.CREATED);		
+					
+		}
 	
 	//aggiornamento con query string per usare il form html
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
@@ -104,12 +113,12 @@ public class WarehouseController {
 	
 	//aggiornamento con json
 	@PutMapping("/{id}")// update
-	public ResponseEntity<WareHouse> updateWareHouse(@PathVariable Long id, @RequestBody Article articolo) {
+	public ResponseEntity<WareHouse> updateWareHouse(@PathVariable Long id, @RequestBody WareHouse wareHouse) {
 		
-		
-		System.out.println(articolo.toString() + "" +  id);
 		
 		WareHouse depDB = wareHouseRepository.findById(id).get();
+		
+		System.out.println(wareHouse.toString());
         
          wareHouseRepository.save(depDB);
          
@@ -118,7 +127,7 @@ public class WarehouseController {
 	}
 	
 	// cancellazione con json
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public ResponseEntity deleteWareHouse(@PathVariable Long id , HttpServletResponse response) {
 						

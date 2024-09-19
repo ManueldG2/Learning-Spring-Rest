@@ -96,20 +96,33 @@ public class ArticleController {
 		}
 	
 	//aggiunge Articolo
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	@RequestMapping(value = "", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<Article> addArticle(@RequestParam @NonNull  Map params , HttpServletResponse response) {
-						
-		
-		Article art = articleService.toEntity(params);
-			
-				
-		articleRepository.save(art);
+	public ResponseEntity<Article> addArticle(@RequestBody @NonNull Article articolo , HttpServletResponse response) {
+										
+		articleRepository.save(articolo);
 				
 	
 		return new ResponseEntity("ok", HttpStatus.CREATED);		
 				
 	}
+	
+	//aggiunge Articolo
+		@RequestMapping(value = "/add", method = RequestMethod.POST)
+		@ResponseBody
+		public ResponseEntity<Article> addArticle(@RequestParam @NonNull  Map params , HttpServletResponse response) {
+							
+			
+			Article art = articleService.toEntity(params);
+				
+					
+			articleRepository.save(art);
+					
+		
+			return new ResponseEntity("ok", HttpStatus.CREATED);		
+					
+		}
+		
 	
 	//aggiornamento con query string per usare il form html
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
@@ -155,7 +168,7 @@ public class ArticleController {
 	}
 	
 	// cancellazione con json
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public ResponseEntity deleteProduct(@PathVariable Long id , HttpServletResponse response) {
 						
