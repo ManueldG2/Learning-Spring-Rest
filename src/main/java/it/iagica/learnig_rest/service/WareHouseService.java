@@ -2,7 +2,6 @@ package it.iagica.learnig_rest.service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -101,7 +100,7 @@ public class WareHouseService<K, V> {
 		}
 		
 		//metodo per convertire oggetto Map in WareHouse
-		public WareHouse toEntity(Map<K,V> params) {				
+		public WareHouse toEntity(Map<?, ?> params) {				
 			
 			Integer amount = (Integer) params.get("amount");
 			String position = (String) params.get("position");

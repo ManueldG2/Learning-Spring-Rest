@@ -1,19 +1,15 @@
 package it.iagica.learnig_rest.controller;
 
-import java.io.FileWriter;
+
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Objects;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,19 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import it.iagica.learnig_rest.repository.ArticleRepository;
 import it.iagica.learnig_rest.repository.WareHouseRepository;
-
-
+import it.iagica.learnig_rest.dto.WareHouseDto;
 import it.iagica.learnig_rest.entity.Article;
 import it.iagica.learnig_rest.entity.WareHouse;
-import it.iagica.learnig_rest.service.ArticleService;
 import it.iagica.learnig_rest.service.WareHouseService;
-import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 
@@ -54,13 +44,17 @@ public class WarehouseController {
 	WareHouseRepository wareHouseRepository;
 	
 	@Autowired
-	WareHouseService wareHouseService;
+	WareHouseService<?, ?> wareHouseService;
+	
+	@Autowired
+	ModelMapper modelMapper;
+	
 
 	
 	// lista warehouse
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	@ResponseBody
-	public  List<Map<Long,Object>> getAllWarehouses() {		
+	public  List<Map<Long, Object>> getAllWarehouses() {		
 		
 		//return wareHouseRepository.findAll();
 		return wareHouseRepository.selectJoin();
@@ -71,7 +65,21 @@ public class WarehouseController {
 	@GetMapping("/{id}")
 	public Optional<List<Map<Long, Object>>> getWareHouseById(@PathVariable Long id) {		
 		
-		//return wareHouseRepository.findById(id);
+		//return wareHouseRepository.findById(id);		
+		
+		List<Map<Long, Object>> wh = wareHouseRepository.selectJoinById(id);
+		
+		Map<Long, Object> elem  = wh.get(0); //so che ho solo un warehouse 
+		
+		Article ar = new Article("test","test","test",2,10,"px","xxx",0.1F,2L);
+		
+			
+		for( Map.Entry<Long, Object> el : elem.entrySet())	{
+			
+			System.out.println(el.getKey() + " " + el.getValue());
+			
+		}
+		
 		return Optional.of(wareHouseRepository.selectJoinById(id));
 		
 	}
@@ -79,11 +87,11 @@ public class WarehouseController {
 	//aggiunge warehouse
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<WareHouse> addWareHouse(@RequestParam Map params , HttpServletResponse response) {
+	public ResponseEntity<WareHouse> addWareHouse(@RequestParam Map<?, ?> params , HttpServletResponse response) {
 						
 		WareHouse wareHouse = wareHouseService.toEntity(params);		
 		
-		return new ResponseEntity(wareHouseRepository.save(wareHouse), HttpStatus.CREATED);		
+		return new ResponseEntity<WareHouse>(wareHouseRepository.save(wareHouse), HttpStatus.CREATED);		
 				
 	}
 	
@@ -94,20 +102,20 @@ public class WarehouseController {
 							
 			wareHouseRepository.save(wareHouse);
 			
-			return new ResponseEntity(wareHouseRepository.save(wareHouse), HttpStatus.CREATED);		
+			return new ResponseEntity<WareHouse>(wareHouseRepository.save(wareHouse), HttpStatus.CREATED);		
 					
 		}
 	
 	//aggiornamento con query string per usare il form html
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<WareHouse> updateWareHouse(@RequestParam Map params, HttpServletResponse response) {
+	public ResponseEntity<WareHouse> updateWareHouse(@RequestParam Map<?, ?> params, HttpServletResponse response) {
 						
 		WareHouse wh = wareHouseService.toEntity(params);
 		
 		Long id = ( Long.parseLong((String) params.get("id")) );		
 		
-		return new ResponseEntity( wareHouseService.updateWareHouse(wh, id), HttpStatus.OK);		
+		return new ResponseEntity<WareHouse>( wareHouseService.updateWareHouse(wh, id), HttpStatus.OK);		
 				
 	}
 	
@@ -129,11 +137,11 @@ public class WarehouseController {
 	// cancellazione con json
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public ResponseEntity deleteWareHouse(@PathVariable Long id , HttpServletResponse response) {
+	public ResponseEntity<String> deleteWareHouse(@PathVariable Long id , HttpServletResponse response) {
 						
 		wareHouseService.deleteArticolo(id);
 		
-		return new ResponseEntity("ok", HttpStatus.OK);		
+		return new ResponseEntity<String>("ok", HttpStatus.OK);		
 				
 	}
 	
@@ -169,6 +177,25 @@ public class WarehouseController {
         }
         
         csvWriter.close();
+    }
+	
+	@RequestMapping(value = "/dto/{id}")
+    private WareHouseDto convertToDto(@PathVariable Long id) {
+		
+		List<Map<Long, Object>> warehouse =  wareHouseRepository.selectJoinById(id);
+		
+		    WareHouseDto wareHouseDto = modelMapper.map(warehouse, WareHouseDto.class);
+		    
+		    wareHouseDto.setPosition((String) warehouse.get(0).get("position"));
+		    
+		    System.out.println( warehouse.get(0).get("quantita_totale"));
+		    
+		    wareHouseDto.setAmount((Integer) warehouse.get(0).get("quantita_totale"));
+		    
+		    wareHouseDto.setArticle(new ArrayList(warehouse.get(0).values() )); 
+		    
+		    return wareHouseDto;
+		
     }
 	
 		
