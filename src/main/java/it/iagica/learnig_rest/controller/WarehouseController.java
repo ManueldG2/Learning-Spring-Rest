@@ -184,15 +184,15 @@ public class WarehouseController {
 		
 		List<Map<Long, Object>> warehouse =  wareHouseRepository.selectJoinById(id);
 		
-		    WareHouseDto wareHouseDto = modelMapper.map(warehouse, WareHouseDto.class);
+		WareHouseDto wareHouseDto = modelMapper.map(warehouse, WareHouseDto.class);
 		    
-		    wareHouseDto.setPosition((String) warehouse.get(0).get("position"));
+		wareHouseDto.setPosition((String) warehouse.get(0).get("position"));
 		    
-		    System.out.println( warehouse.get(0).get("quantita_totale"));
+		System.out.println( warehouse.get(0).get("quantita_totale"));
 		    
-		    wareHouseDto.setAmount((Integer) warehouse.get(0).get("quantita_totale"));
-		    
-		    wareHouseDto.setArticle(new ArrayList(warehouse.get(0).values() )); 
+		wareHouseDto.setAmount((Integer) warehouse.get(0).get("quantita_totale"));
+				    
+		wareHouseDto.setArticle( warehouse ); 
 		    
 		    return wareHouseDto;
 		
