@@ -3,6 +3,7 @@ package it.iagica.learnig_rest.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.iagica.learnig_rest.repository.WareHouseRepository;
+import it.iagica.learnig_rest.dto.ArticleDto;
 import it.iagica.learnig_rest.dto.WareHouseDto;
 import it.iagica.learnig_rest.entity.Article;
 import it.iagica.learnig_rest.entity.WareHouse;
@@ -185,16 +187,16 @@ public class WarehouseController {
 		List<Map<Long, Object>> warehouse =  wareHouseRepository.selectJoinById(id);
 		
 		WareHouseDto wareHouseDto = modelMapper.map(warehouse, WareHouseDto.class);
+		
+		wareHouseDto.setId((Long) warehouse.get(0).get("id"));
 		    
 		wareHouseDto.setPosition((String) warehouse.get(0).get("position"));
 		    
-		System.out.println( warehouse.get(0).get("quantita_totale"));
-		    
 		wareHouseDto.setAmount((Integer) warehouse.get(0).get("quantita_totale"));
 				    
-		wareHouseDto.setArticle( warehouse ); 
-		    
-		    return wareHouseDto;
+		wareHouseDto.setArticle(warehouse);
+				    
+		return wareHouseDto;
 		
     }
 	
