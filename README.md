@@ -97,6 +97,10 @@ Ho inizializzato un progetto Spring Boot su Initializr ho aggiunto le dipendenze
  - `https://salithachathuranga94.medium.com/validation-and-exception-handling-in-spring-boot-51597b580ffd`
  - `https://github.com/spring-guides/gs-validating-form-input/tree/main`
  - `https://journaldev.nyc3.cdn.digitaloceanspaces.com/spring/SpringFormValidation.zip`
+ 
+### strumenti utili
+ - https://purecode.ai
+ - https://mui.com/
 
 
 #### in esecuzione 

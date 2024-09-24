@@ -118,13 +118,17 @@ public class WarehouseController {
 	//aggiornamento con json
 	@PutMapping("/{id}")// update
 	public ResponseEntity<WareHouse> updateWareHouse(@PathVariable Long id, @RequestBody WareHouse wareHouse) {
-		
-		
+				
 		WareHouse depDB = wareHouseRepository.findById(id).get();
 		
-		System.out.println(wareHouse.toString());
+		wareHouse.setId(id);
+		
+		System.out.println(depDB.toString());
         
-         wareHouseRepository.save(depDB);
+		depDB.setAmount(wareHouse.getAmount());
+		depDB.setPosition(wareHouse.getPosition());
+		
+        wareHouseRepository.save(depDB);
          
          return new ResponseEntity<WareHouse>(wareHouseRepository.save(depDB), HttpStatus.OK);	
 		
