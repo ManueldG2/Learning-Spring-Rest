@@ -9,12 +9,12 @@ per installare il progetto puoi clonarlo da https://github.com/ManueldG/learnig-
 
 
 
-### tabelle :
+### tabelle:
    - articolo
    - categorie
    - magazzino (fatta warehouse)
    
-### dipendenze 
+### dipendenze:
 		
 - spring-boot-starter-web
 - mysql-connector-j
@@ -25,59 +25,61 @@ per installare il progetto puoi clonarlo da https://github.com/ManueldG/learnig-
 - opencsv
 - spring-boot-starter-tomcat
 - spring-boot-starter-validation
+- model mapper
 		
 
- ## Endpoint article: 
-   - localhost:8080/api/article/csv (get): crea un'esport in csv
-   
-   - localhost:8080/api/article (get): stampa a video lista articoli in json 
-   
-   - localhost:8080/api/article/{id} (get): stampa a video l'articolo con id 
+### Endpoint article: 
 
-   - localhost:8080/api/article/join (get): stampa a video lista articoli in json facendo una join sia con warehouse che con category
+   - `localhost:8080/api/article/csv` (get): crea un'esport in csv
    
-   - localhost:8080/api/article/join/{id} (get): stampa a video articolo di id in json facendo una join sia con warehouse che con category 
+   - `localhost:8080/api/article` (get): stampa a video lista articoli in json 
+   
+   - `localhost:8080/api/article/{id}` (get): stampa a video l'articolo con id 
+
+   - `localhost:8080/api/article/join` (get): stampa a video lista articoli in json facendo una join sia con warehouse che con category
+   
+   - `localhost:8080/api/article/join/{id}` (get): stampa a video articolo di id in json facendo una join sia con warehouse che con category 
    
    - aggiunge articolo:
-     - (post) con query string:  localhost:8080/api/article/add?title={string}&description={string}&characteristic={string}&category={string}&quantity={string}&unity={string}&code={string}&price={string}
-     - (post) con json: localhost:8080/api/article passare oggetto Article
+     - (post) con query string:  `localhost:8080/api/article/add?title={string}&description={string}&characteristic={string}&category={string}&quantity={string}&unity={string}&code={string}&price={string}`
+     - (post) con json: `localhost:8080/api/article` passare oggetto Article
 
    - aggiorna articolo:
-     - (put) aggiornamento con json: localhost:8080/api/article/{id} 
-     - (post) aggiornamento query string: localhost:8080/api/article/update?title={string}&description={string}&characteristic={string}&category={string}&quantity={string}&unity={string}&code={string}&price={string} 
+     - (put) aggiornamento con json: `localhost:8080/api/article/{id}` 
+     - (post) aggiornamento query string: `localhost:8080/api/article/update?title={string}&description={string}&characteristic={string}&category={string}&quantity={string}&unity={string}&code={string}&price={string}`
    
-   - localhost:8080/api/article/{id} (delete) -> cancella elemento di id
+   - `localhost:8080/api/article/{id}` (delete) -> cancella elemento di id
 
 
 
-  ## Endpoint: warehouse:
+### Endpoint warehouse:
    
 
-   - localhost:8080/api/warehouse (get): stampa a video lista warehouse usando join article e category restituisce dati in json
+   - `localhost:8080/api/warehouse` (get): stampa a video lista warehouse usando join article e category restituisce dati in json
 
-   - localhost:8080/api/warehouse/{id} (get): stampa a video il warehouse con id  usando join article e category restituisce dati in json
+   - `localhost:8080/api/warehouse/{id}` (get): stampa a video il warehouse con id  usando join article e category restituisce dati in json
 
 
    - aggiunge warehouse:
 
-     - (post) aggiunge articolo tramite invio dati in json: localhost:8080/api/warehouse
+     - (post) aggiunge articolo tramite invio dati in json: `localhost:8080/api/warehouse`
 
-     - (post) aggiunge articolo tramite query string per usarlo con form html: localhost:8080/api/warehouse/add?title={string}&description={string}&characteristic={string}&category={string}&quantity={string}&unity={string}&code={string}&price={string}
+     - (post) aggiunge articolo tramite query string per usarlo con form html: `localhost:8080/api/warehouse/add?title={string}&description={string}&characteristic={string}&category={string}&quantity={string}&unity={string}&code={string}&price={string}`
 
    - aggiorna Warehouse:
-     - localhost:8080/api/warehouse/{id} (put): aggiornamento con json
+     - `localhost:8080/api/warehouse/{id}` (put): aggiornamento con json
 
-     -  (post) aggiornamento query string uso query string: localhost:8080/api/warehouse/update?title={string}&description={string}&characteristic={string}&category={string}&quantity={string}&unity={string}&code={string}&price={string}
+     -  (post) aggiornamento query string uso query string: `localhost:8080/api/warehouse/update?title={string}&description={string}&characteristic={string}&category={string}&quantity={string}&unity={string}&code={string}&price={string}`
 
    
-   - localhost:8080/api/{id} (delete) -> cancella elemento di id
+   - `localhost:8080/api/{id}` (delete) -> cancella elemento di id
 
-   - localhost:8080/api/warehouse/csv (get): crea un'esport in csv dei warehouse
+   - `localhost:8080/api/warehouse/csv` (get): crea un'esport in csv dei warehouse
 
 ## Endpoint di test 
-  - localhost:8080/api/article/hello (get): restiruisce Hello World con http http status ok
+  - `localhost:8080/api/article/hello` (get): restiruisce Hello World con http http status ok
 
-  - localhost:8080/api/article/query?id={string} (get): restiruisce la stampa del valore id
+  - `localhost:8080/api/article/query?id={string}` (get): restiruisce la stampa del valore id
 
 ### Procedimento
 
@@ -91,15 +93,18 @@ Ho inizializzato un progetto Spring Boot su Initializr ho aggiunto le dipendenze
 
 
 ### documentazione consultata
- - https://stackoverflow.com/questions/48508285/how-to-handle-internal-server-error-500-on-spring-rest-api
- - https://salithachathuranga94.medium.com/validation-and-exception-handling-in-spring-boot-51597b580ffd
- - https://github.com/spring-guides/gs-validating-form-input/tree/main
- - https://journaldev.nyc3.cdn.digitaloceanspaces.com/spring/SpringFormValidation.zip
+ - `https://stackoverflow.com/questions/48508285/how-to-handle-internal-server-error-500-on-spring-rest-api`
+ - `https://salithachathuranga94.medium.com/validation-and-exception-handling-in-spring-boot-51597b580ffd`
+ - `https://github.com/spring-guides/gs-validating-form-input/tree/main`
+ - `https://journaldev.nyc3.cdn.digitaloceanspaces.com/spring/SpringFormValidation.zip`
 
+
+#### in esecuzione 
+ - creare test per API iniziato  
+ - strutturare il json per ora visualizza un'array di dati senza aggregazione in base al tipo di dati ho implementato entityDto per warehouse la situazione è migliorata passo a fare gli article
+ 
 #### da fare
- - creare test per API 
  - pdf
- - strutturare il json per ora visualizza un'array di dati senza aggregazione in base al tipo di dati
  - potrebbe essere utile fare un'autenticazione 
 
 

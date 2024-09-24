@@ -51,8 +51,6 @@ public class WarehouseController {
 	@Autowired
 	ModelMapper modelMapper;
 	
-
-	
 	// lista warehouse
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	@ResponseBody
@@ -63,28 +61,24 @@ public class WarehouseController {
 		
 	}
 	
-	// warehouse {id}
-	@GetMapping("/{id}")
-	public Optional<List<Map<Long, Object>>> getWareHouseById(@PathVariable Long id) {		
+	@RequestMapping(value = "/{id}")
+    private WareHouseDto convertToDto(@PathVariable Long id) {
 		
-		//return wareHouseRepository.findById(id);		
+		List<Map<Long, Object>> warehouse =  wareHouseRepository.selectJoinById(id);
 		
-		List<Map<Long, Object>> wh = wareHouseRepository.selectJoinById(id);
+		WareHouseDto wareHouseDto = modelMapper.map(warehouse, WareHouseDto.class);
 		
-		Map<Long, Object> elem  = wh.get(0); //so che ho solo un warehouse 
+		wareHouseDto.setId((Long) warehouse.get(0).get("id"));
+		    
+		wareHouseDto.setPosition((String) warehouse.get(0).get("position"));
+		    
+		wareHouseDto.setAmount((Integer) warehouse.get(0).get("quantita_totale"));
+				    
+		wareHouseDto.setArticle(warehouse);
+				    
+		return wareHouseDto;
 		
-		Article ar = new Article("test","test","test",2,10,"px","xxx",0.1F,2L);
-		
-			
-		for( Map.Entry<Long, Object> el : elem.entrySet())	{
-			
-			System.out.println(el.getKey() + " " + el.getValue());
-			
-		}
-		
-		return Optional.of(wareHouseRepository.selectJoinById(id));
-		
-	}
+    }
 	
 	//aggiunge warehouse
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -181,25 +175,29 @@ public class WarehouseController {
         csvWriter.close();
     }
 	
-	@RequestMapping(value = "/dto/{id}")
-    private WareHouseDto convertToDto(@PathVariable Long id) {
-		
-		List<Map<Long, Object>> warehouse =  wareHouseRepository.selectJoinById(id);
-		
-		WareHouseDto wareHouseDto = modelMapper.map(warehouse, WareHouseDto.class);
-		
-		wareHouseDto.setId((Long) warehouse.get(0).get("id"));
-		    
-		wareHouseDto.setPosition((String) warehouse.get(0).get("position"));
-		    
-		wareHouseDto.setAmount((Integer) warehouse.get(0).get("quantita_totale"));
-				    
-		wareHouseDto.setArticle(warehouse);
-				    
-		return wareHouseDto;
-		
-    }
 	
+	// warehouse {id}
+		@GetMapping("join/{id}")
+		public Optional<List<Map<Long, Object>>> getWareHouseById(@PathVariable Long id) {		
+			
+			//return wareHouseRepository.findById(id);		
+			
+			List<Map<Long, Object>> wh = wareHouseRepository.selectJoinById(id);
+			
+			Map<Long, Object> elem  = wh.get(0); //so che ho solo un warehouse 
+			
+			Article ar = new Article("test","test","test",2,10,"px","xxx",0.1F,2L);
+			
+				
+			for( Map.Entry<Long, Object> el : elem.entrySet())	{
+				
+				System.out.println(el.getKey() + " " + el.getValue());
+				
+			}
+			
+			return Optional.of(wareHouseRepository.selectJoinById(id));
+			
+		}
 		
 
 }

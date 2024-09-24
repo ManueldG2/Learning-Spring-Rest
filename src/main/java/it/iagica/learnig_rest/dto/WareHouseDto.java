@@ -46,8 +46,7 @@ public class WareHouseDto {
 			article.setPrice( (Float) elem.get("price") );
 			article.setQuantity((Integer) elem.get("quantity") );			 
 			
-			newMap.put( (Long) elem.get("art_id"), article);
-			
+			newMap.put( (Long) elem.get("art_id"), article);			
 			
 			newList.add(0,newMap);
 			

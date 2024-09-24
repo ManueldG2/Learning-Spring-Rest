@@ -10,6 +10,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import it.iagica.learnig_rest.LearnigRestApplication;
+import it.iagica.learnig_rest.repository.ArticleRepository;
+import it.iagica.learnig_rest.repository.CategoryRepository;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -24,6 +26,9 @@ class LearnigRestApplicationTests {
 	
 	@Autowired
 	private MockMvc mockMvc;
+	
+	@Autowired
+	ArticleRepository articleRepository;	
 
 	@Test
 	void contextLoads() {
@@ -32,8 +37,9 @@ class LearnigRestApplicationTests {
 
     @Test
     public void testGetArticleById() throws Exception {
+    	    	
         // Arrange
-        long productId = 19L;
+        long productId = articleRepository.selectMax();
 
         // Act
         ResultActions result = mockMvc.perform(get("http://localhost:8080/api/article/{id}", productId));
@@ -50,6 +56,7 @@ class LearnigRestApplicationTests {
     // inserimento
     @Test
     public void testCreateAndDeleteWarehouse() throws Exception {
+    	
         // Arrange
         String articleJson = "{\"amount\":2,\"position\":\"prova\"}";
 
@@ -77,7 +84,6 @@ class LearnigRestApplicationTests {
     }   
 
 /*
-    @Test
     public void testGetUserById() throws Exception {
         // Arrange
         long productId = 10L;
@@ -91,9 +97,8 @@ class LearnigRestApplicationTests {
               .andExpect(jsonPath("$.id").value(productId))
               .andExpect(jsonPath("$.title").value("test"))
               .andExpect(jsonPath("$.description").value("prova"));
-    }
+    }*/
     
-    */
     
     
     

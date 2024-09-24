@@ -23,4 +23,7 @@ public interface ArticleRepository extends JpaRepository<Article, Long>{
 	@Query(value = "CALL `article-id`(%?1%); ", nativeQuery = true )
 	List<Map<Long,Object>> selectJoinById(Long id);	
 	
+	@Query(value = "SELECT MAX(id) FROM article;", nativeQuery = true )
+	Long selectMax();	
+	
 }

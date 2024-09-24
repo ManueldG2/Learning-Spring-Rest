@@ -59,26 +59,9 @@ public class ArticleController {
 
 	
 
-	// lista articoli
-	@RequestMapping(value = "", method = RequestMethod.GET)
-	@ResponseBody
-	public ResponseEntity<Iterable> getAllArticles() {
-		
-		return new ResponseEntity( articleRepository.findAll(),HttpStatus.OK);
-		
-	}
 	
 	// articolo {id}
-	@GetMapping("/{id}")
-	public ResponseEntity getArticleById(@PathVariable Long id) {
-		
-		Optional<Article> article = articleRepository.findById(id);
-		
-		return new ResponseEntity(article, HttpStatus.OK);		
-	}
-	
-	// articolo {id}
-		@GetMapping("/join")
+		@GetMapping("")
 		public ResponseEntity< List<Map<Long, Object>>> selectJoin() {
 			
 			List<Map<Long, Object>> article = articleRepository.selectJoin();
@@ -87,7 +70,7 @@ public class ArticleController {
 		}
 		
 		// articolo {id}
-		@GetMapping("/join/{id}")
+		@GetMapping("/{id}")
 		public ResponseEntity<List<Map<Long, Object>>> selectJoinById(@PathVariable Long id) {
 			
 			List<Map<Long, Object>> article = articleRepository.selectJoinById(id);
@@ -226,9 +209,24 @@ public class ArticleController {
 		    return "ID: " + id;
 		}
 		
+
+		// lista articoli
+		@RequestMapping(value = "/all", method = RequestMethod.GET)
+		@ResponseBody
+		public ResponseEntity<Iterable> getAllArticles() {
+			
+			return new ResponseEntity( articleRepository.findAll(),HttpStatus.OK);
+			
+		}
 		
-		
-		
+		// articolo {id}
+		@GetMapping("/all/{id}")
+		public ResponseEntity getArticleById(@PathVariable Long id) {
+			
+			Optional<Article> article = articleRepository.findById(id);
+			
+			return new ResponseEntity(article, HttpStatus.OK);		
+		}	
 		
 
 }

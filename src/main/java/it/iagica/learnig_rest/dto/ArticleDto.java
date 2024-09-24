@@ -80,6 +80,9 @@ public class ArticleDto {
 		
 		this.quantity= quantity;
 	}
+	public Integer getQuantity() {
+		return quantity;
+	}
 	
 
 }
