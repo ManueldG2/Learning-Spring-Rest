@@ -19,14 +19,20 @@ public class GlobalExceptionHandler {
 	    
     @ExceptionHandler(RuntimeException.class)
     public final ResponseEntity<Map<String, List<String>>> handleRuntimeExceptions(RuntimeException ex) {
-        List<String> errors = Collections.singletonList(ex.getMessage());
+    	
+        List<String> errors = Collections.singletonList(ex.toString());
+        System.out.println(ex.getLocalizedMessage());
         return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+        
     }
 
     private Map<String, List<String>> getErrorsMap(List<String> errors) {
+    	
         Map<String, List<String>> errorResponse = new HashMap<>();
         errorResponse.put("errors", errors);
+       
         return errorResponse;
+        
     }
 
    

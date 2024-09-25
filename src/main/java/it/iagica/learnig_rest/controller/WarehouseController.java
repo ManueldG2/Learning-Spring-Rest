@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
@@ -73,8 +74,10 @@ public class WarehouseController {
 		wareHouseDto.setPosition((String) warehouse.get(0).get("position"));
 		    
 		wareHouseDto.setAmount((Integer) warehouse.get(0).get("quantita_totale"));
-				    
-		wareHouseDto.setArticle(warehouse);
+		
+		
+		if (Objects.nonNull(warehouse))		    
+			wareHouseDto.setArticle(  warehouse  );
 				    
 		return wareHouseDto;
 		
@@ -126,9 +129,7 @@ public class WarehouseController {
 		System.out.println(depDB.toString());
         
 		depDB.setAmount(wareHouse.getAmount());
-		depDB.setPosition(wareHouse.getPosition());
-		
-        wareHouseRepository.save(depDB);
+		depDB.setPosition(wareHouse.getPosition());      
          
          return new ResponseEntity<WareHouse>(wareHouseRepository.save(depDB), HttpStatus.OK);	
 		
@@ -182,12 +183,13 @@ public class WarehouseController {
 	
 	// warehouse {id}
 		@GetMapping("join/{id}")
-		public Optional<List<Map<Long, Object>>> getWareHouseById(@PathVariable Long id) {		
+		public Optional<WareHouse> getWareHouseById(@PathVariable Long id) {		
 			
-			//return wareHouseRepository.findById(id);		
+			return wareHouseRepository.findById(id);		
 			
-			List<Map<Long, Object>> wh = wareHouseRepository.selectJoinById(id);
 			
+			//List<Map<Long, Object>> wh = wareHouseRepository.selectJoinById(id);
+			/*
 			Map<Long, Object> elem  = wh.get(0); //so che ho solo un warehouse 
 			
 			Article ar = new Article("test","test","test",2,10,"px","xxx",0.1F,2L);
@@ -199,7 +201,7 @@ public class WarehouseController {
 				
 			}
 			
-			return Optional.of(wareHouseRepository.selectJoinById(id));
+			return Optional.of(wareHouseRepository.selectJoinById(id));*/
 			
 		}
 		

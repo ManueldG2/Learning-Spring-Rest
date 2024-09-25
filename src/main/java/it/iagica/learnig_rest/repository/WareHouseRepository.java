@@ -9,13 +9,16 @@ import it.iagica.learnig_rest.entity.WareHouse;
 
 public interface WareHouseRepository extends JpaRepository<WareHouse, Long>{
 	
-	
+	// correggere restituisce lista articoli
 	@Query(value = " CALL `warehouse-all`(); " , nativeQuery = true)
 	List<Map<Long,Object>> selectJoin();
 		
-	
+	// 
 	@Query(value = "CALL `warehouse-id`(%?1%); ", nativeQuery = true )
 	List<Map<Long,Object>> selectJoinById(Long id);	
 	
+
+	@Query(value = "SELECT MAX(id) FROM warehouse;", nativeQuery = true )
+	Long selectMax();	
 	
 }

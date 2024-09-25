@@ -1,5 +1,6 @@
 package it.iagica.learnig_rest;
 
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -12,6 +13,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import it.iagica.learnig_rest.LearnigRestApplication;
 import it.iagica.learnig_rest.repository.ArticleRepository;
 import it.iagica.learnig_rest.repository.CategoryRepository;
+import it.iagica.learnig_rest.repository.WareHouseRepository;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -22,94 +24,61 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class LearnigRestApplicationTests {
 	
-	private Long id ;
 	
 	@Autowired
 	private MockMvc mockMvc;
 	
 	@Autowired
-	ArticleRepository articleRepository;	
+	WareHouseRepository warehouseRepository;	
 
 	@Test
+	@Order(1)
 	void contextLoads() {
 	}
 	
-
-    @Test
-    public void testGetArticleById() throws Exception {
-    	    	
-        // Arrange
-        long productId = articleRepository.selectMax();
-        System.out.println("pId " + productId);
-
-        // Act
-        ResultActions result = mockMvc.perform(get("http://localhost:8080/api/article/{id}", productId));
-
-        // Assert
-        result.andExpect(status().isOk())
-              .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-              .andExpect(jsonPath("$[0]['id']").value(productId))
-              .andExpect(jsonPath("$[0]['title']").value("risme carta per fotocopie Buffetti Superior"))
-              .andExpect(jsonPath("$[0]['description']").value("Carta multifunzione, utilizzabile in base alle proprie necessità (stampe, fotocopie, fax,...). . Prodotta con cellulosa ECF e in conformità con la norma ISO 9706 (Long Life). Certificata PEFC™"));
-    }
-    
-    
+    /*
     // inserimento
     @Test
-    public void testCreateAndDeleteWarehouse() throws Exception {
+    @Order(2)
+    public void testCreateWarehouse() throws Exception {
     	
         // Arrange
-        String articleJson = "{\"amount\":2,\"position\":\"prova\"}";
+        String warehouseJson = "{\"amount\":2,\"position\":\"prova\"}";
 
         // Act
         ResultActions result = mockMvc.perform(post("http://localhost:8080/api/warehouse")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(articleJson));
-        
-        long productId = articleRepository.selectMax();
-
-       String out =  result.andReturn().getResponse().getContentAsString();      
+                .content(warehouseJson));
        
-       System.out.println( "id:" + out.substring(6, out.indexOf(",\"")));
-       
-       id = Long.parseLong( out.substring(6, out.indexOf(",\"") ) );
-       
-      
-        // Assert
-        //result.andExpect(status().isCreated());
-        /*
-        ResultActions resultD = mockMvc.perform(delete("/api/warehouse/{id}", productId));
-
-        // Assert
-        result.andExpect(status().is2xxSuccessful());*/
-        		
-              //se mi aspetto un certo header .andExpect(header().string("", "http://localhost/api/users/2"));
     }   
 
-/*
-    public void testGetUserById() throws Exception {
+    
+    @Test
+    @Order(3)
+    public void testGetWareHouseById() throws Exception {
+    	    	
         // Arrange
-        long productId = 10L;
+        long warehouseId = warehouseRepository.selectMax();
+        
+        System.out.println("pId " + warehouseId);
 
         // Act
-        ResultActions result = mockMvc.perform(get("/api/product/{id}", productId));
+        ResultActions result = mockMvc.perform(get("http://localhost:8080/api/warehouse/join/{id}", warehouseId));
 
         // Assert
         result.andExpect(status().isOk())
               .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-              .andExpect(jsonPath("$.id").value(productId))
-              .andExpect(jsonPath("$.title").value("test"))
-              .andExpect(jsonPath("$.description").value("prova"));
-    }*/
-    
-    
-    
+              .andExpect(jsonPath("$.id").value(warehouseId))
+              .andExpect(jsonPath("$.amount").value(2))
+              .andExpect(jsonPath("$.position").value("prova"));
+    }    
     
     @Test //aggiornamento
+    @Order(4)
     public void testUpdateWareHouse() throws Exception {
         // Arrange
-        //long id = articleRepository.selectMax();
-    	long id = 28L;
+        long id = warehouseRepository.selectMax();
+    	//long id = 28L;
         String updatedUserJson = "{\"amount\":34,\"position\":\"test\"}";
         
         // Act
@@ -123,19 +92,73 @@ class LearnigRestApplicationTests {
               .andExpect(jsonPath("$.amount").value(34))
               .andExpect(jsonPath("$.position").value("test"));
     }
-    /*
+    
     @Test //delete
+    @Order(5)
     public void testDeleteUser() throws Exception {
         // Arrange
-        long userId = 22L;
+        long userId = warehouseRepository.selectMax();
 
         // Act
-        ResultActions result = mockMvc.perform(delete("/api/product/{id}", userId));
+        ResultActions result = mockMvc.perform(delete("/api/warehouse/{id}", userId));
 
         // Assert
         result.andExpect(status().isOk());
-    }*/
+    }    */
+    
+    /***************************************************************************************************/
+    
+   
+    
+    
+    @Test    
+    public void testAllWarehouse() throws Exception {
+    	
+        // create
+        String warehouseJson = "{\"amount\":2,\"position\":\"prova\"}";
+        ResultActions result = mockMvc.perform(post("http://localhost:8080/api/warehouse")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(warehouseJson));
+       
+    
+    	    	
+        //read
+        long warehouseId = warehouseRepository.selectMax();
+        
+        System.out.println("pId " + warehouseId);
 
+        ResultActions result2 = mockMvc.perform(get("http://localhost:8080/api/warehouse/join/{id}", warehouseId));
+
+        result2.andExpect(status().isOk())
+              .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+              .andExpect(jsonPath("$.id").value(warehouseId))
+              .andExpect(jsonPath("$.amount").value(2))
+              .andExpect(jsonPath("$.position").value("prova"));
+    
+        // update
+        long id = warehouseRepository.selectMax();
+    	//long id = 28L;
+        String updatedUserJson = "{\"amount\":34,\"position\":\"test\"}";
+        
+        ResultActions result3 = mockMvc.perform(put("http://localhost:8080/api/warehouse/{id}", id)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(updatedUserJson));
+
+        result3.andExpect(status().isOk())
+              .andExpect(jsonPath("$.id").value(id))
+              .andExpect(jsonPath("$.amount").value(34))
+              .andExpect(jsonPath("$.position").value("test"));
+   
+        //delete
+        long userId = warehouseRepository.selectMax();
+
+        ResultActions result4 = mockMvc.perform(delete("/api/warehouse/{id}", userId));
+
+        result4.andExpect(status().isOk());
+        
+    }    
+    
+    
     
 
 }
