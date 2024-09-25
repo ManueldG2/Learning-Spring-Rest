@@ -30,6 +30,9 @@ class LearnigRestApplicationTests {
 	
 	@Autowired
 	WareHouseRepository warehouseRepository;	
+	
+	@Autowired
+	ArticleRepository articleRepository;	
 
 	@Test
 	@Order(1)
@@ -158,7 +161,74 @@ class LearnigRestApplicationTests {
         
     }    
     
+    @Test    
+    public void testAllArticle() throws Exception {
+    	
+        // create
+        String articleJson = "{\"title\":\"test\", "
+        		+ "\"description\":\"test\", "
+        		+ "\"characteristic\":\"test\", "
+        		+ "\"category\":4,"
+        		+ "\"quantity\":10,"
+        		+ " \"unity\":\"Pz\","
+        		+ " \"code\":\"test\","
+        		+ "\"price\":23,"
+        		+ "\"warehouse_id\":2}";
+        
+        System.out.println(articleJson);
+        
+        ResultActions result5 = mockMvc.perform(post("http://localhost:8080/api/article")
+                									.contentType(MediaType.APPLICATION_JSON)
+                									.content(articleJson));
+       
+    
+    	    	
+        //read
+        long articleId = articleRepository.selectMax();
+        
+        System.out.println("aId " + articleId);
+
+        ResultActions result6 = mockMvc.perform(get("http://localhost:8080/api/article/{id}", articleId));
+        
+        System.out.println("article id" + articleId);
+        
+        result6.andExpect(status().isOk())
+              .andExpect(content().contentType(MediaType.APPLICATION_JSON))             
+              .andExpect(jsonPath("$[0].title").value("test"))
+              .andExpect(jsonPath("$[0].description").value("test"));
+    
+        // update
+        long id = articleRepository.selectMax();
+    	//long id = 28L;
+        String updatedArticleJson = "{\"title\":\"prova\", "
+        		+ "\"description\":\"prova\", "
+        		+ "\"characteristic\":\"prova\", "
+        		+ "\"category\":4,"
+        		+ "\"quantity\":10,"
+        		+ " \"unity\":\"Pz\","
+        		+ " \"code\":\"xxxx\","
+        		+ "\"price\":23,"
+        		+ "\"warehouse_id\":2}";
+        
+        ResultActions result7 = mockMvc.perform(put("http://localhost:8080/api/article/{id}", id)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(updatedArticleJson));
+
+        result7.andExpect(status().isOk())             
+              .andExpect(jsonPath("$.title").value("prova"));
+   /*
+        //delete
+        long userId = warehouseRepository.selectMax();
+
+        ResultActions result4 = mockMvc.perform(delete("/api/warehouse/{id}", userId));
+
+        result4.andExpect(status().isOk());*/
+        
+    }    
+    
     
     
 
 }
+
+// "{\"title\":\"prova\", \"description\":\"prova\", \"characteristic\":\"prova\", \"category\":4, \"quantity\":10, \"unity\":\"Pz\",  \"code\":\"xxxx\", \"price\":23, \"warehouse_id\":2}";

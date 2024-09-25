@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Map.Entry;
 import java.util.Set;
 
@@ -43,17 +44,26 @@ public class WareHouseDto {
 			article.setDescription( (String) elem.get("description"));
 			article.setUnity((String) elem.get("unity"));
 			article.setTitle((String) elem.get("title"));
-			article.setPrice( (Float) elem.get("price") );
-			article.setQuantity((Integer) elem.get("quantity") );			 
+			
+			if(Objects.nonNull( (Float) elem.get("price") ))	
+				article.setPrice( (Float) elem.get("price") );
+			else
+				article.setPrice( (Float) 0F );
+			
+			if(Objects.nonNull( (Integer) elem.get("quantity") ))
+				article.setQuantity((Integer) elem.get("quantity") );			 
+			else
+				article.setPrice( (Integer) 0 );
+			
 			
 			newMap.put( (Long) elem.get("art_id"), article);			
 			
 			newList.add(0,newMap);
 			
 		}		
-		System.out.println(newList.get(1));
+		//System.out.println(newList.get(1));
 		this.article =  newList;
-		//this.article = warehouse;
+		
 		
 	}
 

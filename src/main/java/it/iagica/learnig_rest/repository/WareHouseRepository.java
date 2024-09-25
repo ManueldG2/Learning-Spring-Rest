@@ -10,7 +10,7 @@ import it.iagica.learnig_rest.entity.WareHouse;
 public interface WareHouseRepository extends JpaRepository<WareHouse, Long>{
 	
 	// correggere restituisce lista articoli
-	@Query(value = " CALL `warehouse-all`(); " , nativeQuery = true)
+	@Query(value = " CALL `test_warehouse-all`(); " , nativeQuery = true)
 	List<Map<Long,Object>> selectJoin();
 		
 	// 

@@ -104,7 +104,7 @@ Ho inizializzato un progetto Spring Boot su Initializr ho aggiunto le dipendenze
 
 
 #### in esecuzione 
- - creare test per API iniziato  
+ - creare test per API iniziato funziona warehouse correzione dei vari endpoint e rappresentazioni dati
  - strutturare il json per ora visualizza un'array di dati senza aggregazione in base al tipo di dati ho implementato entityDto per warehouse la situazione è migliorata passo a fare gli article
  
 #### da fare

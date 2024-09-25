@@ -82,7 +82,8 @@ public class ArticleController {
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<Article> addArticle(@RequestBody @NonNull Article articolo , HttpServletResponse response) {
-										
+								
+		
 		articleRepository.save(articolo);
 				
 	
@@ -125,7 +126,7 @@ public class ArticleController {
 	public ResponseEntity<Article> updateProduct(@PathVariable Long id, @RequestBody @NonNull Article articolo) {
 		
 		
-		System.out.println(articolo.toString() + "" +  id);
+		System.out.println("articolo - : " + articolo.toString() + "" +  id);
 		
 		Article depDB = articleRepository.findById(id).get();
 		 

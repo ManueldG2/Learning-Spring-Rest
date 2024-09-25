@@ -58,6 +58,8 @@ public class WarehouseController {
 	public  List<Map<Long, Object>> getAllWarehouses() {		
 		
 		//return wareHouseRepository.findAll();
+		
+		//modificare struttura dei dati in json per ora da errore nella validazione null exception
 		return wareHouseRepository.selectJoin();
 		
 	}
@@ -65,6 +67,7 @@ public class WarehouseController {
 	@RequestMapping(value = "/{id}")
     private WareHouseDto convertToDto(@PathVariable Long id) {
 		
+		//sembra vada bene non credo che si possa togliere i campi che danno null 
 		List<Map<Long, Object>> warehouse =  wareHouseRepository.selectJoinById(id);
 		
 		WareHouseDto wareHouseDto = modelMapper.map(warehouse, WareHouseDto.class);
@@ -76,7 +79,7 @@ public class WarehouseController {
 		wareHouseDto.setAmount((Integer) warehouse.get(0).get("quantita_totale"));
 		
 		
-		if (Objects.nonNull(warehouse))		    
+		if (Objects.nonNull(warehouse.get(0).get("title")))		    
 			wareHouseDto.setArticle(  warehouse  );
 				    
 		return wareHouseDto;
