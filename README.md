@@ -89,6 +89,14 @@ Ho realizzato una validation per ora piuttosto semplice per evitare di inserire 
 
 Ho inizializzato un progetto Spring Boot su Initializr ho aggiunto le dipendenze per usare Mysql come database e anche le librerie per i servizi REST in seguito ho aggiunto nel POM opencsv e super-csv per la gestione dell'esport in csv e spring-boot-starter-validation per le validazioni dei dati per ora non ho un vero e proprio front-end ho realizzato due pagine html per provare il funzionamento degli insert e update 
 
+#### in esecuzione 
+ - ho creato test junit per API CRUD funzionano forse da rivedere la visulizzazione dei dati che in alcuni casi ho migliorato con l'uso dei DTO
+ 
+#### da fare
+ - test categorie 
+ - pdf
+ - potrebbe essere utile fare un'autenticazione 
+
 
 
 
@@ -102,13 +110,5 @@ Ho inizializzato un progetto Spring Boot su Initializr ho aggiunto le dipendenze
  - https://purecode.ai
  - https://mui.com/
 
-
-#### in esecuzione 
- - creare test per API iniziato funziona warehouse correzione dei vari endpoint e rappresentazioni dati
- - strutturare il json per ora visualizza un'array di dati senza aggregazione in base al tipo di dati ho implementato entityDto per warehouse la situazione è migliorata passo a fare gli article
- 
-#### da fare
- - pdf
- - potrebbe essere utile fare un'autenticazione 
 
 
