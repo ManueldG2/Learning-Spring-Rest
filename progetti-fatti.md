@@ -87,8 +87,10 @@ venerdi 9-8
 		https://github.com/spring-guides/gs-validating-form-input/tree/main 
 		https://journaldev.nyc3.cdn.digitaloceanspaces.com/spring/SpringFormValidation.zip
 	24 implementato entity Dto aggiornata documentazione ho cercato di strutturare le api e iniziato i test
-
-    
+	
+	25 junit test iniziato le correzioni e formattazione output
+	
+	26 corretto database danneggiato riprendo la correzione e realizzazione test
 
 		note varie
 		Spring studiato Bean e connessione configurazione per mappare package

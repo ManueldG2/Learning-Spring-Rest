@@ -39,78 +39,7 @@ class LearnigRestApplicationTests {
 	void contextLoads() {
 	}
 	
-    /*
-    // inserimento
-    @Test
-    @Order(2)
-    public void testCreateWarehouse() throws Exception {
-    	
-        // Arrange
-        String warehouseJson = "{\"amount\":2,\"position\":\"prova\"}";
-
-        // Act
-        ResultActions result = mockMvc.perform(post("http://localhost:8080/api/warehouse")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(warehouseJson));
-       
-    }   
-
-    
-    @Test
-    @Order(3)
-    public void testGetWareHouseById() throws Exception {
-    	    	
-        // Arrange
-        long warehouseId = warehouseRepository.selectMax();
-        
-        System.out.println("pId " + warehouseId);
-
-        // Act
-        ResultActions result = mockMvc.perform(get("http://localhost:8080/api/warehouse/join/{id}", warehouseId));
-
-        // Assert
-        result.andExpect(status().isOk())
-              .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-              .andExpect(jsonPath("$.id").value(warehouseId))
-              .andExpect(jsonPath("$.amount").value(2))
-              .andExpect(jsonPath("$.position").value("prova"));
-    }    
-    
-    @Test //aggiornamento
-    @Order(4)
-    public void testUpdateWareHouse() throws Exception {
-        // Arrange
-        long id = warehouseRepository.selectMax();
-    	//long id = 28L;
-        String updatedUserJson = "{\"amount\":34,\"position\":\"test\"}";
-        
-        // Act
-        ResultActions result = mockMvc.perform(put("http://localhost:8080/api/warehouse/{id}", id)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(updatedUserJson));
-
-        // Assert
-        result.andExpect(status().isOk())
-              .andExpect(jsonPath("$.id").value(id))
-              .andExpect(jsonPath("$.amount").value(34))
-              .andExpect(jsonPath("$.position").value("test"));
-    }
-    
-    @Test //delete
-    @Order(5)
-    public void testDeleteUser() throws Exception {
-        // Arrange
-        long userId = warehouseRepository.selectMax();
-
-        // Act
-        ResultActions result = mockMvc.perform(delete("/api/warehouse/{id}", userId));
-
-        // Assert
-        result.andExpect(status().isOk());
-    }    */
-    
-    /***************************************************************************************************/
-    
+   
    
     
     
@@ -173,7 +102,7 @@ class LearnigRestApplicationTests {
         		+ " \"unity\":\"Pz\","
         		+ " \"code\":\"test\","
         		+ "\"price\":23,"
-        		+ "\"warehouse_id\":2}";
+        		+ "\"warehouseId\":2}";
         
         System.out.println(articleJson);
         
@@ -198,6 +127,7 @@ class LearnigRestApplicationTests {
               .andExpect(jsonPath("$[0].description").value("test"));
     
         // update
+        
         long id = articleRepository.selectMax();
     	//long id = 28L;
         String updatedArticleJson = "{\"title\":\"prova\", "
@@ -208,21 +138,29 @@ class LearnigRestApplicationTests {
         		+ " \"unity\":\"Pz\","
         		+ " \"code\":\"xxxx\","
         		+ "\"price\":23,"
-        		+ "\"warehouse_id\":2}";
+        		+ "\"warehouseId\":2}";
         
         ResultActions result7 = mockMvc.perform(put("http://localhost:8080/api/article/{id}", id)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(updatedArticleJson));
 
         result7.andExpect(status().isOk())             
-              .andExpect(jsonPath("$.title").value("prova"));
-   /*
+              .andExpect(jsonPath("$.title").value("prova"))
+              .andExpect(jsonPath("$.description").value("prova"))
+              .andExpect(jsonPath("$.characteristic").value("prova"))
+              .andExpect(jsonPath("$.category").value(4))
+              .andExpect(jsonPath("$.quantity").value(10))
+              .andExpect(jsonPath("$.unity").value("Pz"))
+              .andExpect(jsonPath("$.code").value("xxxx"))
+              .andExpect(jsonPath("$.price").value(23))
+              .andExpect(jsonPath("$.warehouseId").value(2));
+   
         //delete
-        long userId = warehouseRepository.selectMax();
+       
 
-        ResultActions result4 = mockMvc.perform(delete("/api/warehouse/{id}", userId));
+        ResultActions result8 = mockMvc.perform(delete("/api/article/{id}", id));
 
-        result4.andExpect(status().isOk());*/
+        result8.andExpect(status().isOk());
         
     }    
     

@@ -152,11 +152,12 @@ public class Article{
 
 	@Override
 	public String toString() {
-		return "Articolo [titolo=" + title + ", description=" + description + ", charateristic=" + characteristic
-				+ ", category=" + category + ", quantity=" + quantity + ", unity=" + unity + ", code=" + code
-				+ ", price=" + price + "]";
+		return "Article [id=" + id + ", title=" + title + ", description=" + description + ", characteristic="
+				+ characteristic + ", category=" + category + ", quantity=" + quantity + ", unity=" + unity + ", code="
+				+ code + ", price=" + price + ", warehouseId=" + warehouseId + "]";
 	}
 
+	
 		
 	
 

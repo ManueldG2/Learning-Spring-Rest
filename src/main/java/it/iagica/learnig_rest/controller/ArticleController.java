@@ -83,7 +83,7 @@ public class ArticleController {
 	@ResponseBody
 	public ResponseEntity<Article> addArticle(@RequestBody @NonNull Article articolo , HttpServletResponse response) {
 								
-		
+		System.out.println(articolo.toString());
 		articleRepository.save(articolo);
 				
 	
