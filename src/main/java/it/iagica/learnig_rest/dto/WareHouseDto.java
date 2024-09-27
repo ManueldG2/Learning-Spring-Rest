@@ -20,9 +20,9 @@ public class WareHouseDto {
 
     private String position;
     
-    private ArrayList<Map<Long, Article>> article;	
+    private ArrayList<Map<Long, ArticleDto>> article;	
 
-	public ArrayList<Map<Long, Article>> getArticle() {
+	public ArrayList<Map<Long, ArticleDto>> getArticle() {
 		
 		return  article;
 		
@@ -30,16 +30,17 @@ public class WareHouseDto {
 
 	public void setArticle(List<Map<Long, Object>> warehouse) {			
 		
-		ArrayList<Map<Long, Article>> newList = new ArrayList();
-		Map<Long, Article> newMap = null;
+		ArrayList<Map<Long, ArticleDto>> newList = new ArrayList();
+		Map<Long, ArticleDto> newMap = null;
 		
 			
 		for (Map elem : warehouse) {
 				
 			newMap = new HashMap();
 			
-			Article article = new Article();		
-				
+			ArticleDto article = new ArticleDto();		
+			
+			article.setArtId((Long) elem.get("artId"));		
 			article.setTitle((String) elem.get("title"));		
 			article.setDescription( (String) elem.get("description"));
 			article.setCharacteristic( (String) elem.get("characteristic"));
@@ -51,11 +52,12 @@ public class WareHouseDto {
 				article.setPrice( (Float) elem.get("price") );
 			else
 				article.setPrice( (Float) 0F );
-				
+			/*	
 			if(Objects.nonNull( (Integer) elem.get("quantity") ))
 				article.setQuantity((Integer) elem.get("quantity") );			 
 			else
 				article.setPrice( (Integer) 0 );
+			*/
 				
 				
 			newMap.put( (Long) elem.get("art_id"), article);			

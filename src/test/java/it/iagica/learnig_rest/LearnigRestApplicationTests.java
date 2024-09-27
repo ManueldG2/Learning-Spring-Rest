@@ -39,7 +39,6 @@ class LearnigRestApplicationTests {
 
 
 	@Test
-	@Order(1)
 	void contextLoads() {
 	}    
     
@@ -59,7 +58,7 @@ class LearnigRestApplicationTests {
         
         System.out.println("pId " + warehouseId);
 
-        ResultActions resultWH2 = mockMvc.perform(get("http://localhost:8080/api/warehouse/join/{id}", warehouseId));
+        ResultActions resultWH2 = mockMvc.perform(get("http://localhost:8080/api/warehouse/{id}", warehouseId));
 
         resultWH2.andExpect(status().isOk())
               .andExpect(content().contentType(MediaType.APPLICATION_JSON))

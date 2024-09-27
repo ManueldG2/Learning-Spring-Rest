@@ -2,8 +2,6 @@ package it.iagica.learnig_rest.controller;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -24,18 +22,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.iagica.learnig_rest.repository.WareHouseRepository;
-import it.iagica.learnig_rest.dto.ArticleDto;
 import it.iagica.learnig_rest.dto.WareHouseDto;
-import it.iagica.learnig_rest.entity.Article;
 import it.iagica.learnig_rest.entity.WareHouse;
 import it.iagica.learnig_rest.service.WareHouseService;
 import jakarta.servlet.http.HttpServletResponse;
 
-
 import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.io.ICsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;
-
 
 
 @RestController
@@ -99,13 +93,13 @@ public class WarehouseController {
 	}
 	
 	//aggiunge warehouse
-		@RequestMapping(value = "", method = RequestMethod.POST)
-		@ResponseBody
-		public ResponseEntity<WareHouse> addWareHouse(@RequestBody WareHouse wareHouse , HttpServletResponse response) {
+	@RequestMapping(value = "", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<WareHouse> addWareHouse(@RequestBody WareHouse wareHouse , HttpServletResponse response) {
 							
-			wareHouseRepository.save(wareHouse);
+		wareHouseRepository.save(wareHouse);
 			
-			return new ResponseEntity<WareHouse>(wareHouseRepository.save(wareHouse), HttpStatus.CREATED);		
+		return new ResponseEntity<WareHouse>(wareHouseRepository.save(wareHouse), HttpStatus.CREATED);		
 					
 		}
 	
@@ -133,7 +127,7 @@ public class WarehouseController {
 		depDB.setAmount(wareHouse.getAmount());
 		depDB.setPosition(wareHouse.getPosition());      
          
-         return new ResponseEntity<WareHouse>(wareHouseRepository.save(depDB), HttpStatus.OK);	
+        return new ResponseEntity<WareHouse>(wareHouseRepository.save(depDB), HttpStatus.OK);	
 		
 	}
 	
@@ -184,10 +178,10 @@ public class WarehouseController {
 	
 	
 	// warehouse {id}
-		@GetMapping("join/{id}")
-		public Optional<WareHouse> getWareHouseById(@PathVariable Long id) {		
+	@GetMapping("join/{id}")
+	public Optional<WareHouse> getWareHouseById(@PathVariable Long id) {		
 			
-			return wareHouseRepository.findById(id);					
+		return wareHouseRepository.findById(id);					
 			
 		}
 		

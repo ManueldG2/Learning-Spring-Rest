@@ -104,9 +104,9 @@ public class CategoryController {
 		
 		catOld.setName(category.getName());		 
        
-         categoryRepository.save(catOld);
+        categoryRepository.save(catOld);
          
-         return new ResponseEntity<Category>(categoryRepository.save(category), HttpStatus.OK);	
+        return new ResponseEntity<Category>(categoryRepository.save(category), HttpStatus.OK);	
 		
 	}
 	

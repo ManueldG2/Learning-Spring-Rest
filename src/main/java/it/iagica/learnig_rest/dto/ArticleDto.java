@@ -2,44 +2,24 @@ package it.iagica.learnig_rest.dto;
 
 public class ArticleDto {
 	
-	private String position;	
-	private String categoria;	
-	private String title;
-	private Float cost_per_package;
+	
+	private Long artId;
+	private String title;	
 	private Float price;
 	private String description;
-	private Integer quantita_per_pacchetto;
 	private String characteristic;
 	private String unity;
 	private String code;
-	private Integer quantity;
 	
 	
-	public String getPosition() {
-		return position;
-	}
-	public void setPosition(String position) {
-		this.position = position;
-	}	
 	
-	public String getCategoria() {
-		return categoria;
-	}
-	public void setCategoria(String categoria) {
-		this.categoria = categoria;
-	}
 	public String getTitle() {
 		return title;
 	}
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public Float getCost_per_package() {
-		return cost_per_package;
-	}
-	public void setCost_per_package(Float cost_per_package) {
-		this.cost_per_package = cost_per_package;
-	}
+	
 	public Float getPrice() {
 		return price;
 	}
@@ -52,12 +32,7 @@ public class ArticleDto {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Integer getQuantita_per_pacchetto() {
-		return quantita_per_pacchetto;
-	}
-	public void setQuantita_per_pacchetto(Integer quantita_per_pacchetto) {
-		this.quantita_per_pacchetto = quantita_per_pacchetto;
-	}
+	
 	public String getCharacteristic() {
 		return characteristic;
 	}
@@ -76,13 +51,13 @@ public class ArticleDto {
 	public void setCode(String code) {
 		this.code = code;
 	}
-	public void setQuantity(Integer quantity) {
-		
-		this.quantity= quantity;
+	public Long getArtId() {
+		return artId;
 	}
-	public Integer getQuantity() {
-		return quantity;
+	public void setArtId(Long artId) {
+		this.artId = artId;
 	}
+	
 	
 
 }
