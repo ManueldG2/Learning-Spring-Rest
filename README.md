@@ -7,8 +7,6 @@ Ho realizzato delle pagine html temporanemente per provare l'inserimento dei dat
 
 per installare il progetto puoi clonarlo da https://github.com/ManueldG/learnig-rest.git (per ora privato) installare le dipendenze maven usando Eclipse basta avviare LearningRestApplication come Application usa l'indirizzo http://localhost:8080/ mentre mysql la porta di default 3306
 
-
-
 ### tabelle:
    - articolo
    - categorie
@@ -84,16 +82,15 @@ per installare il progetto puoi clonarlo da https://github.com/ManueldG/learnig-
 ### Procedimento
 
 Ho realizzato entities articolo, warehouse e category con relative CRUD nei vari controller 
-ho provato a usare dei metodi di  hibernate ma ho notato che non effettua una join ma due distint select che poi unisce quindi ho preferito creare delle procedure su mysql che richiamo dal repository tramite le query native @query all'interno di delle repository.
-Ho realizzato una validation per ora piuttosto semplice per evitare di inserire valori vuoti tramite GlobalExceptionHandler mi aiuta a restituire il messaggio d'errore nel caso di valori fuori dalle regole stabilite all'interno delle entities 
+ho usato dei metodi di  hibernate ma ho notato che non effettua una join ma due distint select che poi unisce quindi ho preferito creare delle procedure su mysql che richiamo dal repository tramite le query native @query all'interno di delle repository.
+La validation per ora piuttosto semplice per evitare di inserire valori vuoti tramite GlobalExceptionHandler mi aiuta a restituire il messaggio d'errore nel caso di valori fuori dalle regole stabilite all'interno delle entities 
+infine ho terminato la realizzazione dei Junit test controllano le CRUD degli end point di Article, Category e Warehouse
 
-Ho inizializzato un progetto Spring Boot su Initializr ho aggiunto le dipendenze per usare Mysql come database e anche le librerie per i servizi REST in seguito ho aggiunto nel POM opencsv e super-csv per la gestione dell'esport in csv e spring-boot-starter-validation per le validazioni dei dati per ora non ho un vero e proprio front-end ho realizzato due pagine html per provare il funzionamento degli insert e update 
 
 #### in esecuzione 
- - ho creato test junit per API CRUD funzionano forse da rivedere la visulizzazione dei dati che in alcuni casi ho migliorato con l'uso dei DTO
+ - forse da rivedere la visulizzazione dei dati che in alcuni casi ho migliorato con l'uso dei DTO
  
 #### da fare
- - test categorie 
  - pdf
  - potrebbe essere utile fare un'autenticazione 
 
