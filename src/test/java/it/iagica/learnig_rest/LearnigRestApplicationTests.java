@@ -49,8 +49,7 @@ class LearnigRestApplicationTests {
         String warehouseJson = "{\"amount\":2,\"position\":\"prova\"}";
         ResultActions resultWH = mockMvc.perform(post("http://localhost:8080/api/warehouse")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(warehouseJson));
-       
+                .content(warehouseJson)); 
     
     	    	
         //read
@@ -79,7 +78,7 @@ class LearnigRestApplicationTests {
               .andExpect(jsonPath("$.position").value("test"));
    
         //delete
-        ResultActions resultWH4 = mockMvc.perform(delete("/api/warehouse/{id}", warehouseId));
+        ResultActions resultWH4 = mockMvc.perform(delete("http://localhost:8080/api/warehouse/{id}", warehouseId));
 
         resultWH4.andExpect(status().isOk());
         
@@ -149,12 +148,9 @@ class LearnigRestApplicationTests {
               .andExpect(jsonPath("$.code").value("xxxx"))
               .andExpect(jsonPath("$.price").value(23))
               .andExpect(jsonPath("$.warehouseId").value(2));
-   
-        
-        
         
         //delete
-        ResultActions resultA4 = mockMvc.perform(delete("/api/article/{id}", articleId));
+        ResultActions resultA4 = mockMvc.perform(delete("http://localhost:8080/api/article/{id}", articleId));
         resultA4.andExpect(status().isOk());
         
     }       
@@ -197,7 +193,7 @@ class LearnigRestApplicationTests {
         resultC3.andExpect(status().isOk())             
               .andExpect(jsonPath("$.name").value("prova"));
                    
-        
+        categoryId = categoryRepository.selectMax();
         //delete
         ResultActions resultC4 = mockMvc.perform(delete("/api/category/{id}", categoryId));
         resultC4.andExpect(status().isOk());

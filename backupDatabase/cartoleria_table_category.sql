@@ -17,8 +17,4 @@ CREATE TABLE `category` (
 INSERT INTO `category` (`id`, `name`) VALUES
 (2, 'matite'),
 (3, 'penne'),
-(4, 'carta'),
-(18, 'prova'),
-(20, 'prova'),
-(22, 'prova'),
-(24, 'prova');
+(4, 'carta');

@@ -16,5 +16,4 @@ CREATE TABLE `warehouse` (
 --
 
 INSERT INTO `warehouse` (`id`, `amount`, `position`) VALUES
-(2, 100, 'scaffale 5'),
-(35, 2, 'prova');
+(2, 100, 'scaffale 5');
