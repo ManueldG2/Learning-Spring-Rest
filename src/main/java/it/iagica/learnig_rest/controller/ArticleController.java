@@ -58,32 +58,30 @@ public class ArticleController {
 	ArticleService articleService;
 
 	
-
-	
 	// articolo {id}
-		@GetMapping("")
-		public ResponseEntity< List<Map<Long, Object>>> selectJoin() {
+	@GetMapping("")
+	public ResponseEntity< List<Map<Long, Object>>> selectJoin() {
 			
-			List<Map<Long, Object>> article = articleRepository.selectJoin();
+		List<Map<Long, Object>> article = articleRepository.selectJoin();
 			
-			return new ResponseEntity(article, HttpStatus.OK);		
-		}
+		return new ResponseEntity(article, HttpStatus.OK);		
 		
-		// articolo {id}
-		@GetMapping("/{id}")
-		public ResponseEntity<List<Map<Long, Object>>> selectJoinById(@PathVariable Long id) {
+	}
+		
+	// articolo {id}
+	@GetMapping("/{id}")
+	public ResponseEntity<List<Map<Long, Object>>> selectJoinById(@PathVariable Long id) {
 			
-			List<Map<Long, Object>> article = articleRepository.selectJoinById(id);
+		List<Map<Long, Object>> article = articleRepository.selectJoinById(id);
 					
-			return new ResponseEntity(article,HttpStatus.OK);
-		}
+		return new ResponseEntity(article,HttpStatus.OK);
+	}
 	
 	//aggiunge Articolo
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<Article> addArticle(@RequestBody @NonNull Article articolo , HttpServletResponse response) {
 								
-		System.out.println(articolo.toString());
 		articleRepository.save(articolo);
 				
 	
@@ -92,18 +90,18 @@ public class ArticleController {
 	}
 	
 	//aggiunge Articolo
-		@RequestMapping(value = "/add", method = RequestMethod.POST)
-		@ResponseBody
-		public ResponseEntity<Article> addArticle(@RequestParam @NonNull  Map params , HttpServletResponse response) {
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<Article> addArticle(@RequestParam @NonNull  Map params , HttpServletResponse response) {
 							
 			
-			Article art = articleService.toEntity(params);
+		Article art = articleService.toEntity(params);
 				
 					
-			articleRepository.save(art);
+		articleRepository.save(art);
 					
 		
-			return new ResponseEntity("ok", HttpStatus.CREATED);		
+		return new ResponseEntity("ok", HttpStatus.CREATED);		
 					
 		}
 		
@@ -124,9 +122,6 @@ public class ArticleController {
 	//aggiornamento con json
 	@PutMapping("/{id}")// update
 	public ResponseEntity<Article> updateProduct(@PathVariable Long id, @RequestBody @NonNull Article articolo) {
-		
-		
-		System.out.println("articolo - : " + articolo.toString() + "" +  id);
 		
 		Article depDB = articleRepository.findById(id).get();
 		 

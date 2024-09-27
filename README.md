@@ -113,7 +113,8 @@ Ho inizializzato un progetto Spring Boot su Initializr ho aggiunto le dipendenze
 
 endpoint get:
 - La classe Article esegue una join con WhareHouse e Category e restituisce i dati
-- 
+- la classe Warehouse con Article e quindi category 
+- mentre category restituisce solo i dati ricevuti da una semplice select
 ```mermaid
 graph LR
 

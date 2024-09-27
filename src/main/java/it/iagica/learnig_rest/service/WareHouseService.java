@@ -43,65 +43,19 @@ public class WareHouseService<K, V> {
 	    	//prendo l'articolo di ID id
 	    	WareHouse depDB = wareHouseRepository.findById(id).get();
 	    	
-	    	/*
-	    	//controllo se i parametri non sono nulli
-	    	if (  (Objects.nonNull( article.getTitle()) && !("".equalsIgnoreCase(article.getTitle()) ) ) ){
-	            depDB.setTitle(article.getTitle());
-	        }
-	        else {
-	        	System.out.println("titolo" + article.toString());
-	        } 
-	    	
-	    	 if (  (Objects.nonNull( article.getCharateristic() ) && !("".equalsIgnoreCase(article.getCharateristic() ) ) ) ){
-		            depDB.setCharateristic(article.getCharateristic());
-		        }
-		        else {
-		        	System.out.println("descrizione" + article.toString());
-		        }
-	    	
-	        
-	        if (  (Objects.nonNull( article.getDescription()) && !("".equalsIgnoreCase(article.getDescription()) ) ) ){
-	            depDB.setDescription(article.getDescription());
-	        }
-	        else {
-	        	System.out.println("descrizione" + article.toString());
-	        }
-	        
-	        if (  (Objects.nonNull( article.getQuantity()) ) ){
-	            depDB.setQuantity(article.getQuantity());
-	        }
-	        else {
-	        	System.out.println("descrizione" + article.toString());
-	        }	        
-	        
-	        /* fare la verifica degli altri campi */
-	    	
-	    	/*
-	        if (Objects.nonNull(article.getPrice()) ) {
-	            depDB.setPrice( (Float) (article.getPrice()));
-	        }
-	        else {
-	        	System.out.println("price" + article.toString());
-	        }*/
-	        
-	    	
-	    	/*
-	        System.out.println(depDB.toString());
-	        depDB.setDescription(WareHouse.getDescription());
-	        depDB.setCode( warehouse.getCode());    
-	        */
+	    
 	        return (WareHouse) wareHouseRepository.save(depDB);
 	    }
 
 		public void deleteArticolo(Long id) {
-			System.out.println("delete " + id);
+			
 			wareHouseRepository.deleteById(id);
 			
 		}
 		
 		//metodo per convertire oggetto Map in WareHouse
 		public WareHouse toEntity(Map<?, ?> params) {				
-			
+			Long id = (Long) params.get("id");
 			Integer amount = (Integer) params.get("amount");
 			String position = (String) params.get("position");
 			
@@ -109,7 +63,7 @@ public class WareHouseService<K, V> {
 			/* String cat =   (!("").equals(params.get("category"))) ? (String) params.get("category") : "0";
 			Integer categoria = Integer.parseInt(cat);*/
 			
-			WareHouse wareHouse = new WareHouse( amount, position);		
+			WareHouse wareHouse = new WareHouse(id, amount, position);		
 			
 			return wareHouse;
 			

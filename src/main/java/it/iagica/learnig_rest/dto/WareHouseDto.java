@@ -32,36 +32,38 @@ public class WareHouseDto {
 		
 		ArrayList<Map<Long, Article>> newList = new ArrayList();
 		Map<Long, Article> newMap = null;
-		Long id =  1L;
 		
+			
 		for (Map elem : warehouse) {
-			
+				
 			newMap = new HashMap();
+			
 			Article article = new Article();		
-			
-			article.setCharacteristic( (String) elem.get("characteristic"));
-			article.setCode( (String) elem.get("code"));
+				
+			article.setTitle((String) elem.get("title"));		
 			article.setDescription( (String) elem.get("description"));
+			article.setCharacteristic( (String) elem.get("characteristic"));
+				
+			article.setCode( (String) elem.get("code"));			
 			article.setUnity((String) elem.get("unity"));
-			article.setTitle((String) elem.get("title"));
-			
+				
 			if(Objects.nonNull( (Float) elem.get("price") ))	
 				article.setPrice( (Float) elem.get("price") );
 			else
 				article.setPrice( (Float) 0F );
-			
+				
 			if(Objects.nonNull( (Integer) elem.get("quantity") ))
 				article.setQuantity((Integer) elem.get("quantity") );			 
 			else
 				article.setPrice( (Integer) 0 );
-			
-			
+				
+				
 			newMap.put( (Long) elem.get("art_id"), article);			
-			
+	
 			newList.add(0,newMap);
-			
+				
 		}		
-		//System.out.println(newList.get(1));
+	
 		this.article =  newList;
 		
 		

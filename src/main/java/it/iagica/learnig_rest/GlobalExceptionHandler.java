@@ -21,7 +21,7 @@ public class GlobalExceptionHandler {
     public final ResponseEntity<Map<String, List<String>>> handleRuntimeExceptions(RuntimeException ex) {
     	
         List<String> errors = Collections.singletonList(ex.toString());
-        System.out.println(ex.getLocalizedMessage());
+        //System.out.println(ex.getLocalizedMessage());
         return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
         
     }

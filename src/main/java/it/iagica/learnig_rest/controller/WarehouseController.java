@@ -64,7 +64,7 @@ public class WarehouseController {
 		
 	}
 	
-	@RequestMapping(value = "/{id}")
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
     private WareHouseDto convertToDto(@PathVariable Long id) {
 		
 		//sembra vada bene non credo che si possa togliere i campi che danno null 
@@ -76,11 +76,12 @@ public class WarehouseController {
 		    
 		wareHouseDto.setPosition((String) warehouse.get(0).get("position"));
 		    
-		wareHouseDto.setAmount((Integer) warehouse.get(0).get("quantita_totale"));
+		wareHouseDto.setAmount((Integer) warehouse.get(0).get("quantita_totale"));		
 		
-		
-		if (Objects.nonNull(warehouse.get(0).get("title")))		    
-			wareHouseDto.setArticle(  warehouse  );
+		if (Objects.nonNull(warehouse.get(0).get("title"))) {
+			
+			wareHouseDto.setArticle(  warehouse );
+		}			
 				    
 		return wareHouseDto;
 		
@@ -128,9 +129,7 @@ public class WarehouseController {
 		WareHouse depDB = wareHouseRepository.findById(id).get();
 		
 		wareHouse.setId(id);
-		
-		System.out.println(depDB.toString());
-        
+		        
 		depDB.setAmount(wareHouse.getAmount());
 		depDB.setPosition(wareHouse.getPosition());      
          
@@ -188,23 +187,7 @@ public class WarehouseController {
 		@GetMapping("join/{id}")
 		public Optional<WareHouse> getWareHouseById(@PathVariable Long id) {		
 			
-			return wareHouseRepository.findById(id);		
-			
-			
-			//List<Map<Long, Object>> wh = wareHouseRepository.selectJoinById(id);
-			/*
-			Map<Long, Object> elem  = wh.get(0); //so che ho solo un warehouse 
-			
-			Article ar = new Article("test","test","test",2,10,"px","xxx",0.1F,2L);
-			
-				
-			for( Map.Entry<Long, Object> el : elem.entrySet())	{
-				
-				System.out.println(el.getKey() + " " + el.getValue());
-				
-			}
-			
-			return Optional.of(wareHouseRepository.selectJoinById(id));*/
+			return wareHouseRepository.findById(id);					
 			
 		}
 		

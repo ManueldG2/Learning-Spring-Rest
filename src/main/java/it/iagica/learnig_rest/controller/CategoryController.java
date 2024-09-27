@@ -16,8 +16,10 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -69,8 +71,18 @@ public class CategoryController {
 		
 		return category;
 	}
+
 	
-	
+	// categorie {id}
+	@RequestMapping(value="", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity createCategory(@RequestBody Category category , HttpServletResponse response) {
+			
+		Category newCategory = categoryRepository.save(category);
+			
+		return new ResponseEntity(newCategory, HttpStatus.CREATED);		
+	}
+		
 	
 	//aggiunge categoria
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -87,10 +99,7 @@ public class CategoryController {
 	//aggiornamento con json
 	@PutMapping("/{id}")// update
 	public ResponseEntity<Category> updateCategory(@PathVariable Long id, @RequestBody Category category) {
-		
-		
-		System.out.println(category.toString() + "" +  id);
-		
+				
 		Category catOld = categoryRepository.findById(id).get();
 		
 		catOld.setName(category.getName());		 
@@ -102,7 +111,7 @@ public class CategoryController {
 	}
 	
 	// cancellazione con json
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public ResponseEntity deleteCategory(@PathVariable Long id , HttpServletResponse response) {
 						

@@ -25,11 +25,12 @@ public class WareHouse{
 	}
 
 
-	public WareHouse( Integer amount, String position) {
+	public WareHouse( Long id ,Integer amount, String position) {
 		
-		
+		this.id = id;
 		this.amount = amount;
 		this.position = position;
+		
 	}
 
 

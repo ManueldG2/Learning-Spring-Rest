@@ -33,22 +33,22 @@ class LearnigRestApplicationTests {
 	
 	@Autowired
 	ArticleRepository articleRepository;	
+	
+	@Autowired
+	CategoryRepository categoryRepository;	
+
 
 	@Test
 	@Order(1)
 	void contextLoads() {
-	}
-	
-   
-   
-    
+	}    
     
     @Test    
     public void testAllWarehouse() throws Exception {
     	
         // create
         String warehouseJson = "{\"amount\":2,\"position\":\"prova\"}";
-        ResultActions result = mockMvc.perform(post("http://localhost:8080/api/warehouse")
+        ResultActions resultWH = mockMvc.perform(post("http://localhost:8080/api/warehouse")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(warehouseJson));
        
@@ -59,34 +59,30 @@ class LearnigRestApplicationTests {
         
         System.out.println("pId " + warehouseId);
 
-        ResultActions result2 = mockMvc.perform(get("http://localhost:8080/api/warehouse/join/{id}", warehouseId));
+        ResultActions resultWH2 = mockMvc.perform(get("http://localhost:8080/api/warehouse/join/{id}", warehouseId));
 
-        result2.andExpect(status().isOk())
+        resultWH2.andExpect(status().isOk())
               .andExpect(content().contentType(MediaType.APPLICATION_JSON))
               .andExpect(jsonPath("$.id").value(warehouseId))
               .andExpect(jsonPath("$.amount").value(2))
               .andExpect(jsonPath("$.position").value("prova"));
     
         // update
-        long id = warehouseRepository.selectMax();
-    	//long id = 28L;
         String updatedUserJson = "{\"amount\":34,\"position\":\"test\"}";
         
-        ResultActions result3 = mockMvc.perform(put("http://localhost:8080/api/warehouse/{id}", id)
+        ResultActions resultWH3 = mockMvc.perform(put("http://localhost:8080/api/warehouse/{id}", warehouseId)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(updatedUserJson));
 
-        result3.andExpect(status().isOk())
-              .andExpect(jsonPath("$.id").value(id))
+        resultWH3.andExpect(status().isOk())
+              .andExpect(jsonPath("$.id").value(warehouseId))
               .andExpect(jsonPath("$.amount").value(34))
               .andExpect(jsonPath("$.position").value("test"));
    
         //delete
-        long userId = warehouseRepository.selectMax();
+        ResultActions resultWH4 = mockMvc.perform(delete("/api/warehouse/{id}", warehouseId));
 
-        ResultActions result4 = mockMvc.perform(delete("/api/warehouse/{id}", userId));
-
-        result4.andExpect(status().isOk());
+        resultWH4.andExpect(status().isOk());
         
     }    
     
@@ -104,9 +100,9 @@ class LearnigRestApplicationTests {
         		+ "\"price\":23,"
         		+ "\"warehouseId\":2}";
         
-        System.out.println(articleJson);
+        System.out.println(" creo questo articolo" + articleJson);
         
-        ResultActions result5 = mockMvc.perform(post("http://localhost:8080/api/article")
+        ResultActions resultA1 = mockMvc.perform(post("http://localhost:8080/api/article")
                 									.contentType(MediaType.APPLICATION_JSON)
                 									.content(articleJson));
        
@@ -117,18 +113,18 @@ class LearnigRestApplicationTests {
         
         System.out.println("aId " + articleId);
 
-        ResultActions result6 = mockMvc.perform(get("http://localhost:8080/api/article/{id}", articleId));
+        ResultActions resultA2 = mockMvc.perform(get("http://localhost:8080/api/article/{id}", articleId));
         
         System.out.println("article id" + articleId);
         
-        result6.andExpect(status().isOk())
+        resultA2.andExpect(status().isOk())
               .andExpect(content().contentType(MediaType.APPLICATION_JSON))             
               .andExpect(jsonPath("$[0].title").value("test"))
               .andExpect(jsonPath("$[0].description").value("test"));
     
         // update
         
-        long id = articleRepository.selectMax();
+        
     	//long id = 28L;
         String updatedArticleJson = "{\"title\":\"prova\", "
         		+ "\"description\":\"prova\", "
@@ -140,11 +136,11 @@ class LearnigRestApplicationTests {
         		+ "\"price\":23,"
         		+ "\"warehouseId\":2}";
         
-        ResultActions result7 = mockMvc.perform(put("http://localhost:8080/api/article/{id}", id)
+        ResultActions resultA3 = mockMvc.perform(put("http://localhost:8080/api/article/{id}", articleId)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(updatedArticleJson));
 
-        result7.andExpect(status().isOk())             
+        resultA3.andExpect(status().isOk())             
               .andExpect(jsonPath("$.title").value("prova"))
               .andExpect(jsonPath("$.description").value("prova"))
               .andExpect(jsonPath("$.characteristic").value("prova"))
@@ -155,18 +151,58 @@ class LearnigRestApplicationTests {
               .andExpect(jsonPath("$.price").value(23))
               .andExpect(jsonPath("$.warehouseId").value(2));
    
-        //delete
-       
-
-        ResultActions result8 = mockMvc.perform(delete("/api/article/{id}", id));
-
-        result8.andExpect(status().isOk());
         
-    }    
+        
+        
+        //delete
+        ResultActions resultA4 = mockMvc.perform(delete("/api/article/{id}", articleId));
+        resultA4.andExpect(status().isOk());
+        
+    }       
     
+    @Test    
+    public void testAllCategory() throws Exception {
+    	
+        // create
+        String categoryJson = "{\"name\":\"test\"}";
+        
+        System.out.println(" creo questa categoria" + categoryJson);
+        
+        ResultActions resultC1 = mockMvc.perform(post("http://localhost:8080/api/category")
+                				.contentType(MediaType.APPLICATION_JSON)
+                				.content(categoryJson));
+       
     
+    	    	
+        //read
+        long categoryId = categoryRepository.selectMax();
+        
+        System.out.println("category id " + categoryId);
+
+        ResultActions resultC2 = mockMvc.perform(get("http://localhost:8080/api/category/{id}", categoryId));
+        
+        System.out.println(resultC2.toString());
+        
+        resultC2.andExpect(status().isOk())
+              .andExpect(content().contentType(MediaType.APPLICATION_JSON))             
+              .andExpect(jsonPath("$.name").value("test"));
     
+        // update           	
+        
+        String updatedCategoryJson = "{\"name\":\"prova\"}";
+        
+        ResultActions resultC3 = mockMvc.perform(put("/api/category/{id}", categoryId)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(updatedCategoryJson));
+
+        resultC3.andExpect(status().isOk())             
+              .andExpect(jsonPath("$.name").value("prova"));
+                   
+        
+        //delete
+        ResultActions resultC4 = mockMvc.perform(delete("/api/category/{id}", categoryId));
+        resultC4.andExpect(status().isOk());
+        
+    }       
 
 }
-
-// "{\"title\":\"prova\", \"description\":\"prova\", \"characteristic\":\"prova\", \"category\":4, \"quantity\":10, \"unity\":\"Pz\",  \"code\":\"xxxx\", \"price\":23, \"warehouse_id\":2}";

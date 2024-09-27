@@ -54,42 +54,27 @@ public class ArticleService<K, V> {
 	    	if (  (Objects.nonNull( article.getTitle()) && !("".equalsIgnoreCase(article.getTitle()) ) ) ){
 	            depDB.setTitle(article.getTitle());
 	        }
-	        else {
-	        	System.out.println("titolo" + article.toString());
-	        } 
+	        
 	    	
 	    	 if (  (Objects.nonNull( article.getCharacteristic()) ) && !("".equalsIgnoreCase(article.getCharacteristic() ) ) ) {
 		            depDB.setCharacteristic(article.getCharacteristic());
-		        }
-		        else {
-		        	System.out.println("descrizione" + article.toString());
-		        }
-	    	
+		        }    	
 	        
 	        if (  (Objects.nonNull( article.getDescription()) && !("".equalsIgnoreCase(article.getDescription()) ) ) ){
 	            depDB.setDescription(article.getDescription());
-	        }
-	        else {
-	        	System.out.println("descrizione" + article.toString());
-	        }
+	        }	       
 	        
 	        if (  (Objects.nonNull( article.getQuantity()) ) ){
 	            depDB.setQuantity(article.getQuantity());
-	        }
-	        else {
-	        	System.out.println("descrizione" + article.toString());
-	        }	        
+	        }	              
 	        
 	        /*
 	         * fare la verifica degli altri campi */
 	        if (Objects.nonNull(article.getPrice()) ) {
 	            depDB.setPrice( (Float) (article.getPrice()));
 	        }
-	        else {
-	        	System.out.println("price" + article.toString());
-	        }
-	        
-	        System.out.println(depDB.toString());
+	       
+	       
 	        depDB.setDescription(article.getDescription());
 	        depDB.setCode( article.getCode());    
 	        
@@ -97,7 +82,7 @@ public class ArticleService<K, V> {
 	    }
 
 		public void deleteArticolo(Long id) {
-			System.out.println("delete " + id);
+			
 			articleRepository.deleteById(id);
 			
 		}
