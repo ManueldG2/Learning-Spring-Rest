@@ -1,26 +1,16 @@
 package it.iagica.learnig_rest.controller;
 
-import java.io.FileWriter;
+
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
-import org.apache.commons.collections.OrderedMap;
-import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -29,22 +19,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
 
 import it.iagica.learnig_rest.entity.Article;
 import it.iagica.learnig_rest.repository.ArticleRepository;
 import it.iagica.learnig_rest.service.ArticleService;
-import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 
 import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.io.ICsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;
-
 
 
 @RestController
@@ -58,7 +42,7 @@ public class ArticleController {
 	ArticleService articleService;
 
 	
-	// articolo {id}
+	// restituisce tutti gli articoli join con warehouse e category
 	@GetMapping("")
 	public ResponseEntity< List<Map<Long, Object>>> selectJoin() {
 			
@@ -68,7 +52,7 @@ public class ArticleController {
 		
 	}
 		
-	// articolo {id}
+	//  restituisce  l'articolo di {id} join con warehouse e category 
 	@GetMapping("/{id}")
 	public ResponseEntity<List<Map<Long, Object>>> selectJoinById(@PathVariable Long id) {
 			
@@ -77,7 +61,7 @@ public class ArticleController {
 		return new ResponseEntity(article,HttpStatus.OK);
 	}
 	
-	//aggiunge Articolo
+	//aggiunge Articolo con un Json
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<Article> addArticle(@RequestBody @NonNull Article articolo , HttpServletResponse response) {
@@ -89,18 +73,15 @@ public class ArticleController {
 				
 	}
 	
-	//aggiunge Articolo
+	//aggiunge Articolo usando Query String 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<Article> addArticle(@RequestParam @NonNull  Map params , HttpServletResponse response) {
-							
+	public ResponseEntity<Article> addArticle(@RequestParam @NonNull  Map params , HttpServletResponse response) {	
 			
 		Article art = articleService.toEntity(params);
-				
 					
 		articleRepository.save(art);
 					
-		
 		return new ResponseEntity("ok", HttpStatus.CREATED);		
 					
 		}
@@ -157,6 +138,7 @@ public class ArticleController {
 				
 	}
 	
+	//scarica tutti gli articoli in un csv
 	@RequestMapping(value = "/csv")
     public void downloadCSV(HttpServletResponse response) throws IOException {
  
@@ -188,22 +170,6 @@ public class ArticleController {
         
         csvWriter.close();
     }
-	
-	
-	
-	// endpoint di test
-		@GetMapping("/hello")
-		public ResponseEntity<String> hello() {
-			
-		    return new ResponseEntity<>("Hello World!", HttpStatus.OK);
-		    
-		}
-		
-		@GetMapping("/query")
-		@ResponseBody
-		public String getFoos(@RequestParam String id) {
-		    return "ID: " + id;
-		}
 		
 
 		// lista articoli
