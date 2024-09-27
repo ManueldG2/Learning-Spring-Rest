@@ -111,4 +111,17 @@ Ho inizializzato un progetto Spring Boot su Initializr ho aggiunto le dipendenze
  - https://mui.com/
 
 
+endpoint get:
+- La classe Article esegue una join con WhareHouse e Category e restituisce i dati
+- 
+```mermaid
+graph LR
 
+A[Repository] --> B[Service]-->D
+C[Controller] --> D(dati) --> E[DTO]-->F
+F[Json]
+
+```
+
+service estende repository
+controller richiama repository o service che uso per accedere al db e in genere struttura i dati in base al Dto 
