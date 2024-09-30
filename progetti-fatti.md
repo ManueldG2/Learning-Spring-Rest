@@ -91,6 +91,8 @@ venerdi 9-8
 	25 junit test iniziato le correzioni e formattazione output
 	
 	26 corretto database danneggiato riprendo la correzione e realizzazione test
+	
+ 	27 correzioni test funzionanti documentazione e correzioni varie per la visualizzazione dei dati
 
 		note varie
 		Spring studiato Bean e connessione configurazione per mappare package
