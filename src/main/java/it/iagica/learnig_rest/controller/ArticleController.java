@@ -39,7 +39,7 @@ public class ArticleController {
 	ArticleRepository articleRepository;
 	
 	@Autowired
-	ArticleService articleService;
+	ArticleService<?, ?> articleService;
 
 	
 	// restituisce tutti gli articoli join con warehouse e category
@@ -48,7 +48,7 @@ public class ArticleController {
 			
 		List<Map<Long, Object>> article = articleRepository.selectJoin();
 			
-		return new ResponseEntity(article, HttpStatus.OK);		
+		return new ResponseEntity<List<Map<Long, Object>>>(article, HttpStatus.OK);		
 		
 	}
 		
@@ -58,31 +58,30 @@ public class ArticleController {
 			
 		List<Map<Long, Object>> article = articleRepository.selectJoinById(id);
 					
-		return new ResponseEntity(article,HttpStatus.OK);
+		return new ResponseEntity<List<Map<Long, Object>>>(article,HttpStatus.OK);
 	}
 	
 	//aggiunge Articolo con un Json
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<Article> addArticle(@RequestBody @NonNull Article articolo , HttpServletResponse response) {
-								
-		articleRepository.save(articolo);
-				
+							
+		articleRepository.save(articolo);				
 	
-		return new ResponseEntity("ok", HttpStatus.CREATED);		
+		return new ResponseEntity<Article>(articolo, HttpStatus.CREATED);		
 				
 	}
 	
 	//aggiunge Articolo usando Query String 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<Article> addArticle(@RequestParam @NonNull  Map params , HttpServletResponse response) {	
+	public ResponseEntity<String> addArticle(@RequestParam @NonNull  Map<?, ?> params , HttpServletResponse response) {	
 			
 		Article art = articleService.toEntity(params);
 					
 		articleRepository.save(art);
 					
-		return new ResponseEntity("ok", HttpStatus.CREATED);		
+		return new ResponseEntity<String>(art.toString(), HttpStatus.CREATED);		
 					
 		}
 		
@@ -90,13 +89,13 @@ public class ArticleController {
 	//aggiornamento con query string per usare il form html
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<Article> updateProduct(@RequestParam Map params, HttpServletResponse response) {
+	public ResponseEntity<Article> updateProduct(@RequestParam Map<?, ?> params, HttpServletResponse response) {
 						
 		Article art = articleService.toEntity(params);
 		
 		Long id = ( Long.parseLong((String) params.get("id")) );		
 		
-		return new ResponseEntity(articleService.updateArticolo(art, id), HttpStatus.OK);		
+		return new ResponseEntity<Article>(articleService.updateArticolo(art, id), HttpStatus.OK);		
 				
 	}
 	
@@ -110,6 +109,10 @@ public class ArticleController {
             depDB.setTitle(articolo.getTitle());
         }
         
+        depDB.setCharacteristic( (String) articolo.getCharacteristic());
+        
+        depDB.setCategory( (Integer) articolo.getCategory() );
+        
         if (Objects.nonNull(articolo.getDescription()) && !"".equalsIgnoreCase(articolo.getDescription())) {
             depDB.setDescription(articolo.getDescription());
         }
@@ -117,24 +120,30 @@ public class ArticleController {
         if (Objects.nonNull(articolo.getQuantity()) ) {
             depDB.setQuantity(articolo.getQuantity());
         }
-       
-        depDB.setPrice( (Float) articolo.getPrice());
-              
         
-         articleRepository.save(depDB);
+        depDB.setUnity( (String) articolo.getUnity() );
+       
+        depDB.setCode( (String) articolo.getCode() );
+        
+        depDB.setPrice( (Float) articolo.getPrice());
+        
+        depDB.setWarehouseId( (Long) articolo.getWarehouseId( ) );
+              
+        Article result = articleRepository.save(depDB);
          
-         return new ResponseEntity<Article>(articleRepository.save(articolo), HttpStatus.OK);	
+        return new ResponseEntity<Article>(result, HttpStatus.OK);	
 		
 	}
 	
 	// cancellazione con json
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public ResponseEntity deleteProduct(@PathVariable Long id , HttpServletResponse response) {
+	public ResponseEntity<String> deleteProduct(@PathVariable Long id , HttpServletResponse response) {
 						
+		System.out.println(id);
 		articleService.deleteArticolo(id);
 		
-		return new ResponseEntity("ok", HttpStatus.OK);		
+		return new ResponseEntity<String>("ok", HttpStatus.OK);		
 				
 	}
 	
@@ -175,19 +184,19 @@ public class ArticleController {
 		// lista articoli
 		@RequestMapping(value = "/all", method = RequestMethod.GET)
 		@ResponseBody
-		public ResponseEntity<Iterable> getAllArticles() {
+		public ResponseEntity<List> getAllArticles() {
 			
-			return new ResponseEntity( articleRepository.findAll(),HttpStatus.OK);
+			return new ResponseEntity<List>( articleRepository.findAll(),HttpStatus.OK);
 			
 		}
 		
 		// articolo {id}
 		@GetMapping("/all/{id}")
-		public ResponseEntity getArticleById(@PathVariable Long id) {
+		public ResponseEntity<Optional<Article>> getArticleById(@PathVariable Long id) {
 			
 			Optional<Article> article = articleRepository.findById(id);
 			
-			return new ResponseEntity(article, HttpStatus.OK);		
+			return new ResponseEntity<Optional<Article>>(article, HttpStatus.OK);		
 		}	
 		
 

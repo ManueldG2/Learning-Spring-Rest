@@ -88,7 +88,7 @@ public class ArticleService<K, V> {
 		}
 		
 		//metodo per convertire oggetto Map in Article
-		public Article toEntity(Map<K,V> params) {		
+		public Article toEntity(Map<?, ?> params) {		
 			
 			String titolo = (String) params.get("title");
 			String descrizione = (String) params.get("description");

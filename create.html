@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <link rel="stylesheet" href="./style.css">
+            <title>Document</title>
+    </head>
+    <body>
+
+        <div class="modulo">
+            <form  class = "form">
+                
+                <label  for="titolo">titolo</label>
+                <input type="text" name="title" id="title">
+                
+                <label  for="descrizione">descrizione</label>
+                <input type="text" name="description" id="description">
+                
+                <label  for="characteristic">caratteristiche</label>
+                <input type="text" name="characteristic" id="characteristic">
+            
+                <label  for="category">categoria</label>
+                <input type="text" name="category" id="category">
+                
+                <label  for="quantity">quantity</label>
+                <input type="number" name="quantity" id="quantity">
+                
+                <label  for="price">price</label>
+                <input type="number" name="price" id="price" step="0.01">
+                
+                <label  for="unity">unity</label>
+                <input type="text" name="unity" id="unity" >
+
+                <label  for="code">code</label>
+                <input type="text" name="code" id="code" >
+                
+                <label  for="warehouse">warehouse</label>
+                <input type="text" name="warehouseId" id="warehouse" >
+
+                <input type="submit" value="invia" id = "submit">
+            </form>
+            <div id="message"></div>
+        </div>
+        <script>    
+            /*
+            let article = [];             
+
+            let form = $(".form")[0];
+            console.log(form);
+
+            let formData = {};
+            for (let i = 0; i < form.elements.length; i++) {
+
+                let element = form.elements[i];
+                
+                if (!(element.type == "submit" || element.type == "")) {     
+                    console.log(element.type);
+                    formData[element.name] = element.value;
+                }
+            }
+            let data = JSON.stringify(formData);
+            console.log(data);
+
+            $.ajax({
+                method: "POST",
+                url: "http://localhost:8080/api/article",
+                data,
+                contentType: "application/json; charset=utf-8",
+                })
+                .done(function( msg ) {
+                console.log(msg);
+            
+            });*/
+
+            $( "#submit" ).on( "click", function(e) {
+                
+                e.preventDefault();
+                console.log("call");
+                
+
+                let article = [];             
+          
+                let form = $(".form")[0];
+                console.log(form);
+
+                let formData = {};
+                for (let i = 0; i < form.elements.length; i++) {
+
+                    let element = form.elements[i];
+                
+                    if (!(element.type == "submit" || element.type == ""  )) {     
+                        console.log(element.value);
+                        formData[element.name] = element.value;
+                    }
+
+            }
+            let data = JSON.stringify(formData);
+            console.log(data);
+                
+
+                $.ajax({
+                                method: "POST",
+                                url: "http://localhost:8080/api/article"  ,
+                                data,
+                                contentType: "application/json; charset=utf-8",
+                                })
+                                .done(function( msg ) {
+                                console.log(msg);
+                                if(msg)
+                                    $("#message").html("ok");
+                            
+                            });
+
+            } );
+        </script>
+    </body>
+</html>
