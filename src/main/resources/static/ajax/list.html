@@ -7,14 +7,19 @@
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+             
+
             <link rel="stylesheet" href="./style.css">
             <title>Document</title>
     </head>
     <body>
         
-        <ul id="list">
+        <div class="content">
+            <ul id="list">
+            </ul>
+        </div>
 
-        </ul>
 
         <input type="submit" id ="submit" value="invio">
         
@@ -29,36 +34,32 @@
                                 contentType: "application/json; charset=utf-8",
                                 })
                                 .done(function( msg ) {
-
-                                    console.log(msg);
                                     
-                                    for (let elem of msg ){
+                                    // vedere come cambiare colore alle righe in modo singolo cosi li cambia tutte insieme mettere liste annidate
+                                    // provo https://js.devexpress.com/jQuery/Documentation/Guide/jQuery_Components/Add_DevExtreme_to_a_jQuery_Application/
+                                   
+                                    let el = "";
 
-                                        $("#list").append("<li> " + elem.title );
-                                       
-                                        $("#list").append(elem.description );
-                                        $("#list").append("<br>");
-                                        $("#list").append(elem.characteristic);
-                                        $("#list").append("<br>");
-                                        $("#list").append(elem.Categoria );
-                                        $("#list").append("<br>");
-                                        $("#list").append(elem.cost_per_package);
-                                        $("#list").append("<br>");
-                                        $("#list").append(elem.id);
-                                        $("#list").append("<br>");
-                                        $("#list").append(elem.position);
-                                        $("#list").append("<br>");
-                                        $("#list").append(elem.price);
-                                        $("#list").append("<br>");
-                                        $("#list").append(elem.quantita_per_pacchetto);
-                                        $("#list").append("<br>");
-                                        $("#list").append(elem.quantita_totale);
-                                        $("#list").append("<br>");
-                                        $("#list").append(elem.unity + " </li>");
-                                        $("#list").append("<br>");
+                                   $.each(msg, function(a, b){
+
+                                        el += "<li>\n<ul class = 'dist' > \b"; 
+                                        el += "<li class ='red'>" + "Titolo: " + b.title + "</li>";
+                                        el += "<li class ='green'>" + "Descrizione: " + b.description + "</li>";
+                                        el += "<li class ='red'>" + "Caratteristiche: " + b.characteristic + "</li>";
+                                        el += "<li class ='green'>" + "Categoria: " + b.Categoria + "</li>";
+                                        el += "<li class ='red'> Costo per confezione"+ b.cost_per_package + "</li>";
+                                        el += "<li class ='green'>" + b.id + "</li>";
+                                        el += "<li class ='red'>" + b.position + "</li>";
+                                        el += "<li class ='green'>" + b.price + "</li>";
+                                        el += "<li class ='red'>" + b.description + "</li>";
+                                        el += "<li class ='green'>" + b.quantita_per_pacchetto + "</li>";    
+                                        el += "<li class ='red'>" + b.quantita_totale + "</li>";
+                                        el += "<li class ='green'>" + b.unity + "</li>";    
+                                        el += "</ul>\n</li>";
                                         
-                                    }                        
-                            
+                                    });
+                                    
+                                    $("#list").append(el);
                             });                
 
             });

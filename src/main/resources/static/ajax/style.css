@@ -28,3 +28,32 @@
     border-radius: 5px;
 
 }
+
+li:first-child {
+    border-radius: 10px 10px 0 0;
+}
+
+li:last-child {
+    border-radius: 0 0 10px 10px;
+}
+
+.green{
+    background-color: green;
+}
+
+.red{
+    background-color: red;
+}
+
+.dist{
+    margin: 15px 0;
+}
+
+
+.dist>li{
+    padding: 0 10px;
+}
+
+#list{
+    width: 50%;
+}
