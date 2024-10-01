@@ -24,7 +24,10 @@
         <input type="submit" id ="submit" value="invio">
         
         <script>    
-            $( "#submit" ).on( "click", function(e) {
+
+        $( "#submit" ).on( "click", function(e){
+        
+           
                 
                 e.preventDefault();
 
@@ -48,13 +51,15 @@
                                         el += "<li class ='red'>" + "Caratteristiche: " + b.characteristic + "</li>";
                                         el += "<li class ='green'>" + "Categoria: " + b.Categoria + "</li>";
                                         el += "<li class ='red'> Costo per confezione"+ b.cost_per_package + "</li>";
-                                        el += "<li class ='green'>" + b.id + "</li>";
+                                        el += "<li class ='green'> id: " + b.id + "</li>";
                                         el += "<li class ='red'>" + b.position + "</li>";
                                         el += "<li class ='green'>" + b.price + "</li>";
                                         el += "<li class ='red'>" + b.description + "</li>";
                                         el += "<li class ='green'>" + b.quantita_per_pacchetto + "</li>";    
                                         el += "<li class ='red'>" + b.quantita_totale + "</li>";
-                                        el += "<li class ='green'>" + b.unity + "</li>";    
+                                        el += "<li class ='green'>" + b.unity + "</li>";
+                                        el += "<li><input type='submit' id='delete' value='cancella'></li>";
+
                                         el += "</ul>\n</li>";
                                         
                                     });
@@ -62,7 +67,31 @@
                                     $("#list").append(el);
                             });                
 
+           });
+                        
+
+            $("#delete").on( "click", function() {
+                 console.log( "click");
             });
+
+            /*$( "#delete" ).on( "click", function(e) {
+                
+                console.log(this);
+                
+
+                /*
+                $.ajax({
+                method: "DELETE",
+                url: "http://localhost:8080/api/article/"+id,
+                
+                contentType: "application/json; charset=utf-8",
+                })
+                .done(function( msg ) {
+                console.log(msg);
+            
+            });
+        });*/
+            
         </script>
     </body>
 </html>
