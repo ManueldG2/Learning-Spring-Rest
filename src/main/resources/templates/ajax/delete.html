@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <link rel="stylesheet" href="./style.css">
+            <title>Document</title>
+    </head>
+    <body>
+
+        <div class="modulo">
+            <form  class = "form">             
+                
+                <label  for="delete">delete article n</label>
+                <input type="number" name="delete" id="delete" >
+
+                <input type="submit" value="invia">
+            </form>
+        </div>
+        <script>    
+
+            let article = [];             
+
+            let form = $(".form")[0];
+            console.log(form);
+
+            let formData = {};
+           
+            id = form[0].value;
+
+            
+
+            $.ajax({
+                method: "DELETE",
+                url: "http://localhost:8080/api/article/"+id,
+                
+                contentType: "application/json; charset=utf-8",
+                })
+                .done(function( msg ) {
+                console.log(msg);
+            
+            });
+        </script>
+    </body>
+</html>

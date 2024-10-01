@@ -1,0 +1,67 @@
+
+
+
+<!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <link rel="stylesheet" href="./style.css">
+            <title>Document</title>
+    </head>
+    <body>
+        
+        <ul id="list">
+
+        </ul>
+
+        <input type="submit" id ="submit" value="invio">
+        
+        <script>    
+            $( "#submit" ).on( "click", function(e) {
+                
+                e.preventDefault();
+
+                $.ajax({
+                                method: "GET",
+                                url: "http://localhost:8080/api/article"  ,
+                                contentType: "application/json; charset=utf-8",
+                                })
+                                .done(function( msg ) {
+
+                                    console.log(msg);
+                                    
+                                    for (let elem of msg ){
+
+                                        $("#list").append("<li> " + elem.title );
+                                       
+                                        $("#list").append(elem.description );
+                                        $("#list").append("<br>");
+                                        $("#list").append(elem.characteristic);
+                                        $("#list").append("<br>");
+                                        $("#list").append(elem.Categoria );
+                                        $("#list").append("<br>");
+                                        $("#list").append(elem.cost_per_package);
+                                        $("#list").append("<br>");
+                                        $("#list").append(elem.id);
+                                        $("#list").append("<br>");
+                                        $("#list").append(elem.position);
+                                        $("#list").append("<br>");
+                                        $("#list").append(elem.price);
+                                        $("#list").append("<br>");
+                                        $("#list").append(elem.quantita_per_pacchetto);
+                                        $("#list").append("<br>");
+                                        $("#list").append(elem.quantita_totale);
+                                        $("#list").append("<br>");
+                                        $("#list").append(elem.unity + " </li>");
+                                        $("#list").append("<br>");
+                                        
+                                    }                        
+                            
+                            });                
+
+            });
+        </script>
+    </body>
+</html>
