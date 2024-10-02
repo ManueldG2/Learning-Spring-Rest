@@ -23,11 +23,7 @@
                 
                 <label  for="characteristic">caratteristiche</label>
                 <input type="text" name="characteristic" id="characteristic">
-            
-                <label  for="category">categoria</label>
-                <input type="text" name="category" id="category">
-
-                
+                            
                 <label for="categories">Categories</label>
                 <select id="categories">
                     <option selected disabled value="">scegli</option>
@@ -44,9 +40,6 @@
 
                 <label  for="code">code</label>
                 <input type="text" name="code" id="code" >
-                
-                <label  for="warehouse">warehouse</label>
-                <input type="text" name="warehouseId" id="warehouse" >
 
                 <label for="warehouses">warehouses</label>
                 <select id="warehouses">
@@ -62,54 +55,54 @@
             let id = (window.location.href.split("=")[1]); 
             
 
-            $.ajax({
+            $.ajax({ //sarebbe da sistemare il codice
+                    method: "GET",
+                    url: "http://localhost:8080/api/article/all/" + id  ,
+                    contentType: "application/json; charset=utf-8",
+                    })
+                    .done(function( msg ) {
+
+            $.ajax(
+                {
+                    method: "GET",
+                    url: "http://localhost:8080/api/category"   ,
+                    contentType: "application/json; charset=utf-8",
+                }
+            ).done( (msg)=>{
+
+                            console.log(msg);
+                            for(let ele of msg){
+
+                                $("#categories").append($('<option>', {
+                                        value: ele.id,
+                                        text: ele.name
+                                        }));
+
+
+                            }
+                            
+                        });
+
+                        $.ajax(
+                            {
                                 method: "GET",
-                                url: "http://localhost:8080/api/article/all/" + id  ,
+                                url: "http://localhost:8080/api/warehouse/all"   ,
                                 contentType: "application/json; charset=utf-8",
-                                })
-                                .done(function( msg ) {
+                            }
+                        ).done( (msg)=>{
 
-                                    $.ajax(
-                                        {
-                                            method: "GET",
-                                            url: "http://localhost:8080/api/category"   ,
-                                            contentType: "application/json; charset=utf-8",
-                                        }
-                                    ).done( (msg)=>{
+                            console.log(msg);
+                            for(let ele of msg){
 
-                                        console.log(msg);
-                                        for(let ele of msg){
-
-                                            $("#categories").append($('<option>', {
-                                                    value: ele.id,
-                                                    text: ele.name
-                                                    }));
+                                $("#warehouses").append($('<option>', {
+                                        value: ele.id,
+                                        text: ele.position
+                                        }));
 
 
-                                        }
-                                       
-                                    });
-
-                                    $.ajax(
-                                        {
-                                            method: "GET",
-                                            url: "http://localhost:8080/api/warehouse/all"   ,
-                                            contentType: "application/json; charset=utf-8",
-                                        }
-                                    ).done( (msg)=>{
-
-                                        console.log(msg);
-                                        for(let ele of msg){
-
-                                            $("#warehouses").append($('<option>', {
-                                                    value: ele.id,
-                                                    text: ele.position
-                                                    }));
-
-
-                                        }
-                                       
-                                    });
+                            }
+                            
+                        });
                                                                                 
                                     
                                     console.log(msg);
