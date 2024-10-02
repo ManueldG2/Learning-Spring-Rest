@@ -20,12 +20,10 @@
             </ul>
         </div>
 
-
         <input type="submit" id ="submit" value="invio">
         
         <script>    
-
-        $( "#submit" ).on( "click", function(e){
+              $( "#submit" ).on( "click", function(e){
         
            
                 
@@ -58,8 +56,9 @@
                                         el += "<li class ='green'>" + b.quantita_per_pacchetto + "</li>";    
                                         el += "<li class ='red'>" + b.quantita_totale + "</li>";
                                         el += "<li class ='green'>" + b.unity + "</li>";
-                                        el += "<li><input type='submit' id='delete' value='cancella'></li>";
-
+                                        el += "<li><input type='submit' id=" + b.id + " onclick='del(this)' value='cancella'></li>";
+                                        el += "<li> <a href = './updateJson.html?id=" + b.id + "' class='button' id=" + b.id + ">modifica </a> </li>";//passare valore id
+                                        
                                         el += "</ul>\n</li>";
                                         
                                     });
@@ -69,10 +68,26 @@
 
            });
                         
-
+/*
             $("#delete").on( "click", function() {
                  console.log( "click");
+            });*/
+            
+           let del = (e)=>{
+        	   console.log(e.id);
+               $.ajax({
+                method: "DELETE",
+                url: "http://localhost:8080/api/article/"+e.id,
+                
+                contentType: "application/json; charset=utf-8",
+                })
+                .done(function( msg ) {
+                console.log(msg);
+            
             });
+           }
+
+           
 
             /*$( "#delete" ).on( "click", function(e) {
                 

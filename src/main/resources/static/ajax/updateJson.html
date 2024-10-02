@@ -12,8 +12,8 @@
         <div class="modulo">
             <form  class = "form">
 
-                <label  for="id">id</label>
-                <input type="number" name="id" id="id">
+               <!-- <label  for="id">id</label>-->
+                <input type="hidden" name="id" id="id" >
 
                 <label  for="titolo">titolo</label>
                 <input type="text" name="title" id="title">
@@ -48,13 +48,39 @@
         <div id="message"></div>
         <script>    
 
-          
-          
+            let id = (window.location.href.split("=")[1]); 
+            
+
+            $.ajax({
+                                method: "GET",
+                                url: "http://localhost:8080/api/article/all/" + id  ,
+                                contentType: "application/json; charset=utf-8",
+                                })
+                                .done(function( msg ) {
+
+                                    console.log(msg);
+
+                                    $("#id").val(id);
+                                    $("#title").val(msg.title);
+                                    $("#description").val(msg.description);
+                                    $("#characteristic").val(msg.characteristic);
+                                    $("#category").val(msg.category);
+                                    $("#quantity").val(msg.quantity);
+                                    $("#price").val(msg.price);
+                                    $("#unity").val(msg.unity);
+                                    $("#code").val(msg.code);
+                                    $("#warehouse").val(msg.warehouseId);
+                                               // immettere valori                        
+                                    
+                                })
+            
+            //fare un get dei dati per poi fare la modifica
+
             $( "#submit" ).on( "click", function(e) {
 
                 e.preventDefault();
                 console.log("call");
-                let id = this.parentElement[0].value;
+                //let id = this.parentElement[0].value;
 
                 let article = [];             
           
@@ -66,14 +92,14 @@
 
                     let element = form.elements[i];
                 
-                    if (!(element.type == "submit" || element.type == "" ||element.id == "id" )) {     
-                        console.log(element.value);
+                    if (!(element.type == "submit" || element.type == ""  )) {     
+                        
                         formData[element.name] = element.value;
                     }
 
             }
             let data = JSON.stringify(formData);
-            console.log(data);
+            console.log(data,id);
                 
 
                 $.ajax({
