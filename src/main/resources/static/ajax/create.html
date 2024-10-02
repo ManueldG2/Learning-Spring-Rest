@@ -40,39 +40,12 @@
                 <input type="text" name="warehouseId" id="warehouse" >
 
                 <input type="submit" value="invia" id = "submit">
+
+                <div id="message"></div>
             </form>
-            <div id="message"></div>
+           
         </div>
-        <script>    
-            /*
-            let article = [];             
-
-            let form = $(".form")[0];
-            console.log(form);
-
-            let formData = {};
-            for (let i = 0; i < form.elements.length; i++) {
-
-                let element = form.elements[i];
-                
-                if (!(element.type == "submit" || element.type == "")) {     
-                    console.log(element.type);
-                    formData[element.name] = element.value;
-                }
-            }
-            let data = JSON.stringify(formData);
-            console.log(data);
-
-            $.ajax({
-                method: "POST",
-                url: "http://localhost:8080/api/article",
-                data,
-                contentType: "application/json; charset=utf-8",
-                })
-                .done(function( msg ) {
-                console.log(msg);
-            
-            });*/
+        <script>            
 
             $( "#submit" ).on( "click", function(e) {
                 
@@ -90,7 +63,7 @@
 
                     let element = form.elements[i];
                 
-                    if (!(element.type == "submit" || element.type == ""  )) {     
+                    if (!(element.type == "submit" || element.type == "" )) {     
                         console.log(element.value);
                         formData[element.name] = element.value;
                     }
@@ -108,8 +81,12 @@
                                 })
                                 .done(function( msg ) {
                                 console.log(msg);
-                                if(msg)
-                                    $("#message").html("ok");
+
+                                if(msg){
+
+                                    $("#message").html("Articolo inviato");
+
+                                }
                             
                             });
 

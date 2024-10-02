@@ -1,15 +1,15 @@
 # Progetto Spring per gestione articoli cancelleria 
 
 ### Descrizione
-Il progetto Maven usa Spring Boot 3.3.3 Java 21 e Mysql come database gestisce un magazzino di articoli di cancelleria : posso inserire i vari articoli scegliere dove vengono inseriti nel magazzino con le quantità totali del prodotto e la categoria dell'articolo usando le end point esposte.
+Il progetto Maven usa Spring Boot 3.3.3 Java 21 e Mysql come database gestisce un magazzino di articoli di cancelleria: posso inserire i vari articoli scegliere dove vengono inseriti nel magazzino con le quantità totali del prodotto e la categoria dell'articolo usando le end point esposte.
 
-Ho realizzato delle pagine html temporanemente per provare l'inserimento dei dati altrimenti dovrei usare Javascript o un suo framework magari Angular o React  
+Ho realizzato delle pagine html/Jquery temporanemente per provare la gestione dei dati altrimenti potrei usare un framework come Angular o React.  
 
 per installare il progetto puoi clonarlo da https://github.com/ManueldG/learnig-rest.git (per ora privato) installare le dipendenze maven usando Eclipse basta avviare LearningRestApplication come Application usa l'indirizzo http://localhost:8080/ mentre mysql la porta di default 3306
 
 ### tabelle:
-   - articolo
-   - categorie
+   - articolo (article)
+   - categorie (category)
    - magazzino (fatta warehouse)
    
 ### dipendenze:
@@ -34,9 +34,9 @@ per installare il progetto puoi clonarlo da https://github.com/ManueldG/learnig-
    
    - `localhost:8080/api/article/{id}` (get): stampa a video l'articolo con id 
 
-   - `localhost:8080/api/article/join` (get): stampa a video lista articoli in json facendo una join sia con warehouse che con category
+   - `localhost:8080/api/article/all` (get): stampa a video lista articoli in json facendo una join sia con warehouse che con category
    
-   - `localhost:8080/api/article/join/{id}` (get): stampa a video articolo di id in json facendo una join sia con warehouse che con category 
+   - `localhost:8080/api/article/all/{id}` (get): stampa a video articolo di id in json facendo una join sia con warehouse che con category 
    
    - aggiunge articolo:
      - (post) con query string:  `localhost:8080/api/article/add?title={string}&description={string}&characteristic={string}&category={string}&quantity={string}&unity={string}&code={string}&price={string}`
@@ -88,7 +88,7 @@ infine ho terminato la realizzazione dei Junit test controllano le CRUD degli en
 
 
 #### in esecuzione 
- - forse da rivedere la visulizzazione dei dati che in alcuni casi ho migliorato con l'uso dei DTO
+ - forse da rivedere la visulizzazione dei dati che in alcuni casi ho migliorato con l'uso dei DTO e query personalizzate per sfruttare le potenzialità della funzione join con le varie tabelle
  
 #### da fare
  - pdf

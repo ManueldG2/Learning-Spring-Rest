@@ -1,6 +1,4 @@
 
-
-
 <!DOCTYPE html>
     <html lang="en">
         <head>
@@ -8,38 +6,38 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
             
-             
-
             <link rel="stylesheet" href="./style.css">
             <title>Document</title>
     </head>
     <body>
         
+        <!-- implementare le funzionalità per gestire anche categorie e wharehouse --> 
         <div class="content">
             <ul id="list">
             </ul>
         </div>
 
-        <input type="submit" id ="submit" value="invio">
+        <input type="submit" id ="submit" value="carica elementi">
+
+        <a href = './create.html' class='button' > crea articolo </a> </li>
         
         <script>    
-              $( "#submit" ).on( "click", function(e){
-        
-           
+              $( "#submit" ).on( "click", function(e){          
                 
                 e.preventDefault();
 
                 $.ajax({
-                                method: "GET",
-                                url: "http://localhost:8080/api/article"  ,
-                                contentType: "application/json; charset=utf-8",
-                                })
-                                .done(function( msg ) {
-                                    
-                                    // vedere come cambiare colore alle righe in modo singolo cosi li cambia tutte insieme mettere liste annidate
-                                    // provo https://js.devexpress.com/jQuery/Documentation/Guide/jQuery_Components/Add_DevExtreme_to_a_jQuery_Application/
+                            
+                    method: "GET",
+                    url: "http://localhost:8080/api/article"  ,
+                    contentType: "application/json; charset=utf-8",
+
+                         })
+                                .done(function( msg ) {                                    
                                    
                                     let el = "";
+                                    console.log(msg);
+                                    
 
                                    $.each(msg, function(a, b){
 
@@ -56,9 +54,8 @@
                                         el += "<li class ='green'>" + b.quantita_per_pacchetto + "</li>";    
                                         el += "<li class ='red'>" + b.quantita_totale + "</li>";
                                         el += "<li class ='green'>" + b.unity + "</li>";
-                                        el += "<li><input type='submit' id=" + b.id + " onclick='del(this)' value='cancella'></li>";
-                                        el += "<li> <a href = './updateJson.html?id=" + b.id + "' class='button' id=" + b.id + ">modifica </a> </li>";//passare valore id
-                                        
+                                        el += "<li><input type='submit' id=" + b.id + " onclick='del(this)' value='cancella'>";
+                                        el += "<a href = './updateJson.html?id=" + b.id + "' class='button' id=" + b.id + ">modifica </a> </li>";//passare valore id                                        
                                         el += "</ul>\n</li>";
                                         
                                     });
@@ -67,45 +64,27 @@
                             });                
 
            });
-                        
-/*
-            $("#delete").on( "click", function() {
-                 console.log( "click");
-            });*/
-            
+
            let del = (e)=>{
+
         	   console.log(e.id);
+               
                $.ajax({
+
                 method: "DELETE",
-                url: "http://localhost:8080/api/article/"+e.id,
-                
+                url: "http://localhost:8080/api/article/" + e.id,                
                 contentType: "application/json; charset=utf-8",
+
                 })
-                .done(function( msg ) {
+                .done(function( msg ) {            
+
                 console.log(msg);
+                alert(" Cancellato " + e.id);
+                location.reload();
             
             });
+
            }
-
-           
-
-            /*$( "#delete" ).on( "click", function(e) {
-                
-                console.log(this);
-                
-
-                /*
-                $.ajax({
-                method: "DELETE",
-                url: "http://localhost:8080/api/article/"+id,
-                
-                contentType: "application/json; charset=utf-8",
-                })
-                .done(function( msg ) {
-                console.log(msg);
-            
-            });
-        });*/
             
         </script>
     </body>

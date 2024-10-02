@@ -94,6 +94,8 @@ venerdi 9-8
 	
  	27 correzioni test funzionanti documentazione e correzioni varie per la visualizzazione dei dati
 
+	30-1-2 frontend con jquery richieste ajax e correzioni di alcuni errori
+
 		note varie
 		Spring studiato Bean e connessione configurazione per mappare package
 		@ConfigurationPropertiesScan({ "it.mdg.learnJpa.entity","it.mdg.learnJpa.service","it.mdg.learnJpa.component" })

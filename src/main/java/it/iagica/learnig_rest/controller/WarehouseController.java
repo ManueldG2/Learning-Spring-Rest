@@ -178,12 +178,21 @@ public class WarehouseController {
 	
 	
 	// warehouse {id}
-	@GetMapping("join/{id}")
+	@GetMapping("all/{id}")
 	public Optional<WareHouse> getWareHouseById(@PathVariable Long id) {		
 			
 		return wareHouseRepository.findById(id);					
 			
 		}
+	
+	// warehouse {id}
+	@GetMapping("/all")
+	public Optional<List<WareHouse>> getWareHouse() {		
+				
+		return Optional.of(wareHouseRepository.findAll());				
+				
+		}
+		
 		
 
 }
