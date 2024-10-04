@@ -1,110 +1,114 @@
 <!DOCTYPE html>
     <html lang="en">
+
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-            <link rel="stylesheet" href="./style.css">
+            <link rel="stylesheet" href="./css/style.css">
             <title>Document</title>
-    </head>
-    <body>
+        </head>
+        <body>
 
-        <div class="modulo">
-            <form  class = "form">
-                
-                <label  for="titolo">titolo</label>
-                <input type="text" name="title" id="title">
-                
-                <label  for="descrizione">descrizione</label>
-                <input type="text" name="description" id="description">
-                
-                <label  for="characteristic">caratteristiche</label>
-                <input type="text" name="characteristic" id="characteristic">
+            <div class="modulo"> <!-- creare funzione per gestire category e warehoue-->
+                <form  class = "form">
+                    
+                    <label  for="titolo">titolo</label>
+                    <input type="text" name="title" id="title">
+                    
+                    <label  for="descrizione">descrizione</label>
+                    <input type="text" name="description" id="description">
+                    
+                    <label  for="characteristic">caratteristiche</label>
+                    <input type="text" name="characteristic" id="characteristic">
 
-                <label for="categories">Categories</label>
-                <select id="categories">
-                    <option selected disabled value="">scegli</option>
-                </select>
+                    <label for="categories">Categories</label>
+                    <select id="categories">
+                        <option selected disabled value="">scegli</option>
+                    </select>
+                
+                    <label  for="category">categoria</label>
+                    <input type="text" name="category" id="category">
+                    
+                    <label  for="quantity">quantity</label>
+                    <input type="number" name="quantity" id="quantity">
+                    
+                    <label  for="price">price</label>
+                    <input type="number" name="price" id="price" step="0.01">
+                    
+                    <label  for="unity">unity</label>
+                    <input type="text" name="unity" id="unity" >
+
+                    <label  for="code">code</label>
+                    <input type="text" name="code" id="code" >
+                
+                    <label for="warehouses">warehouses</label>
+                    <select id="warehouses">
+                        <option selected disabled value="">scegli</option>
+                    </select>
+
+                    <input type="submit" value="invia" id = "submit">
+
+                    <div id="message"></div>
+                </form>
             
-                <label  for="category">categoria</label>
-                <input type="text" name="category" id="category">
-                
-                <label  for="quantity">quantity</label>
-                <input type="number" name="quantity" id="quantity">
-                
-                <label  for="price">price</label>
-                <input type="number" name="price" id="price" step="0.01">
-                
-                <label  for="unity">unity</label>
-                <input type="text" name="unity" id="unity" >
-
-                <label  for="code">code</label>
-                <input type="text" name="code" id="code" >
-               
-                <label for="warehouses">warehouses</label>
-                <select id="warehouses">
-                    <option selected disabled value="">scegli</option>
-                </select>
-
-                <input type="submit" value="invia" id = "submit">
-
-                <div id="message"></div>
-            </form>
-           
-        </div>
+            </div>
         <script>          
         
-        $.ajax(
-                                        {
-                                            method: "GET",
-                                            url: "http://localhost:8080/api/category"   ,
-                                            contentType: "application/json; charset=utf-8",
-                                        }
-                                    ).done( (msg)=>{
+            $.ajax(
+                    {
+                        method: "GET",
+                        url: "http://localhost:8080/api/category"   ,
+                        contentType: "application/json; charset=utf-8",
+                    }
+                        )
+            .done( (msg)=>{
 
-                                        console.log(msg);
-                                        for(let ele of msg){
+                            console.log(msg);
+                            for(let ele of msg){
 
-                                            $("#categories").append($('<option>', {
+                            $("#categories")
+                            .append($('<option>', {
                                                     value: ele.id,
                                                     text: ele.name
-                                                    }));
+                                                }));
+
+                            }
+                            
+            });
+
+            $.ajax({
+                        method: "GET",
+                        url: "http://localhost:8080/api/warehouse/all"   ,
+                        contentType: "application/json; charset=utf-8",
+                    })
+            .done( (msg)=>{
+
+                        console.log(msg);
+
+                        for(let ele of msg){
+
+                            $("#warehouses")
+                            .append($('<option>', {
+
+                                value: ele.id,
+                                text: ele.position
+
+                                }));
+
+                            }
+                        
+                    });
 
 
-                                        }
-                                       
-                                    });
-
-                                    $.ajax(
-                                        {
-                                            method: "GET",
-                                            url: "http://localhost:8080/api/warehouse/all"   ,
-                                            contentType: "application/json; charset=utf-8",
-                                        }
-                                    ).done( (msg)=>{
-
-                                        console.log(msg);
-                                        for(let ele of msg){
-
-                                            $("#warehouses").append($('<option>', {
-                                                    value: ele.id,
-                                                    text: ele.position
-                                                    }));
-
-
-                                        }
-                                       
-                                    });
-           
-
-            $( "#submit" ).on( "click", function(e) {
-                
+            $( "#submit" )
+            .on( "click", function(e) {
+                    
                 e.preventDefault();
                 console.log("call");
-                
-
+                    
                 let article = [];             
-          
+            
                 let form = $(".form")[0];
                 console.log(form);
 
@@ -112,36 +116,38 @@
                 for (let i = 0; i < form.elements.length; i++) {
 
                     let element = form.elements[i];
-                
-                    if (!(element.type == "submit" || element.type == "" )) {     
+                    
+                    if (!(element.type == "submit" || element.type == "" )) {
+
                         console.log(element.value);
                         formData[element.name] = element.value;
+
                     }
 
-            }
-            let data = JSON.stringify(formData);
-            console.log(data);
+                }
 
+                let data = JSON.stringify(formData);
+                console.log(data);               
+
+            $.ajax({
+                    method: "POST",
+                    url: "http://localhost:8080/api/article"  ,
+                    data,
+                    contentType: "application/json; charset=utf-8",
+                })
+            .done(function( msg ) {
+
+                console.log(msg);
+
+                if(msg){
+
+                    $("#message").html("Articolo inviato");
+
+                }
                 
+            });
 
-                $.ajax({
-                                method: "POST",
-                                url: "http://localhost:8080/api/article"  ,
-                                data,
-                                contentType: "application/json; charset=utf-8",
-                                })
-                                .done(function( msg ) {
-                                console.log(msg);
-
-                                if(msg){
-
-                                    $("#message").html("Articolo inviato");
-
-                                }
-                            
-                            });
-
-            } );
+            });
         </script>
     </body>
 </html>

@@ -1,18 +1,20 @@
 <!DOCTYPE html>
+
     <html lang="en">
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-            <link rel="stylesheet" href="./style.css">
+            <link rel="stylesheet" href="./css/style.css">
             <title>Document</title>
     </head>
+
     <body>
 
         <div class="modulo">
+
             <form  class = "form">
 
-               <!-- <label  for="id">id</label>-->
                 <input type="hidden" name="id" id="id" >
 
                 <label  for="titolo">titolo</label>
@@ -49,125 +51,13 @@
                 <input id = "submit" type="submit" value="invia" >
             </form>
         </div>
-        <div id="message"></div>
-        <script>    
 
-            let id = (window.location.href.split("=")[1]); 
-            
+        <!-- qui ci va la risposta del server -->
+        <div id="message">
 
-            $.ajax({ //sarebbe da sistemare il codice
-                    method: "GET",
-                    url: "http://localhost:8080/api/article/all/" + id  ,
-                    contentType: "application/json; charset=utf-8",
-                    })
-                    .done(function( msg ) {
-
-            $.ajax(
-                {
-                    method: "GET",
-                    url: "http://localhost:8080/api/category"   ,
-                    contentType: "application/json; charset=utf-8",
-                }
-            ).done( (msg)=>{
-
-                            console.log(msg);
-                            for(let ele of msg){
-
-                                $("#categories").append($('<option>', {
-                                        value: ele.id,
-                                        text: ele.name
-                                        }));
+        </div>
 
 
-                            }
-                            
-                        });
-
-                        $.ajax(
-                            {
-                                method: "GET",
-                                url: "http://localhost:8080/api/warehouse/all"   ,
-                                contentType: "application/json; charset=utf-8",
-                            }
-                        ).done( (msg)=>{
-
-                            console.log(msg);
-                            for(let ele of msg){
-
-                                $("#warehouses").append($('<option>', {
-                                        value: ele.id,
-                                        text: ele.position
-                                        }));
-
-
-                            }
-                            
-                        });
-                                                                                
-                                    
-                                    console.log(msg);
-
-                                    $("#id").val(id);
-                                    $("#title").val(msg.title);
-                                    $("#description").val(msg.description);
-                                    $("#characteristic").val(msg.characteristic);
-                                    $("#category").val(msg.category);
-                                    $("#quantity").val(msg.quantity);
-                                    $("#price").val(msg.price);
-                                    $("#unity").val(msg.unity);
-                                    $("#code").val(msg.code);
-                                    $("#warehouse").val(msg.warehouseId);
-                                               // immettere valori                        
-                                    
-                                })
-            
-            //fare un get dei dati per poi fare la modifica
-
-            $( "#submit" ).on( "click", function(e) {
-
-                e.preventDefault();
-                console.log("call");
-                //let id = this.parentElement[0].value;
-
-                let article = [];             
-          
-                let form = $(".form")[0];
-                console.log(form);
-
-                let formData = {};
-                for (let i = 0; i < form.elements.length; i++) {
-
-                    let element = form.elements[i];
-                
-                    if (!(element.type == "submit" || element.type == ""  )) {     
-                        
-                        formData[element.name] = element.value;
-                    }
-
-            }
-            let data = JSON.stringify(formData);
-            console.log(data,id);
-                
-
-                $.ajax({
-                                method: "PUT",
-                                url: "http://localhost:8080/api/article/" + id ,
-                                data,
-                                contentType: "application/json; charset=utf-8",
-                                })
-                                .done(function( msg ) {
-                                console.log(msg);
-
-                                if(msg)
-                                    $("#message").html("ok");
-                            
-                            });
-
-            } );
-            
-            
-
-            
-        </script>
+        <script src="./script/update.js"></script>   
     </body>
 </html>

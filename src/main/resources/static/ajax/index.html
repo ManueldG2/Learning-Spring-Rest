@@ -1,36 +1,27 @@
+
 <!DOCTYPE html>
     <html lang="en">
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-            <link rel="stylesheet" href="./style.css">
+            
+            <link rel="stylesheet" href="./css/style.css">
             <title>Document</title>
     </head>
     <body>
-
-
+        
+        <!-- implementare le funzionalità per gestire anche categorie e wharehouse --> 
         <div class="content">
-            
-            <ul class="tab">
-
-                <li>
-                    <a href="./list.html">Lista articoli</a>
-                </li>
-                <li>
-                    <a href="create.html">crea articolo</a>
-                </li>
-                <li>
-                    <a href="updateJson.html">aggiorna articolo</a>
-                </li>
-                <li>
-                    <a href="./delete.html">cancella articolo</a>
-                </li>
-
+            <ul id="list">
             </ul>
-            
-
         </div>
-       
+
+        <input type="submit" id ="submit" value="carica elementi">
+
+        <a href = './create.html' class='button' > crea articolo </a> </li>
+        
+        <script src="./script/script.js"></script>   
+        
     </body>
 </html>
