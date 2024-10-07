@@ -95,6 +95,11 @@ venerdi 9-8
  	27 correzioni test funzionanti documentazione e correzioni varie per la visualizzazione dei dati
 
 	30-1-2 frontend con jquery richieste ajax e correzioni di alcuni errori
+	
+	3 - 4 documentazione su modello Accademia
+	
+	7 documentazione progetto spring e studio Laravel service, provider, broadcasting (socket) event  
+		realizzato gestione category - warehouse nel progetto spring
 
 		note varie
 		Spring studiato Bean e connessione configurazione per mappare package

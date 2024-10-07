@@ -159,12 +159,12 @@ public class WarehouseController {
 		listWareHouse = wareHouseRepository.findAll();
 		
         // uses the Super CSV API to generate CSV data from the model data
-		CsvPreference csvPreference = new CsvPreference.Builder('"', ':', "\r\n").build();
+		CsvPreference csvPreference = new CsvPreference.Builder('"', ';', "\r\n").build();
         ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(),
                 csvPreference);
  
   
-        String[] header = { "Position"};
+        String[] header = { "Position", "Amount"};
         
         csvWriter.writeHeader(header);
  
