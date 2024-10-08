@@ -60,10 +60,6 @@
       		<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		
-    	<dependency>
-      		<groupId>org.springframework.boot</groupId>
-      		<artifactId>spring-boot-starter-web</artifactId>
-    	</dependency>
     	
     	<dependency>
 			<groupId>net.sf.supercsv</groupId>
@@ -76,18 +72,11 @@
 			<artifactId>opencsv</artifactId>
 			<version>5.9</version>
 		</dependency>
-    
-	    <dependency>
-	      <groupId>org.springframework.boot</groupId>
-	      <artifactId>spring-boot-starter-tomcat</artifactId>
-	      <scope>provided</scope>
-	    </dependency>
 	    
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation -->
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-validation</artifactId>
-		    <version>3.3.3</version>
 		</dependency>
 		
 		<dependency>

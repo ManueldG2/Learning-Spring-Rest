@@ -40,7 +40,7 @@ public class WareHouseDto {
 			
 			ArticleDto article = new ArticleDto();		
 			
-			article.setArtId((Long) elem.get("artId"));		
+			article.setId((Long) elem.get("artId"));		
 			article.setTitle((String) elem.get("title"));		
 			article.setDescription( (String) elem.get("description"));
 			article.setCharacteristic( (String) elem.get("characteristic"));

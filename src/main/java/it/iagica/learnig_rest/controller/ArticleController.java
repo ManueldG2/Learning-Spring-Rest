@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import it.iagica.learnig_rest.dto.ArticleDto;
+import it.iagica.learnig_rest.dto.ExportDto;
 import it.iagica.learnig_rest.entity.Article;
 import it.iagica.learnig_rest.repository.ArticleRepository;
 import it.iagica.learnig_rest.service.ArticleService;
@@ -161,7 +163,7 @@ public class ArticleController {
                 csvFileName);
         response.setHeader(headerKey, headerValue);
  
-        List<Article> listArticle = (List<Article>) articleRepository.findAll();        
+        List<Map<Long, Object>> listArticle = articleRepository.selectJoin();
  
         // uses the Super CSV API to generate CSV data from the model data
         CsvPreference csvPreference = new CsvPreference.Builder('"', ';', "\r\n").build();
@@ -169,12 +171,20 @@ public class ArticleController {
                 csvPreference);
  
   
-        String[] header = { "Title", "Description", "Category", "Quantity", "Unity", "Code", "Price"};
+        String[] header = {"Id", "Title", "Price" , "Description", "characteristic", "Unity", "Code", "Amount", "Position", "Category"};
         
         csvWriter.writeHeader(header);
  
-        for (Article article : listArticle) {
-            csvWriter.write(article, header);
+        for (Map<Long, Object> article : listArticle) {
+        	
+        	System.out.println( article.entrySet() ); 
+        	System.out.println(article.get("position"));
+        	System.out.println(article.get("quantita_totale"));
+        	System.out.println(article.get("Categoria"));
+        	
+        	ExportDto art  = new ExportDto( (Long) article.get("id") , (String) article.get("title"), (Float) article.get("price") , (String) article.get("description"), (String) article.get("characteristic") , (String) article.get("unity") , (String) article.get("code") ,(Integer) article.get("quantita_totale") , (String) article.get("position"),(String) article.get("categoria") );
+        	//[Categoria, quantita_totale, title, cost_per_package=6.0, price=0.6, description=confezione da 10 , quantita_per_pacchetto=10, id=19, characteristic, unity=Pz, code=003801JHB, position]
+            csvWriter.write(art, header);
         }
         
         csvWriter.close();

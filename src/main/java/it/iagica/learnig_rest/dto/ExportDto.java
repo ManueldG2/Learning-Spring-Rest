@@ -1,31 +1,51 @@
 package it.iagica.learnig_rest.dto;
 
-public class ArticleDto {
+public class ExportDto {
 	
 	
-	private Long Id;
+	
+
+
+
+	
+
+
+
+	public ExportDto(Long id, String title, Float price, String description, String characteristic, String unity, String code, Integer amount, String position, String category) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.price = price;
+		this.description = description;
+		this.characteristic = characteristic;
+		this.unity = unity;
+		this.code = code;
+		this.amount = amount;
+		this.position = position;
+		this.category = category;
+		
+	}
+	
+	private Long id;
 	private String title;	
 	private Float price;
 	private String description;
 	private String characteristic;
 	private String unity;
 	private String code;
-	private String category;
-	private String position;
 	private Integer amount;
+	private String position;
+	private String category;
 	
-	public Long getId() {
-		return Id;
-	}
-	public void setId(Long id) {
-		Id = id;
-	}
+	
+	
 	public String getTitle() {
 		return title;
 	}
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	
 	public Float getPrice() {
 		return price;
 	}
@@ -38,6 +58,7 @@ public class ArticleDto {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
 	public String getCharacteristic() {
 		return characteristic;
 	}
@@ -56,17 +77,11 @@ public class ArticleDto {
 	public void setCode(String code) {
 		this.code = code;
 	}
-	public String getCategory() {
-		return category;
+	public Long getId() {
+		return id;
 	}
-	public void setCategory(String category) {
-		this.category = category;
-	}
-	public String getPosition() {
-		return position;
-	}
-	public void setPosition(String position) {
-		this.position = position;
+	public void setId(Long artId) {
+		this.id = artId;
 	}
 	public Integer getAmount() {
 		return amount;
@@ -74,6 +89,19 @@ public class ArticleDto {
 	public void setAmount(Integer amount) {
 		this.amount = amount;
 	}
+	public String getPosition() {
+		return position;
+	}
+	public void setPosition(String position) {
+		this.position = position;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	
 	
 
 }
