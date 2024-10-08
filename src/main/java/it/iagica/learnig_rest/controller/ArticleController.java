@@ -149,7 +149,7 @@ public class ArticleController {
 				
 	}
 	
-	//scarica tutti gli articoli in un csv
+	//scarica tutti gli articoli in un csv aggiornato con join con warehouse e category
 	@RequestMapping(value = "/csv")
     public void downloadCSV(HttpServletResponse response) throws IOException {
  
@@ -161,30 +161,28 @@ public class ArticleController {
         String headerKey = "Content-Disposition";
         String headerValue = String.format("attachment; filename=\"%s\"",
                 csvFileName);
+        
         response.setHeader(headerKey, headerValue);
  
-        List<Map<Long, Object>> listArticle = articleRepository.selectJoin();
+        List<Map<Long, Object>> listArticle = articleRepository.selectJoin(); //recupero tutti i dati 
  
         // uses the Super CSV API to generate CSV data from the model data
-        CsvPreference csvPreference = new CsvPreference.Builder('"', ';', "\r\n").build();
-        ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(),
-                csvPreference);
- 
-  
-        String[] header = {"Id", "Title", "Price" , "Description", "characteristic", "Unity", "Code", "Amount", "Position", "Category"};
+        CsvPreference csvPreference = new CsvPreference.Builder('"', ';', "\r\n").build(); // definisco le proprietà divisone ';'
+        
+        ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(), csvPreference);
+   
+        String[] header = {"Id", "Title", "Price" , "Description", "characteristic", "Unity", "Code", "Amount", "Position", "Category"}; // campi da includere 
         
         csvWriter.writeHeader(header);
  
+        
         for (Map<Long, Object> article : listArticle) {
         	
-        	System.out.println( article.entrySet() ); 
-        	System.out.println(article.get("position"));
-        	System.out.println(article.get("quantita_totale"));
-        	System.out.println(article.get("Categoria"));
-        	
+        	// instanzio il DTO per l'esport 
         	ExportDto art  = new ExportDto( (Long) article.get("id") , (String) article.get("title"), (Float) article.get("price") , (String) article.get("description"), (String) article.get("characteristic") , (String) article.get("unity") , (String) article.get("code") ,(Integer) article.get("quantita_totale") , (String) article.get("position"),(String) article.get("categoria") );
         	//[Categoria, quantita_totale, title, cost_per_package=6.0, price=0.6, description=confezione da 10 , quantita_per_pacchetto=10, id=19, characteristic, unity=Pz, code=003801JHB, position]
-            csvWriter.write(art, header);
+            
+        	csvWriter.write(art, header); // scrivo il corpo del CSV 
         }
         
         csvWriter.close();
