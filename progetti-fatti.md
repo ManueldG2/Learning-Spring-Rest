@@ -101,6 +101,10 @@ venerdi 9-8
 	7 documentazione progetto spring e studio Laravel service, provider, broadcasting (socket) event  
 		realizzato gestione category - warehouse nel progetto spring
 
+	8 sistemazione funzioni javascript per il frontend documentazione
+
+	9 documentazione prima versione salvata 
+
 		note varie
 		Spring studiato Bean e connessione configurazione per mappare package
 		@ConfigurationPropertiesScan({ "it.mdg.learnJpa.entity","it.mdg.learnJpa.service","it.mdg.learnJpa.component" })
