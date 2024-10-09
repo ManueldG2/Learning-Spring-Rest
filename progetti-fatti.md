@@ -104,6 +104,7 @@ venerdi 9-8
 	8 sistemazione funzioni javascript per il frontend documentazione
 
 	9 documentazione prima versione salvata 
+	
 
 		note varie
 		Spring studiato Bean e connessione configurazione per mappare package
@@ -115,4 +116,4 @@ venerdi 9-8
  		// Annotation
 		@Data
 		
-
+		event e listner https://www.youtube.com/watch?v=K66ulWMj_O0
