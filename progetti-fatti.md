@@ -104,6 +104,11 @@ venerdi 9-8
 	8 sistemazione funzioni javascript per il frontend documentazione
 
 	9 documentazione prima versione salvata 
+
+	14 ristudiato laravel auth2.0 2DB e richiesta dati tramite API esterna creato CRUD articoli sistemare pagine blade
+	17 realizzato le pagine di gestione e esposto Api con autorizzazione Bearer 
+	18 documentazione
+
 	
 
 		note varie
